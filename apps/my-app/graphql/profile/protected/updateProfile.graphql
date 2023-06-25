@@ -1,0 +1,11 @@
+mutation Update_UserProfile($name: String!, $age: String!, $gender: String!) {
+  Create_UserProfile(name: $name, age: $age, gender: $gender) {
+    id
+    createdAt
+    updatedAt
+    userId
+    name
+    age
+    gender
+  }
+}

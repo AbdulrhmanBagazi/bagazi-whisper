@@ -1,0 +1,21 @@
+{
+  "name": "config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "ts/base.tsconfig.json",
+    "ts/next.tsconfig.json",
+    "ts/react-library.tsconfig.json",
+    "ts/backend.tsconfig.json",
+    "tailwind/postcss.config.js",
+    "tailwind/index.js"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.20",
+    "postcss-import": "^14.1.0",
+    "tailwindcss": "^2.2.2"
+  },
+  "dependencies": {}
+}

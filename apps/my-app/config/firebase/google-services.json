@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "512304142935",
+    "project_id": "wiseman-parttime",
+    "storage_bucket": "wiseman-parttime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512304142935:android:40ce52c0a2d72552e92112",
+        "android_client_info": {
+          "package_name": "com.wiseman.parttime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512304142935-bqt1jhd412tpppbqupriarkf220gspom.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wiseman.parttime",
+            "certificate_hash": "e82338ee1345682b99585562d57547e855b42da6"
+          }
+        },
+        {
+          "client_id": "512304142935-hit2f4ljhufvetklt5lvd0lp6tam3soh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMpGjpcQpX70vBm1Hvg5ZlleuoIJ6fM88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "512304142935-hit2f4ljhufvetklt5lvd0lp6tam3soh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "512304142935-6va91mmt12jiqaebb2ocphi782fhp64s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wiseman.parttime"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

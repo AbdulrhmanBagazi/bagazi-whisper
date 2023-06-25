@@ -1,0 +1,41 @@
+{
+  "name": "next-express-prisma-turborepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "clean": "rm -rf node_modules",
+    "clean:workspaces": "turbo clean",
+    "db:generate": "turbo db:generate",
+    "db:push": "turbo db:push db:generate",
+    "dev": "turbo dev --parallel",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo lint && manypkg check",
+    "type-check": "turbo type-check"
+  },
+  "dependencies": {
+    "@manypkg/cli": "^0.15.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "eslint": "8.37.0",
+    "lint-staged": ">=13.2.0",
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.6",
+    "tailwindcss": "2.2.2",
+    "turbo": "^1.8.8",
+    "typescript": "^5.0.3",
+    "@types/react": "~18.0.27"
+  },
+  "eslintConfig": {
+    "root": true
+  },
+  "lint-staged": {
+    "apps/**/*.{js,ts,jsx,tsx}": [
+      "./node_modules/eslint/bin/eslint.js --fix"
+    ]
+  },
+  "packageManager": "yarn@1.22.15"
+}

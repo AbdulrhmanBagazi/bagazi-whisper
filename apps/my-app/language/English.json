@@ -1,0 +1,100 @@
+{
+  "Home": {
+    "Title": "Home"
+  },
+  "Profile": {
+    "Title": "Profile",
+    "SignIn": "SignIn",
+    "Hello": "Hello",
+    "Guest": "Guest",
+    "NewUser": "New User",
+    "Edit": "Edit",
+    "PersonalInformation": "Personal Information",
+    "Name": "Full Name",
+    "age": "Date of birth",
+    "Gender": "Gender",
+    "Arabic": "Arabic",
+    "English": "English",
+    "CreateProfile": "Create Profile",
+    "Start": "Start",
+    "firstname": "First Name",
+    "middlename": "Middle Name",
+    "grandfathername": "Grandfather Name",
+    "lastname": "Last Name",
+    "DateOfBirthInput": "Date of birth",
+    "Male": "Male",
+    "Female": "Female"
+  },
+  "App.Settings": {
+    "Title": "App Settings",
+    "Theme": "Theme",
+    "DarkMode": "Dark Mode",
+    "Language": "Language",
+    "Arabic": "عربي",
+    "English": "English",
+    "SignOut": "SignOut",
+    "Notification": "Notification",
+    "AllowNotification": "Allow Notification",
+    "AppRestart": "App will restart!",
+    "Wanttoproceed": "Want To Proceed?"
+  },
+  "SignIn": {
+    "Title": "SignIn",
+    "Google": "Continue with Google",
+    "Apple": "Continue with Apple",
+    "EmailSignIn": "Continue with Email",
+    "Email": "Email",
+    "Password": "Password",
+    "RePassword": "Repeat Password",
+    "SignUp": "SignUp",
+    "Incorrect": "Incorrect email or password",
+    "HaveAccount": "Already have an account? SignIn",
+    "Required": "Required!"
+  },
+  "SignUp": {
+    "Title": "SignUp",
+    "Email": "Email",
+    "Password": "Password",
+    "RePassword": "Repeat Password",
+    "EmailUsed": "Email Used!",
+    "PasswordStregth": "Password must contain 3 letters",
+    "PasswordCompare": "Passwords do not match",
+    "EmailInvalid": "Invalid Email",
+    "Required": "Required!"
+  },
+  "Alert": {
+    "Yes": "yes",
+    "No": "no",
+    "Alert.SignOut": "are you sure you want to SignOut?"
+  },
+  "Snack": {
+    "SignOut": "SignOut Successful"
+  },
+  "Notifications": {
+    "AllowNotifications": "Enable Push Notifications?",
+    "AllowNotificationsMSG": "Push notifications can be enabled from General Settings on your Device.",
+    "Settings": "Settings",
+    "Cancel": "Cancel"
+  },
+  "createprofile": {
+    "Title": "Create Profile",
+    "Create": "Create",
+    "CantChange": "Please make sure that the information entered is correct. It cannot be modified later!",
+    "Optional": "Optional",
+    "Done": "Done",
+    "Day": "Day",
+    "Month": "Month",
+    "Year": "Year"
+  },
+  "updateprofile": {
+    "Update": "Update"
+  },
+  "Language": {
+    "Arabic": "عربي",
+    "English": "English"
+  },
+  "Errors": {
+    "Unknown": "an error occurred",
+    "ProfileUpdated": "Profile information has been updated successfully"
+  }
+}

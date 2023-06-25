@@ -1,0 +1,3 @@
+// .eslintignore eslint-config-custom/index.js **/node_modules
+**/out/* **/build **/.next **/.eslintrc.js **/sitemap.json **/next.config.js
+**/*gql.ts **/cypress **/public scripts/

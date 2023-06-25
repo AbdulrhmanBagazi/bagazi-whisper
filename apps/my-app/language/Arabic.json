@@ -1,0 +1,99 @@
+{
+  "Home": {
+    "Title": "الرئيسية"
+  },
+  "Profile": {
+    "Title": "الملف الشخصي",
+    "SignIn": "تسجيل الدخول",
+    "Hello": "مرحبا",
+    "Guest": "ضيف",
+    "NewUser": "مستخدم جديد",
+    "Edit": "تعديل",
+    "PersonalInformation": "المعلومات الشخصية",
+    "Name": "الإسم الثلاثي",
+    "age": "تاريخ الميلاد",
+    "Gender": "الجنس",
+    "Arabic": "عربي",
+    "English": "إنجليزي",
+    "CreateProfile": "إنشاء الملف الشخصي",
+    "Start": "بدء",
+    "firstname": "الإسم الآول",
+    "middlename": "إسم الآب",
+    "grandfathername": "إسم الجد",
+    "lastname": "إسم العائلة",
+    "DateOfBirthInput": "تاريخ الميلاد",
+    "Male": "ذكر",
+    "Female": "انثى"
+  },
+  "App.Settings": {
+    "Title": "إعدادات التطبيق",
+    "Theme": "المظهر",
+    "DarkMode": "داكن",
+    "Language": "اللغة",
+    "Arabic": "عربي",
+    "English": "English",
+    "SignOut": "تسجيل الخروج",
+    "Notification": "الإشعارات",
+    "AllowNotification": "السماح بالإشعارات",
+    "AppRestart": "سيتم إعادة تشغيل التطبيق!",
+    "Wanttoproceed": "تريد المتابعة؟"
+  },
+  "SignIn": {
+    "Title": "تسجيل الدخول",
+    "Google": "المتابعة بإستخدام Google",
+    "Apple": "المتابعة بإستخدام Apple",
+    "EmailSignIn": "المتابعة بإستخدام البريد الإلكتروني",
+    "Email": "البريد الإلكتروني",
+    "Password": "كلمة المرور",
+    "RePassword": "كرر كلمة المرور",
+    "SignUp": "إنشاء حساب",
+    "Incorrect": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "HaveAccount": "هل لديك حساب؟ تسجيل الدخول",
+    "Required": "مطلوب!"
+  },
+  "SignUp": {
+    "Title": "إنشاء حساب",
+    "Email": "البريد الإلكتروني",
+    "Password": "كلمة المرور",
+    "RePassword": "كرر كلمة المرور",
+    "EmailUsed": "البريد الإلكتروني مستخدم!",
+    "PasswordStregth": "كلمة المرور يجب ان تشمل ٣ حروف",
+    "PasswordCompare": "كلمتا المرور لا تتطابق",
+    "EmailInvalid": "البريد المدخل غير صحيح"
+  },
+  "Alert": {
+    "Yes": "نعم",
+    "No": "لا",
+    "Alert.SignOut": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+  },
+  "Snack": {
+    "SignOut": "تم تسجيل الخروج بنجاح"
+  },
+  "Notifications": {
+    "AllowNotifications": "تمكين الإشعارات",
+    "AllowNotificationsMSG": "يمكن تمكين الإشعارات من الإعدادات العامة على جهازك.",
+    "Settings": "الإعدادات",
+    "Cancel": "إلغاء"
+  },
+  "createprofile": {
+    "Title": "إنشاء الملف الشخصي",
+    "Create": "إنشاء",
+    "CantChange": "يرجى التأكد من صحة المعلومات التي تم إدخالها. لا يمكن تعديله لاحقًا",
+    "Optional": "إختياري",
+    "Done": "تم",
+    "Day": "اليوم",
+    "Month": "الشهر",
+    "Year": "السنة"
+  },
+  "updateprofile": {
+    "Update": "تحديث"
+  },
+  "Language": {
+    "Arabic": "عربي",
+    "English": "English"
+  },
+  "Errors": {
+    "Unknown": "حدث خطآ",
+    "ProfileUpdated": "تم تحديث معلومات الملف الشخصي بنجاح"
+  }
+}
