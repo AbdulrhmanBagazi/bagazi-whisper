@@ -2,6 +2,7 @@
   "name": "admin",
   "version": "1.0.0",
   "private": true,
+  "description": "baqazi-secrets",
   "scripts": {
     "admin": "vite",
     "build": "vite build",

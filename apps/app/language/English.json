@@ -1,0 +1,60 @@
+{
+  "Home": {
+    "Title": "Home"
+  },
+  "Profile": {
+    "Title": "Profile",
+    "SignIn": "SignIn"
+  },
+  "Settings": {
+    "Title": "App Settings",
+    "Theme": "Theme",
+    "DarkMode": "Dark Mode",
+    "Language": "Language",
+    "Arabic": "عربي",
+    "English": "English",
+    "SignOut": "SignOut",
+    "Notification": "Notification",
+    "AllowNotification": "Allow Notification",
+    "AppRestart": "App will restart!",
+    "Wanttoproceed": "Want To Proceed?"
+  },
+  "SignIn": {
+    "Title": "SignIn",
+    "Google": "Continue with Google",
+    "Apple": "Continue with Apple",
+    "EmailSignIn": "Continue with Email",
+    "Email": "Email",
+    "Password": "Password",
+    "RePassword": "Repeat Password",
+    "SignUp": "SignUp",
+    "Incorrect": "Incorrect email or password",
+    "HaveAccount": "Already have an account? SignIn",
+    "Required": "Required!"
+  },
+  "Notifications": {
+    "AllowNotifications": "Enable Push Notifications?",
+    "AllowNotificationsMSG": "Push notifications can be enabled from General Settings on your Device.",
+    "Settings": "Settings",
+    "Cancel": "Cancel"
+  },
+  "Language": {
+    "Arabic": "عربي",
+    "English": "English"
+  },
+  "Errors": {
+    "Unknown": "An Error Occurred"
+  },
+  "Snack": {
+    "SignOut": "SignOut Successful",
+    "SignInCanceled": "SignIn Canceled"
+  },
+  "Alert": {
+    "Yes": "yes",
+    "No": "no",
+    "Alert.SignOut": "are you sure you want to SignOut?"
+  },
+  "Header": {
+    "Done": "Done"
+  }
+}

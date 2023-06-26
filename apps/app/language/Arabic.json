@@ -1,0 +1,59 @@
+{
+  "Home": {
+    "Title": "الرئيسية"
+  },
+  "Profile": {
+    "Title": "الملف الشخصي",
+    "SignIn": "تسجيل الدخول"
+  },
+  "Settings": {
+    "Title": "إعدادات التطبيق",
+    "Theme": "المظهر",
+    "DarkMode": "داكن",
+    "Language": "اللغة",
+    "Arabic": "عربي",
+    "English": "English",
+    "SignOut": "تسجيل الخروج",
+    "Notification": "الإشعارات",
+    "AllowNotification": "السماح بالإشعارات",
+    "AppRestart": "سيتم إعادة تشغيل التطبيق!",
+    "Wanttoproceed": "تريد المتابعة؟"
+  },
+  "SignIn": {
+    "Title": "تسجيل الدخول",
+    "Google": "المتابعة بإستخدام Google",
+    "Apple": "المتابعة بإستخدام Apple",
+    "EmailSignIn": "المتابعة بإستخدام البريد الإلكتروني",
+    "Email": "البريد الإلكتروني",
+    "Password": "كلمة المرور",
+    "RePassword": "كرر كلمة المرور",
+    "SignUp": "إنشاء حساب",
+    "Incorrect": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "HaveAccount": "هل لديك حساب؟ تسجيل الدخول",
+    "Required": "مطلوب!"
+  },
+  "Notifications": {
+    "AllowNotifications": "تمكين الإشعارات",
+    "AllowNotificationsMSG": "يمكن تمكين الإشعارات من الإعدادات العامة على جهازك.",
+    "Settings": "الإعدادات",
+    "Cancel": "إلغاء"
+  },
+  "Language": {
+    "Arabic": "عربي",
+    "English": "English"
+  },
+  "Errors": {
+    "Unknown": "حدث خطآ"
+  },
+  "Snack": {
+    "SignOut": "تم تسجيل الخروج بنجاح"
+  },
+  "Alert": {
+    "Yes": "نعم",
+    "No": "لا",
+    "Alert.SignOut": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+  },
+  "Header": {
+    "Done": "تم"
+  }
+}

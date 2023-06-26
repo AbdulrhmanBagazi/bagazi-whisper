@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "thoughts",
+    "slug": "thoughts",
+    "scheme": "thoughts",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.baqazi.thoughts",
+      "googleServicesFile": "./config/firebase/GoogleService-Info.plist",
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.901377328281-57390vlc4oa7pa1g3dk3s9anjd7d2qj4"
+            ]
+          }
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.baqazi.thoughts",
+      "googleServicesFile": "./config/firebase/google-services.json"
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ],
+      "expo-apple-authentication"
+    ],
+    "extra": {
+      "supportsRTL": true,
+      "oneSignalAppId": "7bcd247a-1208-4225-93c4-5716ee213644"
+    }
+  }
+}
