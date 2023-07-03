@@ -20,8 +20,7 @@ const SignUp = async (req: Request, res: Response) => {
         email: true,
         verfied: true,
         type: true,
-        verificationEmail: true,
-        Profile: true
+        verificationEmail: true
       }
     })
 
@@ -50,8 +49,7 @@ const SignUp = async (req: Request, res: Response) => {
         email: User.email,
         verfied: User.verfied,
         type: User.type,
-        verificationEmail: User.verificationEmail,
-        Profile: User.Profile
+        verificationEmail: User.verificationEmail
       }
     })
   } catch (e: unknown) {

@@ -10,19 +10,22 @@ const ProfileScreen = ({ navigation }: TabsScreensProps<'Profile'>) => {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {auth ? (
-        <Text>{I18n.Profile.Title}</Text>
-      ) : (
-        <Button
-          onPress={() =>
-            navigation.navigate('Auth', {
-              screen: 'SignIn'
-            })
-          }
-        >
-          {I18n.Profile.SignIn}
-        </Button>
-      )}
+      <View style={{ flex: 1 }}></View>
+
+      <View style={{ marginVertical: 20 }}>
+        {auth ? null : (
+          <Button
+            mode="contained"
+            onPress={() =>
+              navigation.navigate('Auth', {
+                screen: 'SignIn'
+              })
+            }
+          >
+            {I18n.Profile.SignIn}
+          </Button>
+        )}
+      </View>
     </View>
   )
 }

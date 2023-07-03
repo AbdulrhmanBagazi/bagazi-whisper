@@ -5,10 +5,30 @@ import MAppleButton from '../../../components/appleButton'
 import { useThemeHook } from '../../../hook/theme'
 import { Divider } from 'react-native-paper'
 import Header from '../../../components/header'
+import { useAuthHook } from '../../../hook/auth'
+import { AuthScreensProps } from '../../../types/types'
+import { useEffect } from 'react'
 
-export default function SignInScreen() {
+export default function SignInScreen({
+  navigation
+}: AuthScreensProps<'SignIn'>) {
   const I18n = useI18nHook((state) => state.I18n)
   const Dark = useThemeHook((state) => state.Dark)
+  const auth = useAuthHook((state) => state.auth)
+  const loading = useAuthHook((state) => state.loading)
+
+  useEffect(() => {
+    const Load = async () => {
+      if (auth && !loading) {
+        navigation.goBack()
+        return
+      }
+
+      return
+    }
+
+    Load()
+  }, [auth, loading])
 
   return (
     <SafeAreaView

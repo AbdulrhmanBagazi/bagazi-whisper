@@ -5,6 +5,7 @@ import { useThemeHook } from '../../hook/theme'
 import { useI18nHook } from '../../hook/i18n'
 import { Text, Switch, Divider, RadioButton, Button } from 'react-native-paper'
 import Header from '../../components/header'
+import { useSnckHook } from '../../hook/snack'
 
 export default function SettingsScreen({
   navigation
@@ -17,6 +18,21 @@ export default function SettingsScreen({
   const ToggleI18n = useI18nHook((state) => state.ToggleI18n)
   const I18n = useI18nHook((state) => state.I18n)
   const Language = useI18nHook((state) => state.Language)
+  const ShowSnack = useSnckHook((state) => state.ShowSnack)
+
+  const HandleSignOut = async () => {
+    const Response = await SignOut()
+
+    if (Response === 'error') {
+      ShowSnack(I18n.Errors.Unknown)
+    }
+
+    if (Response === 'success') {
+      ShowSnack(I18n.Snack.SignOut)
+      navigation.goBack()
+      return
+    }
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -108,7 +124,10 @@ export default function SettingsScreen({
                   text: I18n.Alert.No,
                   style: 'cancel'
                 },
-                { text: I18n.Alert.Yes, onPress: () => SignOut() }
+                {
+                  text: I18n.Alert.Yes,
+                  onPress: () => HandleSignOut()
+                }
               ])
             }
             disabled={loading || !auth}

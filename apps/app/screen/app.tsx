@@ -86,15 +86,13 @@ export default function App() {
                 <RootStack.Screen
                   name="Tabs"
                   component={TabsStack}
-                  options={{ headerShown: false }}
+                  options={{ headerShown: false, animation: 'fade' }}
                 />
                 <RootStack.Screen
                   name="Auth"
                   component={AuthStack}
                   options={{
-                    // presentation: 'modal',
                     headerShown: false,
-                    animation: 'slide_from_bottom',
                     gestureDirection: 'vertical',
                     gestureEnabled: !loading
                   }}
@@ -103,9 +101,7 @@ export default function App() {
                   name="Settings"
                   component={SettingsScreen}
                   options={{
-                    // presentation: 'modal',
                     headerShown: false,
-                    animation: 'slide_from_bottom',
                     gestureDirection: 'vertical',
                     gestureEnabled: !loading
                   }}
@@ -115,7 +111,7 @@ export default function App() {
             <Snackbar
               visible={show}
               onDismiss={() => HideSnack()}
-              duration={1000}
+              duration={2500}
             >
               {text}
             </Snackbar>

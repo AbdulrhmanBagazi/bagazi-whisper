@@ -27,7 +27,6 @@ const SignIn = async (req: Request, res: Response) => {
         email: user.email,
         verfied: user.verfied,
         type: user.type,
-        Profile: user.Profile,
         verificationEmail: user.verificationEmail
       }
     })

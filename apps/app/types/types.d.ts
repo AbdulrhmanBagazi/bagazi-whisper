@@ -13,7 +13,6 @@ export type UserTypes = {
   type: string
   verificationEmail: string
   appleId?: string
-  Profile: Profile | null
 }
 
 export interface user {
@@ -42,20 +41,6 @@ export type SignTypes = {
   password: string
 }
 
-// export type AuthenticatedTypes = {
-//   setAuth: (isAuth: boolean) => void
-//   auth: boolean
-//   user: UserTypes
-//   loading: boolean
-//   SignOut: () => void
-//   GoogleSignIn: (arg0: GoogleArgs) => void
-//   AppleSignIn: (arg0: AppleArgs) => void
-//   Authenticate: () => void
-//   SignIn: (arg0: SignTypes) => QueryResponse
-//   SignUp: (arg0: SignTypes) => QueryResponse
-//   UpdateUserProfile: (arg0: Profile) => void
-// }
-
 // Navigation //
 export type RootStackParamList = {
   Tabs: NavigatorScreenParams<TabsStackParamList>
@@ -82,6 +67,12 @@ export type TabsScreensProps<T extends keyof TabsStackParamList> =
 export type AuthStackParamList = {
   SignIn: undefined
 }
+
+export type AuthScreensProps<T extends keyof AuthStackParamList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<AuthStackParamList, T>,
+    RootStackScreenProps<RootStackParamList>
+  >
 
 declare global {
   namespace ReactNavigation {

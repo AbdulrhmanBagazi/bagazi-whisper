@@ -43,7 +43,9 @@
     "English": "English"
   },
   "Errors": {
-    "Unknown": "An Error Occurred"
+    "Unknown": "An Error Occurred",
+    "Apple_Account": "Email used as Apple Account",
+    "Gooogle_Account": "Email used as Gooogle Account"
   },
   "Snack": {
     "SignOut": "SignOut Successful",

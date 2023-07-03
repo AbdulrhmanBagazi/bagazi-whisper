@@ -43,7 +43,9 @@
     "English": "English"
   },
   "Errors": {
-    "Unknown": "حدث خطآ"
+    "Unknown": "حدث خطآ",
+    "Apple_Account": "البريد الإلكتروني مرتبط ب Apple Account",
+    "Gooogle_Account": "البريد الإلكتروني مرتبط ب Gooogle Account"
   },
   "Snack": {
     "SignOut": "تم تسجيل الخروج بنجاح"

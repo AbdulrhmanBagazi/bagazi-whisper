@@ -1,10 +1,20 @@
 import { View } from 'react-native'
-import { Text } from 'react-native-paper'
+import { FAB, Text } from 'react-native-paper'
 
 const HomeScreen = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
+      <FAB
+        icon="plus"
+        mode="elevated"
+        style={{
+          position: 'absolute',
+          margin: 16,
+          left: 0,
+          bottom: 0
+        }}
+        onPress={() => console.log('Pressed')}
+      />
     </View>
   )
 }

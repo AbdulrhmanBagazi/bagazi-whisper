@@ -4,7 +4,6 @@ import { OAuth2Client } from 'google-auth-library'
 import { SendEmail, SignToken } from '../../../index.utils'
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 const prisma = new PrismaClient()
-// console.log(GogleUser?.sub, GogleUser?.email, GogleUser?.email_verified);
 
 const GoogleSignIn = async (req: Request, res: Response) => {
   try {
@@ -18,8 +17,9 @@ const GoogleSignIn = async (req: Request, res: Response) => {
 
     const user = await prisma.user.findFirst({
       where: {
-        accountId: GoogleUser?.sub,
-        type: 'GOOGLE'
+        // accountId: GoogleUser?.sub,
+        // type: 'GOOGLE'
+        email: GoogleUser?.email
       },
       select: {
         id: true,
@@ -28,37 +28,41 @@ const GoogleSignIn = async (req: Request, res: Response) => {
         verificationEmail: true,
         type: true,
         appleId: true,
-        Profile: true
+        accountId: true
       }
     })
 
     if (user) {
-      const AccessToken = await SignToken(user, 'access_token')
-      const RefreshToken = await SignToken(user, 'refresh_token')
+      if (user.type === 'GOOGLE' && user.accountId === GoogleUser?.sub) {
+        const AccessToken = await SignToken(user, 'access_token')
+        const RefreshToken = await SignToken(user, 'refresh_token')
 
-      res.cookie('refresh_token', RefreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 365 * 24 * 60 * 60 * 1000,
-        signed: true
-      })
+        res.cookie('refresh_token', RefreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+          signed: true
+        })
 
-      res.cookie('access_token', AccessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 365 * 24 * 60 * 60 * 1000,
-        signed: true
-      })
+        res.cookie('access_token', AccessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+          signed: true
+        })
 
-      return res.status(200).send({
-        user: {
-          id: user.id,
-          email: user.email,
-          verfied: user.verfied,
-          type: user.type,
-          verificationEmail: user.verificationEmail
-        }
-      })
+        return res.status(200).send({
+          user: {
+            id: user.id,
+            email: user.email,
+            verfied: user.verfied,
+            type: user.type,
+            verificationEmail: user.verificationEmail
+          }
+        })
+      }
+
+      return res.status(400).send('Apple_Account')
     }
 
     if (!user && GoogleUser?.email) {
@@ -76,8 +80,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
           verfied: true,
           verificationEmail: true,
           type: true,
-          appleId: true,
-          Profile: true
+          appleId: true
         }
       })
 
@@ -98,9 +101,9 @@ const GoogleSignIn = async (req: Request, res: Response) => {
         signed: true
       })
 
-      if (!GoogleUser?.email_verified) {
-        await SendEmail(newUser.id, newUser.email)
-      }
+      // if (!GoogleUser?.email_verified) {
+      //   await SendEmail(newUser.id, newUser.email)
+      // }
 
       return res.status(200).send({
         user: {

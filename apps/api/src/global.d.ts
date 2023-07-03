@@ -8,7 +8,6 @@ declare global {
         verificationEmail: Date
         verfied: boolean
         type: string
-        Profile: UserProfile
         appleId?: string
       }
     }

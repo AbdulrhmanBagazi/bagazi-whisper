@@ -17,4 +17,4 @@ web-build/
 .metro-health-check*
 
 #firebase
-config/firebase
+# config/firebase

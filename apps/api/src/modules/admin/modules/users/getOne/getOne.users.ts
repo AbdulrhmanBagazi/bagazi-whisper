@@ -19,8 +19,7 @@ export const getOne_Users_Query = {
         verfied: true,
         suspended: true,
         createdAt: true,
-        type: true,
-        Profile: true
+        type: true
       }
     })
   }

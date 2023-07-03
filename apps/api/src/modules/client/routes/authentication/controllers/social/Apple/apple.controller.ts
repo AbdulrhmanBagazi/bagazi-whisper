@@ -21,8 +21,9 @@ const AppleSignIn = async (req: Request, res: Response) => {
 
     const user = await prisma.user.findFirst({
       where: {
-        accountId: appleIdTokenClaims?.sub,
-        type: 'APPLE'
+        // accountId: appleIdTokenClaims?.sub,
+        // type: 'APPLE'
+        email: appleIdTokenClaims.email
       },
       select: {
         id: true,
@@ -31,29 +32,33 @@ const AppleSignIn = async (req: Request, res: Response) => {
         verificationEmail: true,
         type: true,
         appleId: true,
-        Profile: true
+        accountId: true
       }
     })
 
     if (user) {
-      const AccessToken = await SignToken(user, 'access_token')
-      const RefreshToken = await SignToken(user, 'refresh_token')
+      if (user.type === 'APPLE' && user.accountId === appleIdTokenClaims?.sub) {
+        const AccessToken = await SignToken(user, 'access_token')
+        const RefreshToken = await SignToken(user, 'refresh_token')
 
-      res.cookie('refresh_token', RefreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 365 * 24 * 60 * 60 * 1000,
-        signed: true
-      })
+        res.cookie('refresh_token', RefreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+          signed: true
+        })
 
-      res.cookie('access_token', AccessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 365 * 24 * 60 * 60 * 1000,
-        signed: true
-      })
+        res.cookie('access_token', AccessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+          signed: true
+        })
 
-      return res.status(200).send({ user: user })
+        return res.status(200).send({ user: user })
+      }
+
+      return res.status(400).send('Google_Account')
     }
 
     if (!user && appleIdTokenClaims?.email) {
@@ -72,8 +77,7 @@ const AppleSignIn = async (req: Request, res: Response) => {
           verfied: true,
           type: true,
           verificationEmail: true,
-          appleId: true,
-          Profile: true
+          appleId: true
         }
       })
 
@@ -94,9 +98,9 @@ const AppleSignIn = async (req: Request, res: Response) => {
         signed: true
       })
 
-      if (!appleIdTokenClaims?.email_verified) {
-        await SendEmail(newUser.id, newUser.email)
-      }
+      // if (!appleIdTokenClaims?.email_verified) {
+      //   await SendEmail(newUser.id, newUser.email)
+      // }
 
       return res.status(200).send({ user: newUser })
     }

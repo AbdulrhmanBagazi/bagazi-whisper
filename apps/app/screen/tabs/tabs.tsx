@@ -6,12 +6,14 @@ import { IconButton } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useI18nHook } from '../../hook/i18n'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { useAuthHook } from '../../hook/auth'
 
 const Tab = createBottomTabNavigator<TabsStackParamList>()
 
 export default function TabsStack() {
   const Navigation = useNavigation()
   const I18n = useI18nHook((state) => state.I18n)
+  const auth = useAuthHook((state) => state.auth)
 
   return (
     <Tab.Navigator

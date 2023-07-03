@@ -2,6 +2,8 @@ import * as AppleAuthentication from 'expo-apple-authentication'
 import { useAuthHook } from '../hook/auth'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { windowWidth } from '../config/config'
+import { useSnckHook } from '../hook/snack'
+import { useI18nHook } from '../hook/i18n'
 
 const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
   text,
@@ -9,6 +11,8 @@ const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
 }) => {
   const AppleSignIn = useAuthHook((state) => state.AppleSignIn)
   const loading = useAuthHook((state) => state.loading)
+  const ShowSnack = useSnckHook((state) => state.ShowSnack)
+  const I18n = useI18nHook((state) => state.I18n)
 
   return (
     <MaterialCommunityIcons.Button
@@ -36,13 +40,17 @@ const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
             user
           } = credential
 
-          return AppleSignIn({
+          const Response = await AppleSignIn({
             user: newUser,
             email,
             appleId: user,
             identityToken,
             realUserStatus /* etc */
           })
+          if (Response === 'Google_Account') {
+            return ShowSnack(I18n.Errors.Gooogle_Account)
+          }
+
           // signed in
         } catch (e: any) {
           if (e.code === 'ERR_REQUEST_CANCELED') {

@@ -30,14 +30,14 @@ export default function LoadingScreen({
       // }
 
       if (auth && !loading) {
-        navigation.navigate('Tabs', {
+        navigation.replace('Tabs', {
           screen: 'Home'
         })
         return
       }
 
       if (!auth && !loading) {
-        navigation.navigate('Tabs', {
+        navigation.replace('Tabs', {
           screen: 'Home'
         })
 

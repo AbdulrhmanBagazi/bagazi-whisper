@@ -55,8 +55,7 @@ passport.use(
           verfied: true,
           verificationEmail: true,
           type: true,
-          appleId: true,
-          Profile: true
+          appleId: true
         }
       })
 
@@ -87,8 +86,7 @@ passport.use(
           verfied: true,
           verificationEmail: true,
           type: true,
-          appleId: true,
-          Profile: true
+          appleId: true
         }
       })
     if (user) {
@@ -113,8 +111,7 @@ passport.use(
           verfied: true,
           verificationEmail: true,
           type: true,
-          appleId: true,
-          Profile: true
+          appleId: true
         }
       })
     if (user) {
@@ -139,8 +136,7 @@ passport.use(
           verfied: true,
           verificationEmail: true,
           type: true,
-          appleId: true,
-          Profile: true
+          appleId: true
         }
       })
 
