@@ -6,6 +6,7 @@ import { useI18nHook } from '../../hook/i18n'
 import { Text, Switch, Divider, RadioButton, Button } from 'react-native-paper'
 import Header from '../../components/header'
 import { useSnckHook } from '../../hook/snack'
+import { ScrollView } from 'react-native-gesture-handler'
 
 export default function SettingsScreen({
   navigation
@@ -29,113 +30,121 @@ export default function SettingsScreen({
 
     if (Response === 'success') {
       ShowSnack(I18n.Snack.SignOut)
-      navigation.goBack()
-      return
+
+      return navigation.replace('Auth', {
+        screen: 'SignIn'
+      })
     }
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <Header />
-      <View style={{ flex: 1, padding: 10 }}>
-        <Text variant="bodyLarge">{I18n.Settings.Theme}</Text>
-        <View style={styles.items}>
-          <Text variant="labelLarge">{I18n.Settings.DarkMode}</Text>
-          <Switch value={Dark} onValueChange={ToggleTheme} />
-        </View>
-        <Divider style={styles.Divider} />
-        <Text variant="bodyLarge">{I18n.Settings.Notification}</Text>
-        <View style={styles.items}>
-          <Text variant="labelLarge">{I18n.Settings.AllowNotification}</Text>
-          <Switch
-          // value={
-          //   Notification?.hasNotificationPermission
-          //     ? !Notification.isPushDisabled
-          //     : false
-          // }
-          // onValueChange={ToggleNotification}
-          // disabled={notificationLoading}
-          />
-        </View>
-        <Divider style={styles.Divider} />
-        <Text variant="bodyLarge">{I18n.Settings.Language}</Text>
-        <View>
-          <RadioButton.Item
-            label={I18n.Settings.Arabic}
-            value="ar"
-            disabled={Language === 'ar'}
-            status={Language === 'ar' ? 'checked' : 'unchecked'}
-            onPress={() =>
-              Platform.OS === 'ios'
-                ? ToggleI18n('ar')
-                : Alert.alert(
-                    I18n.Settings.AppRestart,
-                    I18n.Settings.Wanttoproceed,
-                    [
-                      {
-                        text: I18n.Alert.Yes,
-                        onPress: () => {
-                          ToggleI18n('ar')
+      <ScrollView alwaysBounceVertical={false}>
+        <View style={{ flex: 1, padding: 5 }}>
+          <Text variant="bodyLarge">{I18n.Settings.Theme}</Text>
+          <View style={styles.items}>
+            <Text variant="labelLarge">{I18n.Settings.DarkMode}</Text>
+            <Switch value={Dark} onValueChange={ToggleTheme} />
+          </View>
+          <Divider style={styles.Divider} />
+          <Text variant="bodyLarge">{I18n.Settings.Notification}</Text>
+          <View style={styles.items}>
+            <Text variant="labelLarge">{I18n.Settings.AllowNotification}</Text>
+            <Switch
+            // value={
+            //   Notification?.hasNotificationPermission
+            //     ? !Notification.isPushDisabled
+            //     : false
+            // }
+            // onValueChange={ToggleNotification}
+            // disabled={notificationLoading}
+            />
+          </View>
+          <Divider style={styles.Divider} />
+          <Text variant="bodyLarge">{I18n.Settings.Language}</Text>
+          <View>
+            <RadioButton.Item
+              label={I18n.Settings.Arabic}
+              value="ar"
+              disabled={Language === 'ar'}
+              status={Language === 'ar' ? 'checked' : 'unchecked'}
+              onPress={() =>
+                Platform.OS === 'ios'
+                  ? ToggleI18n('ar')
+                  : Alert.alert(
+                      I18n.Settings.AppRestart,
+                      I18n.Settings.Wanttoproceed,
+                      [
+                        {
+                          text: I18n.Alert.Yes,
+                          onPress: () => {
+                            ToggleI18n('ar')
+                          }
+                        },
+                        {
+                          text: I18n.Notifications.Cancel
                         }
-                      },
-                      {
-                        text: I18n.Notifications.Cancel
-                      }
-                    ]
-                  )
-            }
-          />
-        </View>
-        <View>
-          <RadioButton.Item
-            value={I18n.Settings.English}
-            label="English"
-            disabled={Language === 'en'}
-            status={Language === 'en' ? 'checked' : 'unchecked'}
-            onPress={() =>
-              Platform.OS === 'ios'
-                ? ToggleI18n('en')
-                : Alert.alert(
-                    I18n.Settings.AppRestart,
-                    I18n.Settings.Wanttoproceed,
-                    [
-                      {
-                        text: I18n.Alert.Yes,
-                        onPress: () => {
-                          ToggleI18n('en')
+                      ]
+                    )
+              }
+            />
+          </View>
+          <View>
+            <RadioButton.Item
+              value={I18n.Settings.English}
+              label="English"
+              disabled={Language === 'en'}
+              status={Language === 'en' ? 'checked' : 'unchecked'}
+              onPress={() =>
+                Platform.OS === 'ios'
+                  ? ToggleI18n('en')
+                  : Alert.alert(
+                      I18n.Settings.AppRestart,
+                      I18n.Settings.Wanttoproceed,
+                      [
+                        {
+                          text: I18n.Alert.Yes,
+                          onPress: () => {
+                            ToggleI18n('en')
+                          }
+                        },
+                        {
+                          text: I18n.Notifications.Cancel
                         }
-                      },
-                      {
-                        text: I18n.Notifications.Cancel
-                      }
-                    ]
-                  )
-            }
-          />
+                      ]
+                    )
+              }
+            />
+          </View>
+          <Divider style={styles.Divider} />
+          <View style={styles.signou}>
+            <Button
+              icon="logout"
+              mode="contained"
+              onPress={() =>
+                Alert.alert(
+                  I18n.Settings.SignOut,
+                  I18n.Alert['Alert.SignOut'],
+                  [
+                    {
+                      text: I18n.Alert.No,
+                      style: 'cancel'
+                    },
+                    {
+                      text: I18n.Alert.Yes,
+                      onPress: () => HandleSignOut()
+                    }
+                  ]
+                )
+              }
+              disabled={loading || !auth}
+            >
+              {I18n.Settings.SignOut}
+            </Button>
+          </View>
         </View>
-        <Divider style={styles.Divider} />
-        <View style={styles.signou}>
-          <Button
-            icon="logout"
-            mode="contained"
-            onPress={() =>
-              Alert.alert(I18n.Settings.SignOut, I18n.Alert['Alert.SignOut'], [
-                {
-                  text: I18n.Alert.No,
-                  style: 'cancel'
-                },
-                {
-                  text: I18n.Alert.Yes,
-                  onPress: () => HandleSignOut()
-                }
-              ])
-            }
-            disabled={loading || !auth}
-          >
-            {I18n.Settings.SignOut}
-          </Button>
-        </View>
-      </View>
+      </ScrollView>
     </View>
   )
 }

@@ -18,6 +18,7 @@ type AuthContextType = {
   auth: boolean
   user: UserTypes | null
   loading: boolean
+  AuthLoading: boolean
   SignOut: () => Promise<returnType>
   GoogleSignIn: (arg0: GoogleArgs) => Promise<GooglereturnType>
   AppleSignIn: (arg0: AppleArgs) => Promise<ApplereturnType>
@@ -28,7 +29,8 @@ type AuthContextType = {
 export const useAuthHook = create<AuthContextType>((set) => ({
   auth: false,
   user: null,
-  loading: true,
+  loading: false,
+  AuthLoading: true,
   SignOut: async () => {
     set(() => ({
       loading: true
@@ -134,12 +136,12 @@ export const useAuthHook = create<AuthContextType>((set) => ({
   },
   Authenticate: async () => {
     set(() => ({
-      loading: true
+      AuthLoading: true
     }))
     const [error, data] = await fetcher('/authentication')
     if (error && !data) {
       set(() => ({
-        loading: false,
+        AuthLoading: false,
         user: null,
         auth: false
       }))
@@ -166,7 +168,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
 
       if (check === 0) {
         set(() => ({
-          loading: false,
+          AuthLoading: false,
           user: null,
           auth: false
         }))
@@ -185,7 +187,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     // }
 
     set(() => ({
-      loading: false,
+      AuthLoading: false,
       user: data?.user,
       auth: true
     }))

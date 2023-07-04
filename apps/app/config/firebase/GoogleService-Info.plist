@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>901377328281-57390vlc4oa7pa1g3dk3s9anjd7d2qj4.apps.googleusercontent.com</string>
+	<string>655983294636-ask8k61r90ph1tngq2vh1gie5l7hjsl0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.901377328281-57390vlc4oa7pa1g3dk3s9anjd7d2qj4</string>
+	<string>com.googleusercontent.apps.655983294636-ask8k61r90ph1tngq2vh1gie5l7hjsl0</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>655983294636-4l8a9keo3mugvatltr4nsslfn2089sj4.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAtxgLTuc6l9eXZUr0KpaRLUrUvnZhSXbs</string>
+	<string>AIzaSyC1n4Omjt8yj4mJrTvGPoj2sahS75jDfoM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>901377328281</string>
+	<string>655983294636</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.baqazi.thoughts</string>
+	<string>com.baqazi.whisper</string>
 	<key>PROJECT_ID</key>
-	<string>baqazi-thoughts</string>
+	<string>baqazi-whisper</string>
 	<key>STORAGE_BUCKET</key>
-	<string>baqazi-thoughts.appspot.com</string>
+	<string>baqazi-whisper.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:901377328281:ios:5234124449d706628f2408</string>
+	<string>1:655983294636:ios:306598d171d463ce010709</string>
 </dict>
 </plist>

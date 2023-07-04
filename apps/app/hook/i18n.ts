@@ -2,8 +2,8 @@ import { create } from 'zustand'
 import Arabic from '../language/Arabic.json'
 import English from '../language/English.json'
 import * as SecureStore from 'expo-secure-store'
-// import * as Updates from 'expo-updates'
-import { Platform, I18nManager } from 'react-native'
+import * as Updates from 'expo-updates'
+import { I18nManager } from 'react-native'
 
 type ar = 'ar'
 type en = 'en'
@@ -25,7 +25,7 @@ export const useI18nHook = create<I18nType>((set) => ({
   I18n: Arabic,
   Direction: 'rtl',
   ToggleI18n: async (Language: Language) => {
-    await SecureStore.setItemAsync('AppLang', Language)
+    await SecureStore.setItemAsync('AppLang-Whisper', Language)
     I18nManager.allowRTL(Language === 'ar' ? true : false)
     I18nManager.forceRTL(Language === 'ar' ? true : false)
 
@@ -35,19 +35,14 @@ export const useI18nHook = create<I18nType>((set) => ({
       Direction: Language === 'en' ? 'ltr' : 'rtl'
     }))
 
-    // if (Platform.OS !== 'ios') {
-    //   const x = await Updates.reloadAsync()
-
-    //   console.log(x)
-    //   return
-    // }
+    await Updates.reloadAsync()
   },
   I18nStore: async () => {
-    const Language = await SecureStore.getItemAsync('AppLang')
+    const Language = await SecureStore.getItemAsync('AppLang-Whisper')
     set(() => ({
-      Language: Language === 'en' ? 'en' : 'ar',
-      I18n: Language === 'en' ? English : Arabic,
-      Direction: Language === 'en' ? 'ltr' : 'rtl'
+      Language: Language === 'ar' ? 'ar' : 'en',
+      I18n: Language === 'ar' ? Arabic : English,
+      Direction: Language === 'ar' ? 'rtl' : 'ltr'
     }))
   }
 }))

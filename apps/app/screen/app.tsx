@@ -28,7 +28,8 @@ export default function App() {
   const Dark = useThemeHook((state) => state.Dark)
   const ThemeStore = useThemeHook((state) => state.ThemeStore)
   const I18nStore = useI18nHook((state) => state.I18nStore)
-  const loading = useAuthHook((state) => state.loading)
+  const AuthLoading = useAuthHook((state) => state.AuthLoading)
+  const auth = useAuthHook((state) => state.auth)
   const HideSnack = useSnckHook((state) => state.HideSnack)
   const show = useSnckHook((state) => state.show)
   const text = useSnckHook((state) => state.text)
@@ -78,34 +79,39 @@ export default function App() {
               onReady={onLayoutRootView}
             >
               <RootStack.Navigator>
-                <RootStack.Screen
-                  name="Loading"
-                  component={LoadingScreen}
-                  options={{ headerShown: false }}
-                />
-                <RootStack.Screen
-                  name="Tabs"
-                  component={TabsStack}
-                  options={{ headerShown: false, animation: 'fade' }}
-                />
-                <RootStack.Screen
-                  name="Auth"
-                  component={AuthStack}
-                  options={{
-                    headerShown: false,
-                    gestureDirection: 'vertical',
-                    gestureEnabled: !loading
-                  }}
-                />
-                <RootStack.Screen
-                  name="Settings"
-                  component={SettingsScreen}
-                  options={{
-                    headerShown: false,
-                    gestureDirection: 'vertical',
-                    gestureEnabled: !loading
-                  }}
-                />
+                {AuthLoading ? (
+                  <RootStack.Screen
+                    name="Loading"
+                    component={LoadingScreen}
+                    options={{ headerShown: false }}
+                  />
+                ) : auth ? (
+                  <>
+                    <RootStack.Screen
+                      name="Tabs"
+                      component={TabsStack}
+                      options={{ headerShown: false, animation: 'fade' }}
+                    />
+                    <RootStack.Screen
+                      name="Settings"
+                      component={SettingsScreen}
+                      options={{
+                        headerShown: false,
+                        gestureDirection: 'vertical',
+                        gestureEnabled: !AuthLoading
+                      }}
+                    />
+                  </>
+                ) : (
+                  <RootStack.Screen
+                    name="Auth"
+                    component={AuthStack}
+                    options={{
+                      headerShown: false,
+                      gestureDirection: 'vertical'
+                    }}
+                  />
+                )}
               </RootStack.Navigator>
             </NavigationContainer>
             <Snackbar

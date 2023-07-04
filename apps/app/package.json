@@ -1,7 +1,7 @@
 {
   "name": "app",
   "version": "1.0.0",
-  "description": "baqazi-secrets",
+  "description": "baqazi-whisper",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
@@ -19,6 +19,7 @@
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@shopify/flash-list": "^1.4.3",
     "expo": "~48.0.18",
     "expo-apple-authentication": "~6.0.1",
     "expo-auth-session": "~4.0.3",
@@ -29,6 +30,7 @@
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
     "expo-system-ui": "~2.2.1",
+    "expo-updates": "~0.16.4",
     "expo-web-browser": "~12.1.1",
     "formik": "^2.4.2",
     "i18n-iso-countries": "^7.6.0",
@@ -53,6 +55,7 @@
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@types/react": "~18.0.14",
+    "graphql": "16.6.0",
     "jest": "^29.2.1",
     "jest-expo": "~48.0.0",
     "react-test-renderer": "18.2.0",

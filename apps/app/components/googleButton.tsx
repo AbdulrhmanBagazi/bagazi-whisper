@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import {
   androidClientId,
-  // expoClientId,
   iosClientId,
   webClientId,
   windowWidth
 } from '../config/config'
 import * as Google from 'expo-auth-session/providers/google'
 import { useAuthHook } from '../hook/auth'
-// import { GoogleArgs, QueryResponse } from '../types/types'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-// import { makeRedirectUri } from 'expo-auth-session'
 import { useSnckHook } from '../hook/snack'
 import { useI18nHook } from '../hook/i18n'
 
@@ -27,10 +24,6 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
     webClientId: webClientId,
     androidClientId: androidClientId,
     iosClientId: iosClientId
-    // expoClientId: expoClientId,
-    // redirectUri: makeRedirectUri({
-    //   scheme: 'com.baqazi.thoughts'
-    // })
   })
 
   useEffect(() => {

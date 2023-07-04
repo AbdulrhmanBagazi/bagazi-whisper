@@ -136,7 +136,6 @@ export const myAuthProvider: AuthProvider = {
           })
         )
       })
-    // localStorage.getItem('user') ? Promise.resolve() : Promise.reject(),
   },
   getPermissions: () => Promise.resolve(),
   getIdentity: () => {

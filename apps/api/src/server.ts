@@ -20,9 +20,9 @@ import {
 //client public
 import { Client_PassportAuthenticate } from './modules/client/routes/passport/index.passport'
 import { ApolloServer } from '@apollo/server'
-import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled'
-import { ApolloServerPluginLandingPageGraphQLPlayground } from '@apollo/server-plugin-landing-page-graphql-playground'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled'
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { expressMiddleware } from '@apollo/server/express4'
 import { Admin_PassportAuthenticate } from './modules/admin/routes/passport/index.passport'
 
@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 4000
 const AdminURL =
   process.env.NODE_ENV === 'production'
     ? (process.env.ADMIN_URL as string)
-    : 'http://localhost:5173'
+    : 'http://192.168.100.11:5173'
 const ClientURL =
   process.env.NODE_ENV === 'production'
     ? (process.env.CLIENT_URL as string)
@@ -76,9 +76,10 @@ const startServer = async () => {
     resolvers: [AdminResolvers],
     typeDefs: [AdminTypeDefs],
     plugins: [
+      // Install a landing page plugin based on NODE_ENV
       process.env.NODE_ENV === 'production'
         ? ApolloServerPluginLandingPageDisabled()
-        : ApolloServerPluginLandingPageGraphQLPlayground(),
+        : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
       ApolloServerPluginDrainHttpServer({ httpServer })
     ]
   })
@@ -88,9 +89,10 @@ const startServer = async () => {
     resolvers: [ClientResolvers],
     typeDefs: [ClientTypeDefs],
     plugins: [
+      // Install a landing page plugin based on NODE_ENV
       process.env.NODE_ENV === 'production'
         ? ApolloServerPluginLandingPageDisabled()
-        : ApolloServerPluginLandingPageGraphQLPlayground(),
+        : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
       ApolloServerPluginDrainHttpServer({ httpServer })
     ]
   })

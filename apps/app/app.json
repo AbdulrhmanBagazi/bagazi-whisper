@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "thoughts",
-    "slug": "thoughts",
-    "scheme": "thoughts",
+    "name": "Whisper",
+    "slug": "whisper",
+    "scheme": "whisper",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -12,27 +12,20 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.baqazi.thoughts",
-      "googleServicesFile": "./config/firebase/GoogleService-Info.plist",
-      "infoPlist": {
-        "CFBundleURLTypes": [
-          {
-            "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.901377328281-57390vlc4oa7pa1g3dk3s9anjd7d2qj4"
-            ]
-          }
-        ]
-      }
+      "bundleIdentifier": "com.baqazi.whisper",
+      "googleServicesFile": "./config/firebase/GoogleService-Info.plist"
     },
     "android": {
+      "package": "com.baqazi.whisper",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.baqazi.thoughts",
       "googleServicesFile": "./config/firebase/google-services.json"
     },
     "web": {
@@ -50,7 +43,27 @@
     ],
     "extra": {
       "supportsRTL": true,
-      "oneSignalAppId": "7bcd247a-1208-4225-93c4-5716ee213644"
+      "oneSignalAppId": "7bcd247a-1208-4225-93c4-5716ee213644",
+      "eas": {
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "targetName": "OneSignalNotificationServiceExtension",
+                  "bundleIdentifier": "com.baqazi.whisper.OneSignalNotificationServiceExtension",
+                  "entitlements": {
+                    "com.apple.security.application-groups": [
+                      "group.com.baqazi.whisper.onesignal"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "projectId": "f7e30c6c-f300-4899-9f2b-49eb84bf0831"
+      }
     },
     "build": {
       "preview": {

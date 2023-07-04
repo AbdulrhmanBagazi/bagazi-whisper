@@ -4,7 +4,6 @@ import { useI18nHook } from '../../../hook/i18n'
 import MAppleButton from '../../../components/appleButton'
 import { useThemeHook } from '../../../hook/theme'
 import { Divider } from 'react-native-paper'
-import Header from '../../../components/header'
 import { useAuthHook } from '../../../hook/auth'
 import { AuthScreensProps } from '../../../types/types'
 import { useEffect } from 'react'
@@ -20,7 +19,9 @@ export default function SignInScreen({
   useEffect(() => {
     const Load = async () => {
       if (auth && !loading) {
-        navigation.goBack()
+        navigation.replace('Tabs', {
+          screen: 'Profile'
+        })
         return
       }
 
@@ -36,7 +37,6 @@ export default function SignInScreen({
         flex: 1
       }}
     >
-      <Header />
       <View style={{ flex: 2 }}>
         <Divider
           style={{ marginVertical: 10, backgroundColor: 'transparent' }}

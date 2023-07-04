@@ -1,49 +1,42 @@
 {
   "project_info": {
-    "project_number": "901377328281",
-    "project_id": "baqazi-thoughts",
-    "storage_bucket": "baqazi-thoughts.appspot.com"
+    "project_number": "655983294636",
+    "project_id": "baqazi-whisper",
+    "storage_bucket": "baqazi-whisper.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:901377328281:android:239d1cbf371d17088f2408",
+        "mobilesdk_app_id": "1:655983294636:android:0bd68e2f768cb1b9010709",
         "android_client_info": {
-          "package_name": "com.baqazi.thoughts"
+          "package_name": "com.baqazi.whisper"
         }
       },
       "oauth_client": [
         {
-          "client_id": "901377328281-c8c373ncl4elsnqu7asi2mnsh3msqoql.apps.googleusercontent.com",
+          "client_id": "655983294636-4l8a9keo3mugvatltr4nsslfn2089sj4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.baqazi.thoughts",
+            "package_name": "com.baqazi.whisper",
             "certificate_hash": "e82338ee1345682b99585562d57547e855b42da6"
           }
         },
         {
-          "client_id": "901377328281-3mfb60hf9tir52ffme0j3lvn11h3ansc.apps.googleusercontent.com",
+          "client_id": "655983294636-qs3s77vpd373buglaaqoaspuc6bul3p8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD6H5jVhu5wLf6U5Wsuc7lMCiFjqJR4eVE"
+          "current_key": "AIzaSyCcSyw42d9eqAdlF4Wil840Fl0V_Q5yKSM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "901377328281-3mfb60hf9tir52ffme0j3lvn11h3ansc.apps.googleusercontent.com",
+              "client_id": "655983294636-qs3s77vpd373buglaaqoaspuc6bul3p8.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "901377328281-57390vlc4oa7pa1g3dk3s9anjd7d2qj4.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.baqazi.thoughts"
-              }
             }
           ]
         }
