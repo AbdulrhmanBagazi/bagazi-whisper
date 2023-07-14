@@ -22,6 +22,14 @@ model User {
     updatedAt         DateTime    @updatedAt
     password          String?
     verificationEmail DateTime?
+    //
+    friends           User[]      @relation("UserFriends")
+    symmetricFriends  User[]      @relation("UserFriends")
+    //
+    username          String?     @unique
+    //
+    posts             Post[]      @relation("author")
+    likes             Post[]
 }
 
 enum AccountType {
@@ -30,6 +38,31 @@ enum AccountType {
     APPLE
 }
 
+model Post {
+    id        String    @id @default(uuid()) @db.Uuid
+    body      String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    //
+    authorId  String    @db.Uuid
+    author    User      @relation("author", fields: [authorId], references: [id])
+    //
+    likes     User[]
+    //
+    comments  Comment[]
+}
+
+model Comment {
+    id        String   @id @default(uuid()) @db.Uuid
+    body      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //
+    Post      Post?    @relation(fields: [postId], references: [id])
+    postId    String?
+}
+
+///
 model Admin {
     id       String @id @default(uuid()) @db.Uuid
     email    String @unique

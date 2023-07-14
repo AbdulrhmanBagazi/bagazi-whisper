@@ -1,77 +1,47 @@
-import { Avatar, Chip, IconButton, Text, useTheme } from 'react-native-paper'
+import { Chip, Divider } from 'react-native-paper'
 import { View } from 'react-native'
-import { FlashList } from '@shopify/flash-list'
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
+import { useI18nHook } from '../../../../hook/i18n'
+import HeaderProfile from '../../../../components/headerProfile'
+import { useAuthHook } from '../../../../hook/auth'
+import ProfilePost from './post'
 
 const ProfileUI = () => {
-  const theme = useTheme()
   const Navigation = useNavigation()
+  const I18n = useI18nHook((state) => state.I18n)
+  const user = useAuthHook((state) => state.user)
 
   return (
-    <FlashList
-      data={[]}
-      ListHeaderComponent={() => (
-        <View style={{ flex: 1, padding: 5 }}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <Avatar.Text size={100} label="XD" />
-            <Text variant="headlineLarge" style={{ writingDirection: 'ltr' }}>
-              @Username
-            </Text>
-            <IconButton
-              icon="cog"
-              onPress={() => Navigation.navigate('Settings')}
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0
-              }}
-            />
-          </View>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              marginTop: 10,
-              justifyContent: 'space-around'
-            }}
+    <>
+      <HeaderProfile />
+      <View style={{ padding: 5 }}>
+        <View style={{ flexDirection: 'row' }}>
+          <Chip
+            icon="account-plus"
+            mode="outlined"
+            onPress={() => Navigation.navigate('Friends')}
+            style={{ borderWidth: 0 }}
           >
-            <Chip icon="account-plus" onPress={() => console.log('Pressed')}>
-              Friends: 25
-            </Chip>
-            <Chip icon="note" mode="outlined">
-              Posts: 200
-            </Chip>
-            <Chip icon="heart" mode="outlined">
-              Likes: 10k
-            </Chip>
-          </View>
+            {I18n.Profile.Friends}: {user?._count.friends}
+          </Chip>
         </View>
-      )}
-      ListEmptyComponent={() => (
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100%'
-          }}
-        >
-          <MaterialCommunityIcons
-            name="note-off"
-            size={100}
-            color={theme.colors.surfaceDisabled}
-          />
-          <Text
-            variant="labelLarge"
-            style={{ color: theme.colors.surfaceDisabled }}
+        <View style={{ flexDirection: 'row' }}>
+          <Chip icon="note" mode="outlined" disabled style={{ borderWidth: 0 }}>
+            {I18n.Profile.Posts}: {user?._count.posts}
+          </Chip>
+          <Chip
+            icon="heart"
+            mode="outlined"
+            disabled
+            style={{ borderWidth: 0 }}
           >
-            Create your first post
-          </Text>
+            {I18n.Profile.Likes}: {user?._count.likes}
+          </Chip>
         </View>
-      )}
-      renderItem={({ item }) => <Text>{item}</Text>}
-      estimatedItemSize={200}
-    />
+      </View>
+      <Divider />
+      <ProfilePost />
+    </>
   )
 }
 

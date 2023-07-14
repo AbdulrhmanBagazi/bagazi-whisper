@@ -1,5 +1,6 @@
 import { MyContext } from '../../../../../context'
 import gql from 'graphql-tag'
+import { UserSelect } from '../prisma.user.select/config'
 
 export const getOne_Users_TypeDefs = gql`
   type Query {
@@ -13,14 +14,7 @@ export const getOne_Users_Query = {
       where: {
         id: args.id
       },
-      select: {
-        email: true,
-        id: true,
-        verfied: true,
-        suspended: true,
-        createdAt: true,
-        type: true
-      }
+      select: UserSelect
     })
   }
 }

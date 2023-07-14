@@ -1,0 +1,12 @@
+query Post {
+  Get_Post {
+    id
+    body
+    _count {
+      likes
+    }
+  }
+  Get_Post_Meta {
+    count
+  }
+}

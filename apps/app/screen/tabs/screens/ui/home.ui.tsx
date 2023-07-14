@@ -15,7 +15,7 @@ const HomeUI = () => {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            height: windowHeight / 1.5
+            height: windowHeight / 3
           }}
         >
           <MaterialCommunityIcons

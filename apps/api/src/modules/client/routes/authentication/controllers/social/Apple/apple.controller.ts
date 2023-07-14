@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import appleSigninAuth from 'apple-signin-auth'
 import crypto from 'crypto'
 import { SendEmail, SignToken } from '../../../index.utils'
+import { UserSelect } from '../../../config'
 
 const prisma = new PrismaClient()
 
@@ -25,15 +26,7 @@ const AppleSignIn = async (req: Request, res: Response) => {
         // type: 'APPLE'
         email: appleIdTokenClaims.email
       },
-      select: {
-        id: true,
-        email: true,
-        verfied: true,
-        verificationEmail: true,
-        type: true,
-        appleId: true,
-        accountId: true
-      }
+      select: UserSelect
     })
 
     if (user) {
@@ -71,14 +64,7 @@ const AppleSignIn = async (req: Request, res: Response) => {
           accountId: appleIdTokenClaims?.sub,
           appleId: data.appleId
         },
-        select: {
-          id: true,
-          email: true,
-          verfied: true,
-          type: true,
-          verificationEmail: true,
-          appleId: true
-        }
+        select: UserSelect
       })
 
       const AccessToken = await SignToken(newUser, 'access_token')

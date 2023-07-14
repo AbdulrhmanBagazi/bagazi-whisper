@@ -2,6 +2,7 @@ import { Prisma, PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 import { OAuth2Client } from 'google-auth-library'
 import { SendEmail, SignToken } from '../../../index.utils'
+import { UserSelect } from '../../../config'
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 const prisma = new PrismaClient()
 
@@ -21,15 +22,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
         // type: 'GOOGLE'
         email: GoogleUser?.email
       },
-      select: {
-        id: true,
-        email: true,
-        verfied: true,
-        verificationEmail: true,
-        type: true,
-        appleId: true,
-        accountId: true
-      }
+      select: UserSelect
     })
 
     if (user) {
@@ -52,13 +45,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
         })
 
         return res.status(200).send({
-          user: {
-            id: user.id,
-            email: user.email,
-            verfied: user.verfied,
-            type: user.type,
-            verificationEmail: user.verificationEmail
-          }
+          user: user
         })
       }
 
@@ -74,14 +61,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
           type: 'GOOGLE',
           accountId: GoogleUser?.sub
         },
-        select: {
-          id: true,
-          email: true,
-          verfied: true,
-          verificationEmail: true,
-          type: true,
-          appleId: true
-        }
+        select: UserSelect
       })
 
       const AccessToken = await SignToken(newUser, 'access_token')
@@ -106,13 +86,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
       // }
 
       return res.status(200).send({
-        user: {
-          id: newUser.id,
-          email: newUser.email,
-          verfied: newUser.verfied,
-          type: newUser.type,
-          verificationEmail: newUser.verificationEmail
-        }
+        user: newUser
       })
     }
 

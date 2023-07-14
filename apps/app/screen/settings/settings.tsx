@@ -7,10 +7,9 @@ import { Text, Switch, Divider, RadioButton, Button } from 'react-native-paper'
 import Header from '../../components/header'
 import { useSnckHook } from '../../hook/snack'
 import { ScrollView } from 'react-native-gesture-handler'
+import MyButton from '../../components/myButton'
 
-export default function SettingsScreen({
-  navigation
-}: RootStackScreenProps<'Settings'>) {
+export default function SettingsScreen() {
   const ToggleTheme = useThemeHook((state) => state.ToggleTheme)
   const Dark = useThemeHook((state) => state.Dark)
   const auth = useAuthHook((state) => state.auth)
@@ -30,10 +29,6 @@ export default function SettingsScreen({
 
     if (Response === 'success') {
       ShowSnack(I18n.Snack.SignOut)
-
-      return navigation.replace('Auth', {
-        screen: 'SignIn'
-      })
     }
   }
 
@@ -119,9 +114,8 @@ export default function SettingsScreen({
           </View>
           <Divider style={styles.Divider} />
           <View style={styles.signou}>
-            <Button
+            <MyButton
               icon="logout"
-              mode="contained"
               onPress={() =>
                 Alert.alert(
                   I18n.Settings.SignOut,
@@ -141,7 +135,7 @@ export default function SettingsScreen({
               disabled={loading || !auth}
             >
               {I18n.Settings.SignOut}
-            </Button>
+            </MyButton>
           </View>
         </View>
       </ScrollView>

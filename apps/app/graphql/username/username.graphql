@@ -1,0 +1,14 @@
+mutation Add_Username($username: String!) {
+  Add_Username(username: $username) {
+    __typename
+    ... on Username {
+      username
+    }
+    ... on NotAllowedError {
+      error
+    }
+    ... on UnknownError {
+      error
+    }
+  }
+}

@@ -1,12 +1,15 @@
-import { Profile } from '../protected/profile/index.modules'
+import { Friend } from './friend/index.modules'
+import { Post } from './post/index.modules'
+import { Username } from './username/index.modules'
 
 export const ClientResolvers = {
-  // Query: {
-  //   ...Applicants.Query,
-  // },
+  Query: {
+    ...Post.Query
+  },
   Mutation: {
-    ...Profile.Mutation
+    ...Friend.Mutation,
+    ...Username.Mutation
   }
   // ...Posts.Resolver,
 }
-export const ClientTypeDefs = [Profile.typeDef]
+export const ClientTypeDefs = [Friend.typeDef, Username.typeDef, Post.typeDef]

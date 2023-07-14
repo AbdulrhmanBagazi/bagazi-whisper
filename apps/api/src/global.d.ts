@@ -9,6 +9,7 @@ declare global {
         verfied: boolean
         type: string
         appleId?: string
+        username?: string
       }
     }
   }

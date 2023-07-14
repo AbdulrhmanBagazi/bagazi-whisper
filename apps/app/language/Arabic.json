@@ -4,7 +4,10 @@
   },
   "Profile": {
     "Title": "الملف الشخصي",
-    "SignIn": "تسجيل الدخول"
+    "Friends": "الآصدقاء",
+    "Posts": "المنشورات",
+    "Likes": "الإعجابات",
+    "FirstPost": "أنشئ منشورك الأول"
   },
   "Settings": {
     "Title": "إعدادات التطبيق",
@@ -19,6 +22,12 @@
     "AppRestart": "سيتم إعادة تشغيل التطبيق!",
     "Wanttoproceed": "تريد المتابعة؟"
   },
+  "Notifications": {
+    "AllowNotifications": "تمكين الإشعارات",
+    "AllowNotificationsMSG": "يمكن تمكين الإشعارات من الإعدادات العامة على جهازك.",
+    "Settings": "الإعدادات",
+    "Cancel": "إلغاء"
+  },
   "SignIn": {
     "Title": "تسجيل الدخول",
     "Google": "المتابعة بإستخدام Google",
@@ -31,12 +40,6 @@
     "Incorrect": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
     "HaveAccount": "هل لديك حساب؟ تسجيل الدخول",
     "Required": "مطلوب!"
-  },
-  "Notifications": {
-    "AllowNotifications": "تمكين الإشعارات",
-    "AllowNotificationsMSG": "يمكن تمكين الإشعارات من الإعدادات العامة على جهازك.",
-    "Settings": "الإعدادات",
-    "Cancel": "إلغاء"
   },
   "Language": {
     "Arabic": "عربي",
@@ -57,5 +60,10 @@
   },
   "Header": {
     "Done": "تم"
+  },
+  "Username": {
+    "Username": "إسم المستخدم",
+    "Continue": "متابعة",
+    "UsernameUsed": "اسم المستخدم مستخدم! الرجاء إدخال اسم مستخدم آخر"
   }
 }

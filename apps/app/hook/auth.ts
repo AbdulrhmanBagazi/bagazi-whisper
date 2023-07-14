@@ -17,6 +17,7 @@ type GooglereturnType = success | error | Apple_Account
 type AuthContextType = {
   auth: boolean
   user: UserTypes | null
+  username: string | null
   loading: boolean
   AuthLoading: boolean
   SignOut: () => Promise<returnType>
@@ -24,13 +25,38 @@ type AuthContextType = {
   AppleSignIn: (arg0: AppleArgs) => Promise<ApplereturnType>
   Authenticate: () => void
   SignIn: (arg0: SignTypes) => void
+  AddUsername: (username: string) => void
 }
 
 export const useAuthHook = create<AuthContextType>((set) => ({
   auth: false,
   user: null,
+  username: null,
   loading: false,
   AuthLoading: true,
+  AddUsername: async (username: string) => {
+    set(() => ({
+      loading: true
+    }))
+
+    const [error, data] = await fetcher('/authentication/signout')
+
+    if (error && !data) {
+      set(() => ({
+        loading: false,
+        username: null
+      }))
+
+      return 'error'
+    }
+
+    set(() => ({
+      loading: false,
+      username
+    }))
+
+    return 'success'
+  },
   SignOut: async () => {
     set(() => ({
       loading: true
@@ -42,7 +68,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       set(() => ({
         loading: false,
         user: null,
-        auth: false
+        auth: false,
+        username: null
       }))
 
       return 'error'
@@ -51,7 +78,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     set(() => ({
       loading: false,
       user: null,
-      auth: false
+      auth: false,
+      username: null
     }))
 
     return 'success'
@@ -76,7 +104,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       }
       set(() => ({
         loading: false,
-        user: null
+        user: null,
+        username: null
       }))
       // return [error, data]
       return 'error'
@@ -85,7 +114,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     set(() => ({
       loading: false,
       user: data?.user,
-      auth: true
+      auth: true,
+      username: data?.user.username
     }))
 
     // if (data?.user?.id) {
@@ -115,7 +145,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       }
       set(() => ({
         loading: false,
-        user: null
+        user: null,
+        username: null
       }))
       // return [error, data]
       return 'error'
@@ -124,7 +155,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     set(() => ({
       loading: false,
       user: data?.user,
-      auth: true
+      auth: true,
+      username: data?.user.username
     }))
 
     // if (data?.user?.id) {
@@ -143,7 +175,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       set(() => ({
         AuthLoading: false,
         user: null,
-        auth: false
+        auth: false,
+        username: null
       }))
 
       // setTimeout(() => {
@@ -170,7 +203,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
         set(() => ({
           AuthLoading: false,
           user: null,
-          auth: false
+          auth: false,
+          username: null
         }))
         return
       }
@@ -189,7 +223,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     set(() => ({
       AuthLoading: false,
       user: data?.user,
-      auth: true
+      auth: true,
+      username: data?.user.username
     }))
   },
   SignIn: async (values: SignTypes) => {
@@ -203,7 +238,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     if (error && !data) {
       set(() => ({
         loading: false,
-        user: null
+        user: null,
+        username: null
       }))
       return [error, data]
     }
@@ -211,7 +247,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     set(() => ({
       loading: false,
       user: data?.user,
-      auth: true
+      auth: true,
+      username: data?.user.username
     }))
 
     // if (data?.user?.id) {

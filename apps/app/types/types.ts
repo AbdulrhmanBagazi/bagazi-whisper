@@ -1,5 +1,4 @@
 import 'react-native-svg'
-import { Profile } from '../../graphql/generated'
 import {
   NavigatorScreenParams,
   CompositeScreenProps
@@ -13,6 +12,8 @@ export type UserTypes = {
   type: string
   verificationEmail: string
   appleId?: string
+  username: string | null
+  _count: { friends: number; likes: number; posts: number }
 }
 
 export interface user {
@@ -47,6 +48,8 @@ export type RootStackParamList = {
   Auth: NavigatorScreenParams<AuthStackParamList>
   Loading: undefined
   Settings: undefined
+  Friends: undefined
+  Username: undefined
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>
@@ -60,7 +63,7 @@ export type TabsStackParamList = {
 export type TabsScreensProps<T extends keyof TabsStackParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<TabsStackParamList, T>,
-    RootStackScreenProps<RootStackParamList>
+    RootStackScreenProps<keyof RootStackParamList>
   >
 
 //Auth
@@ -71,7 +74,7 @@ export type AuthStackParamList = {
 export type AuthScreensProps<T extends keyof AuthStackParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<AuthStackParamList, T>,
-    RootStackScreenProps<RootStackParamList>
+    RootStackScreenProps<keyof RootStackParamList>
   >
 
 declare global {

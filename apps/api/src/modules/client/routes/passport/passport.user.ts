@@ -5,6 +5,7 @@ import passportJwt from 'passport-jwt'
 import { ValidPassword, CookieExtractor } from './index.utils'
 import { JWT_PublicKey, ClientTokenMeta } from '../../config/jwt.config'
 import { Request } from 'express'
+import { UserSelect, UserSelectAuth } from '../authentication/config'
 
 const JwtStrategy = passportJwt.Strategy
 const LocalStrategy = passportLocal.Strategy
@@ -48,15 +49,7 @@ passport.use(
         where: {
           email: email.toLowerCase()
         },
-        select: {
-          id: true,
-          email: true,
-          password: true,
-          verfied: true,
-          verificationEmail: true,
-          type: true,
-          appleId: true
-        }
+        select: UserSelectAuth
       })
 
       if (user?.password && user) {
@@ -80,14 +73,7 @@ passport.use(
         where: {
           id: payload.id
         },
-        select: {
-          id: true,
-          email: true,
-          verfied: true,
-          verificationEmail: true,
-          type: true,
-          appleId: true
-        }
+        select: UserSelect
       })
     if (user) {
       return cb(null, user)
@@ -105,14 +91,7 @@ passport.use(
         where: {
           id: payload.id
         },
-        select: {
-          id: true,
-          email: true,
-          verfied: true,
-          verificationEmail: true,
-          type: true,
-          appleId: true
-        }
+        select: UserSelect
       })
     if (user) {
       return cb(null, user)
@@ -130,14 +109,7 @@ passport.use(
         where: {
           id: payload.id
         },
-        select: {
-          id: true,
-          email: true,
-          verfied: true,
-          verificationEmail: true,
-          type: true,
-          appleId: true
-        }
+        select: UserSelect
       })
 
     if (user) {

@@ -4,7 +4,10 @@
   },
   "Profile": {
     "Title": "Profile",
-    "SignIn": "SignIn"
+    "Friends": "Friends",
+    "Posts": "Posts",
+    "Likes": "Likes",
+    "FirstPost": "Create your first post"
   },
   "Settings": {
     "Title": "App Settings",
@@ -58,5 +61,10 @@
   },
   "Header": {
     "Done": "Done"
+  },
+  "Username": {
+    "Username": "Uername",
+    "Continue": "Continue",
+    "UsernameUsed": "Username is used! please enter another username"
   }
 }

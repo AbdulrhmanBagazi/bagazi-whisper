@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { PrismaClient, Prisma } from '@prisma/client'
 import { SignToken, HashPassword, SendEmail } from '../index.utils'
+import { UserSelect } from '../config'
 
 const prisma = new PrismaClient()
 
@@ -15,13 +16,7 @@ const SignUp = async (req: Request, res: Response) => {
         password: hash,
         verificationEmail: now
       },
-      select: {
-        id: true,
-        email: true,
-        verfied: true,
-        type: true,
-        verificationEmail: true
-      }
+      select: UserSelect
     })
 
     const AccessToken = await SignToken(User, 'access_token')

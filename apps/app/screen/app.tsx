@@ -19,6 +19,8 @@ import LoadingScreen from './loading/loading'
 import { useI18nHook } from '../hook/i18n'
 import { useSnckHook } from '../hook/snack'
 import { useAuthHook } from '../hook/auth'
+import FriendsScreen from './friends/friends'
+import UsernameScreen from './username/username'
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
@@ -30,6 +32,7 @@ export default function App() {
   const I18nStore = useI18nHook((state) => state.I18nStore)
   const AuthLoading = useAuthHook((state) => state.AuthLoading)
   const auth = useAuthHook((state) => state.auth)
+  const username = useAuthHook((state) => state.username)
   const HideSnack = useSnckHook((state) => state.HideSnack)
   const show = useSnckHook((state) => state.show)
   const text = useSnckHook((state) => state.text)
@@ -44,7 +47,9 @@ export default function App() {
       } catch (e) {
         setAppIsReady(true)
       } finally {
-        setAppIsReady(true)
+        setTimeout(() => {
+          setAppIsReady(true)
+        }, 1000)
       }
     }
 
@@ -85,6 +90,14 @@ export default function App() {
                     component={LoadingScreen}
                     options={{ headerShown: false }}
                   />
+                ) : auth && username === null ? (
+                  <RootStack.Screen
+                    name="Username"
+                    component={UsernameScreen}
+                    options={{
+                      headerShown: false
+                    }}
+                  />
                 ) : auth ? (
                   <>
                     <RootStack.Screen
@@ -101,14 +114,23 @@ export default function App() {
                         gestureEnabled: !AuthLoading
                       }}
                     />
+                    <RootStack.Screen
+                      name="Friends"
+                      component={FriendsScreen}
+                      options={{
+                        headerShown: false,
+                        gestureDirection: 'vertical',
+                        gestureEnabled: !AuthLoading
+                      }}
+                    />
                   </>
                 ) : (
                   <RootStack.Screen
                     name="Auth"
                     component={AuthStack}
                     options={{
-                      headerShown: false,
-                      gestureDirection: 'vertical'
+                      headerShown: false
+                      // gestureDirection: 'vertical'
                     }}
                   />
                 )}

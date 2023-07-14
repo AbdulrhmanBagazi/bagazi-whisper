@@ -15,144 +15,165 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  DateTime: { input: any; output: any; }
-  JSON: { input: any; output: any; }
 };
+
+export type Add_Username_Result = NotAllowedError | UnknownError | Username;
 
 export type Mutation = {
   __typename?: 'Mutation';
-  Create_UserProfile?: Maybe<Profile>;
-  Update_UserProfile?: Maybe<Profile>;
+  Add_Friend?: Maybe<Scalars['Boolean']['output']>;
+  Add_Username?: Maybe<Add_Username_Result>;
+  Remove_Friend?: Maybe<Scalars['Boolean']['output']>;
 };
 
 
-export type MutationCreate_UserProfileArgs = {
-  age: Scalars['String']['input'];
-  gender: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+export type MutationAdd_FriendArgs = {
+  FreindId: Scalars['String']['input'];
 };
 
 
-export type MutationUpdate_UserProfileArgs = {
-  age: Scalars['String']['input'];
-  gender: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+export type MutationAdd_UsernameArgs = {
+  username: Scalars['String']['input'];
 };
 
-export type Profile = {
-  __typename?: 'Profile';
-  age?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  gender?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  userId?: Maybe<Scalars['String']['output']>;
+
+export type MutationRemove_FriendArgs = {
+  userIdA: Scalars['String']['input'];
+  userIdB: Scalars['String']['input'];
+};
+
+export type NotAllowedError = {
+  __typename?: 'NotAllowedError';
+  error: Scalars['String']['output'];
+};
+
+export type Post = {
+  __typename?: 'Post';
+  _count?: Maybe<PostCount>;
+  body: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+};
+
+export type PostCount = {
+  __typename?: 'PostCount';
+  likes?: Maybe<Scalars['Int']['output']>;
+};
+
+export type PostMeta = {
+  __typename?: 'PostMeta';
+  count: Scalars['Int']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
+  Get_Post: Array<Post>;
+  Get_Post_Meta?: Maybe<PostMeta>;
   test?: Maybe<Scalars['String']['output']>;
 };
 
-export type Create_UserProfileMutationVariables = Exact<{
-  name: Scalars['String']['input'];
-  age: Scalars['String']['input'];
-  gender: Scalars['String']['input'];
+export type UnknownError = {
+  __typename?: 'UnknownError';
+  error: Scalars['String']['output'];
+};
+
+export type Username = {
+  __typename?: 'Username';
+  username: Scalars['String']['output'];
+};
+
+export type PostQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PostQuery = { __typename?: 'Query', Get_Post: Array<{ __typename?: 'Post', id: string, body: string, _count?: { __typename?: 'PostCount', likes?: number | null } | null }>, Get_Post_Meta?: { __typename?: 'PostMeta', count: number } | null };
+
+export type Add_UsernameMutationVariables = Exact<{
+  username: Scalars['String']['input'];
 }>;
 
 
-export type Create_UserProfileMutation = { __typename?: 'Mutation', Create_UserProfile?: { __typename?: 'Profile', id?: string | null, createdAt?: any | null, updatedAt?: any | null, userId?: string | null, name?: string | null, age?: string | null, gender?: string | null } | null };
-
-export type Update_UserProfileMutationVariables = Exact<{
-  name: Scalars['String']['input'];
-  age: Scalars['String']['input'];
-  gender: Scalars['String']['input'];
-}>;
+export type Add_UsernameMutation = { __typename?: 'Mutation', Add_Username?: { __typename: 'NotAllowedError', error: string } | { __typename: 'UnknownError', error: string } | { __typename: 'Username', username: string } | null };
 
 
-export type Update_UserProfileMutation = { __typename?: 'Mutation', Create_UserProfile?: { __typename?: 'Profile', id?: string | null, createdAt?: any | null, updatedAt?: any | null, userId?: string | null, name?: string | null, age?: string | null, gender?: string | null } | null };
-
-
-export const Create_UserProfileDocument = gql`
-    mutation Create_UserProfile($name: String!, $age: String!, $gender: String!) {
-  Create_UserProfile(name: $name, age: $age, gender: $gender) {
+export const PostDocument = gql`
+    query Post {
+  Get_Post {
     id
-    createdAt
-    updatedAt
-    userId
-    name
-    age
-    gender
+    body
+    _count {
+      likes
+    }
+  }
+  Get_Post_Meta {
+    count
   }
 }
     `;
-export type Create_UserProfileMutationFn = Apollo.MutationFunction<Create_UserProfileMutation, Create_UserProfileMutationVariables>;
 
 /**
- * __useCreate_UserProfileMutation__
+ * __usePostQuery__
  *
- * To run a mutation, you first call `useCreate_UserProfileMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreate_UserProfileMutation` returns a tuple that includes:
+ * To run a query within a React component, call `usePostQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePostQuery(baseOptions?: Apollo.QueryHookOptions<PostQuery, PostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+      }
+export function usePostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostQuery, PostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+        }
+export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
+export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
+export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
+export const Add_UsernameDocument = gql`
+    mutation Add_Username($username: String!) {
+  Add_Username(username: $username) {
+    __typename
+    ... on Username {
+      username
+    }
+    ... on NotAllowedError {
+      error
+    }
+    ... on UnknownError {
+      error
+    }
+  }
+}
+    `;
+export type Add_UsernameMutationFn = Apollo.MutationFunction<Add_UsernameMutation, Add_UsernameMutationVariables>;
+
+/**
+ * __useAdd_UsernameMutation__
+ *
+ * To run a mutation, you first call `useAdd_UsernameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAdd_UsernameMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createUserProfileMutation, { data, loading, error }] = useCreate_UserProfileMutation({
+ * const [addUsernameMutation, { data, loading, error }] = useAdd_UsernameMutation({
  *   variables: {
- *      name: // value for 'name'
- *      age: // value for 'age'
- *      gender: // value for 'gender'
+ *      username: // value for 'username'
  *   },
  * });
  */
-export function useCreate_UserProfileMutation(baseOptions?: Apollo.MutationHookOptions<Create_UserProfileMutation, Create_UserProfileMutationVariables>) {
+export function useAdd_UsernameMutation(baseOptions?: Apollo.MutationHookOptions<Add_UsernameMutation, Add_UsernameMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Create_UserProfileMutation, Create_UserProfileMutationVariables>(Create_UserProfileDocument, options);
+        return Apollo.useMutation<Add_UsernameMutation, Add_UsernameMutationVariables>(Add_UsernameDocument, options);
       }
-export type Create_UserProfileMutationHookResult = ReturnType<typeof useCreate_UserProfileMutation>;
-export type Create_UserProfileMutationResult = Apollo.MutationResult<Create_UserProfileMutation>;
-export type Create_UserProfileMutationOptions = Apollo.BaseMutationOptions<Create_UserProfileMutation, Create_UserProfileMutationVariables>;
-export const Update_UserProfileDocument = gql`
-    mutation Update_UserProfile($name: String!, $age: String!, $gender: String!) {
-  Create_UserProfile(name: $name, age: $age, gender: $gender) {
-    id
-    createdAt
-    updatedAt
-    userId
-    name
-    age
-    gender
-  }
-}
-    `;
-export type Update_UserProfileMutationFn = Apollo.MutationFunction<Update_UserProfileMutation, Update_UserProfileMutationVariables>;
-
-/**
- * __useUpdate_UserProfileMutation__
- *
- * To run a mutation, you first call `useUpdate_UserProfileMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdate_UserProfileMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateUserProfileMutation, { data, loading, error }] = useUpdate_UserProfileMutation({
- *   variables: {
- *      name: // value for 'name'
- *      age: // value for 'age'
- *      gender: // value for 'gender'
- *   },
- * });
- */
-export function useUpdate_UserProfileMutation(baseOptions?: Apollo.MutationHookOptions<Update_UserProfileMutation, Update_UserProfileMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Update_UserProfileMutation, Update_UserProfileMutationVariables>(Update_UserProfileDocument, options);
-      }
-export type Update_UserProfileMutationHookResult = ReturnType<typeof useUpdate_UserProfileMutation>;
-export type Update_UserProfileMutationResult = Apollo.MutationResult<Update_UserProfileMutation>;
-export type Update_UserProfileMutationOptions = Apollo.BaseMutationOptions<Update_UserProfileMutation, Update_UserProfileMutationVariables>;
+export type Add_UsernameMutationHookResult = ReturnType<typeof useAdd_UsernameMutation>;
+export type Add_UsernameMutationResult = Apollo.MutationResult<Add_UsernameMutation>;
+export type Add_UsernameMutationOptions = Apollo.BaseMutationOptions<Add_UsernameMutation, Add_UsernameMutationVariables>;

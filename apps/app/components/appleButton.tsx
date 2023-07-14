@@ -1,9 +1,9 @@
 import * as AppleAuthentication from 'expo-apple-authentication'
 import { useAuthHook } from '../hook/auth'
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { windowWidth } from '../config/config'
 import { useSnckHook } from '../hook/snack'
 import { useI18nHook } from '../hook/i18n'
+import { Button } from 'react-native-paper'
 
 const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
   text,
@@ -15,10 +15,11 @@ const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
   const I18n = useI18nHook((state) => state.I18n)
 
   return (
-    <MaterialCommunityIcons.Button
-      name="apple"
-      backgroundColor={dark ? '#FFFFFF' : '#000'}
-      color={dark ? 'black' : 'white'}
+    <Button
+      mode="elevated"
+      icon="apple"
+      buttonColor={dark ? '#FFFFFF' : '#000'}
+      textColor={dark ? 'black' : 'white'}
       style={{
         width: windowWidth / 2,
         justifyContent: 'center'
@@ -63,7 +64,7 @@ const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
       disabled={loading}
     >
       {text}
-    </MaterialCommunityIcons.Button>
+    </Button>
   )
 }
 

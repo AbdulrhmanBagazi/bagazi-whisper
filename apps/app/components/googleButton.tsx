@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react'
-import {
-  androidClientId,
-  iosClientId,
-  webClientId,
-  windowWidth
-} from '../config/config'
+import { androidClientId, iosClientId, webClientId } from '../config/config'
 import * as Google from 'expo-auth-session/providers/google'
 import { useAuthHook } from '../hook/auth'
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useSnckHook } from '../hook/snack'
 import { useI18nHook } from '../hook/i18n'
+import { Button } from 'react-native-paper'
 
 const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   text,
@@ -48,21 +43,18 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   }, [response])
 
   return (
-    <MaterialCommunityIcons.Button
-      name="google"
-      backgroundColor={dark ? '#FFFFFF' : '#4285F4'}
-      color={dark ? 'black' : 'white'}
+    <Button
+      mode="elevated"
+      buttonColor={dark ? '#4285F4' : '#FFFFFF'}
+      textColor={dark ? 'white' : '#4285F4'}
+      icon="google"
       onPress={() => {
         promptAsync()
       }}
       disabled={loading}
-      style={{
-        width: windowWidth / 2,
-        justifyContent: 'center'
-      }}
     >
       {text}
-    </MaterialCommunityIcons.Button>
+    </Button>
   )
 }
 
