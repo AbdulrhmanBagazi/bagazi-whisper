@@ -2,7 +2,7 @@ import { Prisma, PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 import appleSigninAuth from 'apple-signin-auth'
 import crypto from 'crypto'
-import { SendEmail, SignToken } from '../../../index.utils'
+import { SignToken } from '../../../index.utils'
 import { UserSelect } from '../../../config'
 
 const prisma = new PrismaClient()
@@ -10,7 +10,6 @@ const prisma = new PrismaClient()
 const AppleSignIn = async (req: Request, res: Response) => {
   try {
     const data = req.body
-    const now = new Date()
     const appleIdTokenClaims = await appleSigninAuth.verifyIdToken(
       data.identityToken,
       {
@@ -30,9 +29,15 @@ const AppleSignIn = async (req: Request, res: Response) => {
     })
 
     if (user) {
-      if (user.type === 'APPLE' && user.accountId === appleIdTokenClaims?.sub) {
-        const AccessToken = await SignToken(user, 'access_token')
-        const RefreshToken = await SignToken(user, 'refresh_token')
+      if (user.apple && user.appleaccountId === appleIdTokenClaims?.sub) {
+        const AccessToken = await SignToken(
+          { id: user.id, email: user.email },
+          'access_token'
+        )
+        const RefreshToken = await SignToken(
+          { id: user.id, email: user.email },
+          'refresh_token'
+        )
 
         res.cookie('refresh_token', RefreshToken, {
           httpOnly: true,
@@ -49,9 +54,45 @@ const AppleSignIn = async (req: Request, res: Response) => {
         })
 
         return res.status(200).send({ user: user })
-      }
+      } else {
+        const updateUser = await prisma.user.update({
+          where: {
+            id: user.id
+          },
+          data: {
+            verfied: appleIdTokenClaims?.email_verified === 'true',
+            apple: true,
+            appleaccountId: appleIdTokenClaims?.sub,
+            appleId: data.appleId
+          },
+          select: UserSelect
+        })
 
-      return res.status(400).send('Google_Account')
+        const AccessToken = await SignToken(
+          { id: updateUser.id, email: updateUser.email },
+          'access_token'
+        )
+        const RefreshToken = await SignToken(
+          { id: updateUser.id, email: updateUser.email },
+          'refresh_token'
+        )
+
+        res.cookie('refresh_token', RefreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+          signed: true
+        })
+
+        res.cookie('access_token', AccessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+          signed: true
+        })
+
+        return res.status(200).send({ user: updateUser })
+      }
     }
 
     if (!user && appleIdTokenClaims?.email) {
@@ -59,16 +100,21 @@ const AppleSignIn = async (req: Request, res: Response) => {
         data: {
           email: appleIdTokenClaims?.email.toLowerCase(),
           verfied: appleIdTokenClaims?.email_verified === 'true',
-          verificationEmail: now,
-          type: 'APPLE',
-          accountId: appleIdTokenClaims?.sub,
+          apple: true,
+          appleaccountId: appleIdTokenClaims?.sub,
           appleId: data.appleId
         },
         select: UserSelect
       })
 
-      const AccessToken = await SignToken(newUser, 'access_token')
-      const RefreshToken = await SignToken(newUser, 'refresh_token')
+      const AccessToken = await SignToken(
+        { id: newUser.id, email: newUser.email },
+        'access_token'
+      )
+      const RefreshToken = await SignToken(
+        { id: newUser.id, email: newUser.email },
+        'refresh_token'
+      )
 
       res.cookie('refresh_token', RefreshToken, {
         httpOnly: true,

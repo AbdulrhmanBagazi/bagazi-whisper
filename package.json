@@ -1,5 +1,5 @@
 {
-  "name": "next-express-prisma-turborepo",
+  "name": "turborepo",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -17,17 +17,17 @@
     "type-check": "turbo type-check"
   },
   "dependencies": {
-    "@manypkg/cli": "^0.15.0",
-    "@typescript-eslint/eslint-plugin": "^5.57.0",
-    "@typescript-eslint/parser": "^5.57.0",
-    "eslint": "8.37.0",
+    "@manypkg/cli": "^0.21.0",
+    "@types/react": "~18.2.15",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "8.45.0",
     "lint-staged": ">=13.2.0",
-    "prettier": "^2.8.7",
-    "prettier-plugin-tailwindcss": "^0.2.6",
-    "tailwindcss": "2.2.2",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "tailwindcss": "3.3.3",
     "turbo": "^1.8.8",
-    "typescript": "^5.0.3",
-    "@types/react": "~18.0.27"
+    "typescript": "^5.0.3"
   },
   "eslintConfig": {
     "root": true

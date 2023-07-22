@@ -41,38 +41,20 @@
     ],
     "extra": {
       "supportsRTL": true,
-      "oneSignalAppId": "7bcd247a-1208-4225-93c4-5716ee213644",
+      "oneSignalAppId": "65eb2508-a403-4157-b52f-528a39caf8e4",
       "eas": {
-        "build": {
-          "experimental": {
-            "ios": {
-              "appExtensions": [
-                {
-                  "targetName": "OneSignalNotificationServiceExtension",
-                  "bundleIdentifier": "com.baqazi.whisper.OneSignalNotificationServiceExtension",
-                  "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.com.baqazi.whisper.onesignal"
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        },
         "projectId": "f7e30c6c-f300-4899-9f2b-49eb84bf0831"
       }
     },
     "build": {
+      "development": {
+        "developmentClient": true,
+        "distribution": "internal"
+      },
       "preview": {
-        "distribution": "internal",
-        "android": {
-          "buildType": "apk"
-        },
-        "ios": {
-          "simulator": true
-        }
-      }
+        "distribution": "internal"
+      },
+      "production": {}
     }
   }
 }

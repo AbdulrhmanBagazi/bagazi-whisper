@@ -1,13 +1,13 @@
 import { Alert, Platform, StyleSheet, View } from 'react-native'
-import { RootStackScreenProps } from '../../types/types'
 import { useAuthHook } from '../../hook/auth'
 import { useThemeHook } from '../../hook/theme'
 import { useI18nHook } from '../../hook/i18n'
-import { Text, Switch, Divider, RadioButton, Button } from 'react-native-paper'
+import { Text, Switch, Divider, RadioButton } from 'react-native-paper'
 import Header from '../../components/header'
 import { useSnckHook } from '../../hook/snack'
-import { ScrollView } from 'react-native-gesture-handler'
 import MyButton from '../../components/myButton'
+import { ScrollView } from 'react-native-gesture-handler'
+import { useNotificationnHook } from '../../hook/notification'
 
 export default function SettingsScreen() {
   const ToggleTheme = useThemeHook((state) => state.ToggleTheme)
@@ -19,6 +19,13 @@ export default function SettingsScreen() {
   const I18n = useI18nHook((state) => state.I18n)
   const Language = useI18nHook((state) => state.Language)
   const ShowSnack = useSnckHook((state) => state.ShowSnack)
+  const Notification = useNotificationnHook((state) => state.Notification)
+  const ToggleNotification = useNotificationnHook(
+    (state) => state.ToggleNotification
+  )
+  const notificationLoading = useNotificationnHook(
+    (state) => state.notificationLoading
+  )
 
   const HandleSignOut = async () => {
     const Response = await SignOut()
@@ -33,30 +40,32 @@ export default function SettingsScreen() {
   }
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Header />
       <ScrollView alwaysBounceVertical={false}>
-        <View style={{ flex: 1, padding: 5 }}>
+        <View style={{ marginHorizontal: 10 }}>
           <Text variant="bodyLarge">{I18n.Settings.Theme}</Text>
           <View style={styles.items}>
             <Text variant="labelLarge">{I18n.Settings.DarkMode}</Text>
             <Switch value={Dark} onValueChange={ToggleTheme} />
           </View>
-          <Divider style={styles.Divider} />
+        </View>
+        <Divider style={styles.Divider} />
+        {/*  */}
+        <View style={{ marginHorizontal: 10 }}>
           <Text variant="bodyLarge">{I18n.Settings.Notification}</Text>
           <View style={styles.items}>
             <Text variant="labelLarge">{I18n.Settings.AllowNotification}</Text>
             <Switch
-            // value={
-            //   Notification?.hasNotificationPermission
-            //     ? !Notification.isPushDisabled
-            //     : false
-            // }
-            // onValueChange={ToggleNotification}
-            // disabled={notificationLoading}
+              value={Notification}
+              onValueChange={ToggleNotification}
+              disabled={notificationLoading}
             />
           </View>
-          <Divider style={styles.Divider} />
+        </View>
+        <Divider style={styles.Divider} />
+        {/*  */}
+        <View style={{ marginHorizontal: 10 }}>
           <Text variant="bodyLarge">{I18n.Settings.Language}</Text>
           <View>
             <RadioButton.Item
@@ -85,6 +94,7 @@ export default function SettingsScreen() {
               }
             />
           </View>
+
           <View>
             <RadioButton.Item
               value={I18n.Settings.English}
@@ -112,31 +122,28 @@ export default function SettingsScreen() {
               }
             />
           </View>
-          <Divider style={styles.Divider} />
-          <View style={styles.signou}>
-            <MyButton
-              icon="logout"
-              onPress={() =>
-                Alert.alert(
-                  I18n.Settings.SignOut,
-                  I18n.Alert['Alert.SignOut'],
-                  [
-                    {
-                      text: I18n.Alert.No,
-                      style: 'cancel'
-                    },
-                    {
-                      text: I18n.Alert.Yes,
-                      onPress: () => HandleSignOut()
-                    }
-                  ]
-                )
-              }
-              disabled={loading || !auth}
-            >
-              {I18n.Settings.SignOut}
-            </MyButton>
-          </View>
+        </View>
+
+        <Divider style={styles.Divider} />
+        <View style={styles.signou}>
+          <MyButton
+            icon="logout"
+            onPress={() =>
+              Alert.alert(I18n.Settings.SignOut, I18n.Alert['Alert.SignOut'], [
+                {
+                  text: I18n.Alert.No,
+                  style: 'cancel'
+                },
+                {
+                  text: I18n.Alert.Yes,
+                  onPress: () => HandleSignOut()
+                }
+              ])
+            }
+            disabled={loading || !auth}
+          >
+            {I18n.Settings.SignOut}
+          </MyButton>
         </View>
       </ScrollView>
     </View>
@@ -147,8 +154,7 @@ const styles = StyleSheet.create({
   items: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 5
+    alignItems: 'flex-end'
   },
   signou: {
     padding: 5,

@@ -8,7 +8,7 @@ type ThemeType = {
 }
 
 export const useThemeHook = create<ThemeType>((set) => ({
-  Dark: false,
+  Dark: true,
   ToggleTheme: async (dark) => {
     await SecureStore.setItemAsync('AppTheme-Whisper', dark ? 'dark' : 'light')
     set((state) => ({
@@ -18,7 +18,7 @@ export const useThemeHook = create<ThemeType>((set) => ({
   ThemeStore: async () => {
     const DarkStore = await SecureStore.getItemAsync('AppTheme-Whisper')
     set(() => ({
-      Dark: DarkStore === 'dark' ? true : false
+      Dark: DarkStore === 'light' ? false : true
     }))
   }
 }))

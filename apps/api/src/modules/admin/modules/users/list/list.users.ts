@@ -35,8 +35,10 @@ export const list_Users_TypeDefs = gql`
     email: String!
     verfied: Boolean!
     suspended: Boolean!
-    createdAt: DateTime
-    type: String!
+    createdAt: DateTime!
+    username: String!
+    google: Boolean!
+    apple:Boolean!
   }
 
   scalar DateTime

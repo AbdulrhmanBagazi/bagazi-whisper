@@ -21,6 +21,8 @@ import { useSnckHook } from '../hook/snack'
 import { useAuthHook } from '../hook/auth'
 import FriendsScreen from './friends/friends'
 import UsernameScreen from './username/username'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import PostScreen from './post/post'
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
@@ -67,85 +69,102 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView
-      style={{
-        flexGrow: 1,
-        backgroundColor: Dark
-          ? CombinedDarkTheme.colors.background
-          : CombinedDefaultTheme.colors.background
-      }}
-    >
-      <ThemeProvider value={Dark ? CombinedDarkTheme : CombinedDefaultTheme}>
-        <PaperProvider theme={Dark ? CombinedDarkTheme : CombinedDefaultTheme}>
-          <ApolloProvider client={Client}>
-            <StatusBar style={Dark ? 'light' : 'dark'} animated />
-            <NavigationContainer
-              theme={Dark ? CombinedDarkTheme : CombinedDefaultTheme}
-              onReady={onLayoutRootView}
-            >
-              <RootStack.Navigator>
-                {AuthLoading ? (
-                  <RootStack.Screen
-                    name="Loading"
-                    component={LoadingScreen}
-                    options={{ headerShown: false }}
-                  />
-                ) : auth && username === null ? (
-                  <RootStack.Screen
-                    name="Username"
-                    component={UsernameScreen}
-                    options={{
-                      headerShown: false
-                    }}
-                  />
-                ) : auth ? (
-                  <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView
+        style={{
+          flexGrow: 1,
+          backgroundColor: Dark
+            ? CombinedDarkTheme.colors.background
+            : CombinedDefaultTheme.colors.background
+        }}
+      >
+        <ThemeProvider value={Dark ? CombinedDarkTheme : CombinedDefaultTheme}>
+          <PaperProvider
+            theme={Dark ? CombinedDarkTheme : CombinedDefaultTheme}
+          >
+            <ApolloProvider client={Client}>
+              <StatusBar style={Dark ? 'light' : 'dark'} animated />
+              <NavigationContainer
+                theme={Dark ? CombinedDarkTheme : CombinedDefaultTheme}
+                onReady={onLayoutRootView}
+              >
+                <RootStack.Navigator>
+                  {AuthLoading ? (
                     <RootStack.Screen
-                      name="Tabs"
-                      component={TabsStack}
-                      options={{ headerShown: false, animation: 'fade' }}
+                      name="Loading"
+                      component={LoadingScreen}
+                      options={{ headerShown: false }}
                     />
+                  ) : auth && username === null ? (
                     <RootStack.Screen
-                      name="Settings"
-                      component={SettingsScreen}
+                      name="Username"
+                      component={UsernameScreen}
                       options={{
-                        headerShown: false,
-                        gestureDirection: 'vertical',
-                        gestureEnabled: !AuthLoading
+                        headerShown: false
                       }}
                     />
+                  ) : auth ? (
+                    <>
+                      <RootStack.Screen
+                        name="Tabs"
+                        component={TabsStack}
+                        options={{ headerShown: false, animation: 'fade' }}
+                      />
+                      <RootStack.Screen
+                        name="Settings"
+                        component={SettingsScreen}
+                        options={{
+                          headerShown: false,
+                          gestureDirection: 'vertical',
+                          gestureEnabled: !AuthLoading
+                        }}
+                      />
+                      <RootStack.Screen
+                        name="Friends"
+                        component={FriendsScreen}
+                        options={{
+                          headerShown: false,
+                          gestureDirection: 'vertical',
+                          gestureEnabled: !AuthLoading
+                        }}
+                      />
+                      <RootStack.Screen
+                        name="Post"
+                        component={PostScreen}
+                        options={{
+                          headerShown: false,
+                          gestureDirection: 'vertical',
+                          gestureEnabled: !AuthLoading
+                        }}
+                      />
+                    </>
+                  ) : (
                     <RootStack.Screen
-                      name="Friends"
-                      component={FriendsScreen}
+                      name="Auth"
+                      component={AuthStack}
                       options={{
-                        headerShown: false,
-                        gestureDirection: 'vertical',
-                        gestureEnabled: !AuthLoading
+                        headerShown: false
+                        // gestureDirection: 'vertical'
                       }}
                     />
-                  </>
-                ) : (
-                  <RootStack.Screen
-                    name="Auth"
-                    component={AuthStack}
-                    options={{
-                      headerShown: false
-                      // gestureDirection: 'vertical'
-                    }}
-                  />
-                )}
-              </RootStack.Navigator>
-            </NavigationContainer>
-            <Snackbar
-              visible={show}
-              onDismiss={() => HideSnack()}
-              duration={2500}
-            >
-              {text}
-            </Snackbar>
-          </ApolloProvider>
-        </PaperProvider>
-      </ThemeProvider>
-    </SafeAreaView>
+                  )}
+                </RootStack.Navigator>
+              </NavigationContainer>
+              <Snackbar
+                visible={show}
+                onDismiss={() => HideSnack()}
+                duration={1500}
+                style={{ marginHorizontal: 20 }}
+                wrapperStyle={{
+                  top: 20
+                }}
+              >
+                {text}
+              </Snackbar>
+            </ApolloProvider>
+          </PaperProvider>
+        </ThemeProvider>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   )
 }

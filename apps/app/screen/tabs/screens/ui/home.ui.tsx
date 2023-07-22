@@ -1,4 +1,4 @@
-import { Text, useTheme } from 'react-native-paper'
+import { Appbar, Text, useTheme } from 'react-native-paper'
 import { FlashList } from '@shopify/flash-list'
 import { View } from 'react-native'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
@@ -23,12 +23,6 @@ const HomeUI = () => {
             size={100}
             color={theme.colors.surfaceDisabled}
           />
-          <Text
-            variant="labelLarge"
-            style={{ color: theme.colors.surfaceDisabled }}
-          >
-            No posts
-          </Text>
         </View>
       )}
       renderItem={({ item }) => <Text>{item}</Text>}

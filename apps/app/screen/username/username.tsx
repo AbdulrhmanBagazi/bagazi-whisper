@@ -16,7 +16,7 @@ import { useAuthHook } from '../../hook/auth'
 
 export default function UsernameScreen() {
   const I18n = useI18nHook((state) => state.I18n)
-  const Direction = useI18nHook((state) => state.Direction)
+  // const Direction = useI18nHook((state) => state.Direction)
   const theme = useTheme()
   const ShowSnack = useSnckHook((state) => state.ShowSnack)
   const AddUsername = useAuthHook((state) => state.AddUsername)
@@ -34,8 +34,8 @@ export default function UsernameScreen() {
   const Validation = yup.object().shape({
     username: yup
       .string()
-      .matches(/^[0-9]{2}$/, 'Must be exactly 2 digits')
-      .required('Required!')
+      .matches(/^[A-Za-z0-9_]{4,15}$/, I18n.Username.UsernameCheck)
+      .required(I18n.Username.Required)
   })
 
   const HandleLogin = async (values: { username: string }) => {
@@ -44,7 +44,6 @@ export default function UsernameScreen() {
         username: values.username
       }
     })
-    console.log(data?.Add_Username)
 
     if (data?.Add_Username?.__typename === 'NotAllowedError') {
       return ShowSnack(I18n.Username.UsernameUsed)
@@ -79,12 +78,13 @@ export default function UsernameScreen() {
           isValid
         }) => (
           <View
-            style={{ flex: 1, justifyContent: 'center', marginHorizontal: 50 }}
+            style={{ flex: 1, justifyContent: 'center', marginHorizontal: 25 }}
           >
-            <View style={{ flex: 1, justifyContent: 'center' }}>
+            <View style={{ flex: 2 }}>
               <TextInput
                 style={{
-                  textAlign: Direction === 'rtl' ? 'right' : 'left'
+                  textAlign: 'left',
+                  direction: 'ltr'
                 }}
                 label={I18n.Username.Username}
                 value={values.username}
@@ -98,7 +98,9 @@ export default function UsernameScreen() {
                 disabled={loading || AuthLoading}
                 left={<TextInput.Affix text="@" />}
               />
-              <HelperText type="error">{errors.username}</HelperText>
+              <HelperText type="error" style={{ marginVertical: 10 }}>
+                {errors.username}
+              </HelperText>
             </View>
 
             <View style={{ marginVertical: 30 }}>

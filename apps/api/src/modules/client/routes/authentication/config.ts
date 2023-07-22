@@ -5,10 +5,11 @@ export const UserSelect: Prisma.UserSelect = {
   email: true,
   verfied: true,
   suspended: true,
-  type: true,
-  accountId: true,
+  google: true,
+  googleaccountId: true,
+  apple: true,
+  appleaccountId: true,
   appleId: true,
-  verificationEmail: true,
   username: true,
   _count: {
     select: {
@@ -21,14 +22,14 @@ export const UserSelect: Prisma.UserSelect = {
 
 export const UserSelectAuth: Prisma.UserSelect = {
   id: true,
-  password: true,
   email: true,
   verfied: true,
   suspended: true,
-  type: true,
-  accountId: true,
+  google: true,
+  googleaccountId: true,
+  apple: true,
+  appleaccountId: true,
   appleId: true,
-  verificationEmail: true,
   username: true,
   _count: {
     select: {

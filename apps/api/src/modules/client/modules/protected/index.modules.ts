@@ -8,7 +8,8 @@ export const ClientResolvers = {
   },
   Mutation: {
     ...Friend.Mutation,
-    ...Username.Mutation
+    ...Username.Mutation,
+    ...Post.Mutation
   }
   // ...Posts.Resolver,
 }

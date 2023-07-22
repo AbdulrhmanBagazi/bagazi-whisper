@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 4000
 const AdminURL =
   process.env.NODE_ENV === 'production'
     ? (process.env.ADMIN_URL as string)
-    : 'http://192.168.100.11:5173'
+    : 'http://localhost:5173'
 const ClientURL =
   process.env.NODE_ENV === 'production'
     ? (process.env.CLIENT_URL as string)

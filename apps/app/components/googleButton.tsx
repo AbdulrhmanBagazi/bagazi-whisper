@@ -5,6 +5,7 @@ import { useAuthHook } from '../hook/auth'
 import { useSnckHook } from '../hook/snack'
 import { useI18nHook } from '../hook/i18n'
 import { Button } from 'react-native-paper'
+import { Image, View } from 'react-native'
 
 const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   text,
@@ -29,9 +30,7 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
             idToken: response.authentication.idToken
           })
           //check if the user used the email address as Apple account
-          if (Response === 'Apple_Account') {
-            return ShowSnack(I18n.Errors.Apple_Account)
-          }
+
           if (Response === 'error') {
             return ShowSnack(I18n.Errors.Unknown)
           }
@@ -43,18 +42,29 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   }, [response])
 
   return (
-    <Button
-      mode="elevated"
-      buttonColor={dark ? '#4285F4' : '#FFFFFF'}
-      textColor={dark ? 'white' : '#4285F4'}
-      icon="google"
-      onPress={() => {
-        promptAsync()
-      }}
-      disabled={loading}
-    >
-      {text}
-    </Button>
+    <View>
+      <Button
+        mode="elevated"
+        buttonColor={'#FFFFFF'}
+        textColor={'#000'}
+        // icon="google"
+        icon={({ size }) => (
+          <Image
+            source={require('../assets/images/google-logo.png')}
+            style={{
+              width: size,
+              height: size
+            }}
+          />
+        )}
+        onPress={() => {
+          promptAsync()
+        }}
+        disabled={loading}
+      >
+        {text}
+      </Button>
+    </View>
   )
 }
 

@@ -4,10 +4,13 @@ import ProfileScreen from './screens/profile'
 import { TabsStackParamList } from '../../types/types'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { FAB } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 
 const Tab = createBottomTabNavigator<TabsStackParamList>()
 
 export default function TabsStack() {
+  const Navigation = useNavigation()
+
   return (
     <>
       <Tab.Navigator
@@ -59,8 +62,8 @@ export default function TabsStack() {
           bottom: 25
         }}
         size="small"
-        onPress={() => console.log('Pressed')}
-      />
+        onPress={() => Navigation.navigate('Post')}
+        />
     </>
   )
 }

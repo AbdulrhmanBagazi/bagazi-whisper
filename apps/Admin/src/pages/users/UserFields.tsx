@@ -1,17 +1,21 @@
 import { FieldsObject } from '../../layout/Fileds'
 
 const UserFields: FieldsObject = [
-  // {
-  //   source: 'id',
-  //   field: 'TextField'
-  // },
   {
     source: 'email',
     field: 'EmailField'
   },
   {
-    source: 'type',
-    field: 'ChipField'
+    source: 'username',
+    field: 'TextField'
+  },
+  {
+    source: 'google',
+    field: 'BooleanField'
+  },
+  {
+    source: 'apple',
+    field: 'BooleanField'
   },
   {
     source: 'verfied',
@@ -24,7 +28,8 @@ const UserFields: FieldsObject = [
   {
     source: 'createdAt',
     field: 'DateField'
-  }
+  },
+  
 ]
 
 export default UserFields

@@ -1,12 +1,15 @@
-export const UserSelect = {
+import { Prisma } from '@prisma/client'
+
+export const UserSelect: Prisma.UserSelect = {
   id: true,
   email: true,
   verfied: true,
   suspended: true,
-  type: true,
-  // accountId: true,
-  // appleId: true,
-  // verificationEmail: true,
-  // friends: true,
-  username: true
+  username: true,
+  createdAt: true,
+  google: true,
+  googleaccountId: true,
+  apple: true,
+  appleaccountId: true,
+  appleId: true
 }

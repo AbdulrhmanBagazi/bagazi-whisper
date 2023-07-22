@@ -50,6 +50,7 @@ export type RootStackParamList = {
   Settings: undefined
   Friends: undefined
   Username: undefined
+  Post: undefined
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>

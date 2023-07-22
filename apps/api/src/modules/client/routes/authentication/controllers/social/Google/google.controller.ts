@@ -1,7 +1,7 @@
 import { Prisma, PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 import { OAuth2Client } from 'google-auth-library'
-import { SendEmail, SignToken } from '../../../index.utils'
+import { SignToken } from '../../../index.utils'
 import { UserSelect } from '../../../config'
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 const prisma = new PrismaClient()
@@ -14,7 +14,6 @@ const GoogleSignIn = async (req: Request, res: Response) => {
       audience: process.env.CLIENT_ID
     })
     const GoogleUser = ticket.getPayload()
-    const now = new Date()
 
     const user = await prisma.user.findFirst({
       where: {
@@ -26,10 +25,15 @@ const GoogleSignIn = async (req: Request, res: Response) => {
     })
 
     if (user) {
-      if (user.type === 'GOOGLE' && user.accountId === GoogleUser?.sub) {
-        const AccessToken = await SignToken(user, 'access_token')
-        const RefreshToken = await SignToken(user, 'refresh_token')
-
+      if (user.google && user.googleaccountId === GoogleUser?.sub) {
+        const AccessToken = await SignToken(
+          { id: user.id, email: user.email },
+          'access_token'
+        )
+        const RefreshToken = await SignToken(
+          { id: user.id, email: user.email },
+          'refresh_token'
+        )
         res.cookie('refresh_token', RefreshToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
@@ -47,9 +51,45 @@ const GoogleSignIn = async (req: Request, res: Response) => {
         return res.status(200).send({
           user: user
         })
-      }
+      } else {
+        const updateUser = await prisma.user.update({
+          where: {
+            id: user.id
+          },
+          data: {
+            verfied: GoogleUser?.email_verified,
+            google: true,
+            googleaccountId: GoogleUser?.sub
+          },
+          select: UserSelect
+        })
 
-      return res.status(400).send('Apple_Account')
+        const AccessToken = await SignToken(
+          { id: updateUser.id, email: updateUser.email },
+          'access_token'
+        )
+        const RefreshToken = await SignToken(
+          { id: updateUser.id, email: updateUser.email },
+          'refresh_token'
+        )
+        res.cookie('refresh_token', RefreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+          signed: true
+        })
+
+        res.cookie('access_token', AccessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+          signed: true
+        })
+
+        return res.status(200).send({
+          user: updateUser
+        })
+      }
     }
 
     if (!user && GoogleUser?.email) {
@@ -57,16 +97,20 @@ const GoogleSignIn = async (req: Request, res: Response) => {
         data: {
           email: GoogleUser?.email.toLowerCase(),
           verfied: GoogleUser?.email_verified,
-          verificationEmail: now,
-          type: 'GOOGLE',
-          accountId: GoogleUser?.sub
+          google: true,
+          googleaccountId: GoogleUser?.sub
         },
         select: UserSelect
       })
 
-      const AccessToken = await SignToken(newUser, 'access_token')
-      const RefreshToken = await SignToken(newUser, 'refresh_token')
-
+      const AccessToken = await SignToken(
+        { id: newUser.id, email: newUser.email },
+        'access_token'
+      )
+      const RefreshToken = await SignToken(
+        { id: newUser.id, email: newUser.email },
+        'refresh_token'
+      )
       res.cookie('refresh_token', RefreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',

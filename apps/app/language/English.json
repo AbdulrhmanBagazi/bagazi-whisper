@@ -65,6 +65,18 @@
   "Username": {
     "Username": "Uername",
     "Continue": "Continue",
-    "UsernameUsed": "Username is used! please enter another username"
+    "UsernameUsed": "Username is used! please enter another username",
+    "UsernameCheck": "Username can only contain alphanumeric characters (letters A-Z, numbers 0-9 and _ ). minimum characters 4 maximum 15.",
+    "Required": "Required!"
+  },
+  "Post": {
+    "Button": "Post",
+    "Placeholder": "Write your whispers",
+    "Spaceerror": "multiple spaces between words not allowed",
+    "min": "",
+    "max": "must be at most 280 characters",
+    "Created": "A new post created",
+    "Required": "Required!",
+    "End": "End"
   }
 }

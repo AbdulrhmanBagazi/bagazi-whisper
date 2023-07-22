@@ -11,31 +11,32 @@ datasource db {
 }
 
 model User {
-    id                String      @id @default(uuid()) @db.Uuid
-    email             String      @unique
-    verfied           Boolean     @default(false)
-    suspended         Boolean     @default(false)
-    type              AccountType @default(EMAIL)
-    createdAt         DateTime    @default(now())
-    accountId         String?
-    appleId           String?
-    updatedAt         DateTime    @updatedAt
-    password          String?
+    id                String    @id @default(uuid()) @db.Uuid
+    email             String    @unique
+    verfied           Boolean   @default(false)
+    suspended         Boolean   @default(false)
+    createdAt         DateTime  @default(now())
+    updatedAt         DateTime  @updatedAt
     verificationEmail DateTime?
+    // password          String?
+    // type              AccountType @default(EMAIL)
+    // accountId         String?
+    // appleId           String?
+    //google
+    google            Boolean   @default(false)
+    googleaccountId   String?
+    //apple
+    apple             Boolean   @default(false)
+    appleaccountId    String?
+    appleId           String?
     //
-    friends           User[]      @relation("UserFriends")
-    symmetricFriends  User[]      @relation("UserFriends")
+    friends           User[]    @relation("UserFriends")
+    symmetricFriends  User[]    @relation("UserFriends")
     //
-    username          String?     @unique
+    username          String?   @unique
     //
-    posts             Post[]      @relation("author")
+    posts             Post[]    @relation("author")
     likes             Post[]
-}
-
-enum AccountType {
-    EMAIL
-    GOOGLE
-    APPLE
 }
 
 model Post {
@@ -58,8 +59,8 @@ model Comment {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     //
-    Post      Post?    @relation(fields: [postId], references: [id])
-    postId    String?
+    Post      Post     @relation(fields: [postId], references: [id])
+    postId    String   @db.Uuid
 }
 
 ///

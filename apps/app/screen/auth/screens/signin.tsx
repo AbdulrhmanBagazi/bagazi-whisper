@@ -20,7 +20,13 @@ export default function SignInScreen() {
           style={{ marginVertical: 10, backgroundColor: 'transparent' }}
         />
       </View>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          padding: 50
+        }}
+      >
         <MGoogleButton text={I18n.SignIn.Google} dark={Dark} />
         <Divider
           style={{ marginVertical: 10, backgroundColor: 'transparent' }}

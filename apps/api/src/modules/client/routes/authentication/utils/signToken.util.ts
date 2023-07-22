@@ -9,7 +9,7 @@ import {
 
 type Token_Type = 'access_token' | 'refresh_token' | 'email_token';
 
-const SignToken = async (data: { id: string; email: string }, type: Token_Type): Promise<string> => {
+const SignToken = async (data: { id: string | undefined; email: string | undefined }, type: Token_Type): Promise<string> => {
   const Token = await Jwt.sign(
     data,
     { key: JWT_PrivateKey, passphrase: ClientPassPhrase },
