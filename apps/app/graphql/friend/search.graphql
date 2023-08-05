@@ -1,0 +1,14 @@
+mutation Seach_Friend($Keyword: String!) {
+  Seach_Friend(Keyword: $Keyword) {
+    __typename
+    ... on Seach_Users {
+      Seach_Users {
+        id
+        username
+      }
+    }
+    ... on UnknownError {
+      error
+    }
+  }
+}

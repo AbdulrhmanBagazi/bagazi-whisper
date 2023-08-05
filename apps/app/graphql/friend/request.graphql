@@ -1,0 +1,20 @@
+mutation Send_Friend_Request($FriendId: String!) {
+  Send_Friend_Request(FriendId: $FriendId) {
+    __typename
+    ... on Request_Status {
+      Status
+    }
+    ... on UnknownError {
+      error
+    }
+  }
+}
+
+query Friend_Request {
+  Get_Friend_Request {
+    id
+    sender {
+      username
+    }
+  }
+}

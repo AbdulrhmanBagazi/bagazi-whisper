@@ -10,7 +10,7 @@ const MyButton: React.FC<ButtonProps> = ({ ...props }) => {
         {...props}
         buttonColor={theme.colors.primary}
         textColor={theme.colors.onPrimary}
-        mode="elevated"
+        mode="contained"
       >
         {props.children}
       </Button>

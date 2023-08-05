@@ -19,10 +19,10 @@ import LoadingScreen from './loading/loading'
 import { useI18nHook } from '../hook/i18n'
 import { useSnckHook } from '../hook/snack'
 import { useAuthHook } from '../hook/auth'
-import FriendsScreen from './friends/friends'
 import UsernameScreen from './username/username'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import PostScreen from './post/post'
+import FriendsStack from './friends/stack'
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
@@ -121,7 +121,7 @@ export default function App() {
                       />
                       <RootStack.Screen
                         name="Friends"
-                        component={FriendsScreen}
+                        component={FriendsStack}
                         options={{
                           headerShown: false,
                           gestureDirection: 'vertical',
@@ -156,7 +156,7 @@ export default function App() {
                 duration={1500}
                 style={{ marginHorizontal: 20 }}
                 wrapperStyle={{
-                  top: 20
+                  bottom: 20
                 }}
               >
                 {text}

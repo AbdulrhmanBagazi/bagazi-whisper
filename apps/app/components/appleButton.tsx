@@ -16,58 +16,56 @@ const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
   const I18n = useI18nHook((state) => state.I18n)
 
   return (
-    <View>
-      <Button
-        mode="elevated"
-        icon="apple"
-        buttonColor={dark ? '#FFFFFF' : '#000'}
-        textColor={dark ? 'black' : 'white'}
-        style={{
-          // width: windowWidth / 2,
-          justifyContent: 'center'
-        }}
-        onPress={async () => {
-          try {
-            const credential = await AppleAuthentication.signInAsync({
-              requestedScopes: [
-                AppleAuthentication.AppleAuthenticationScope.EMAIL
-              ]
-            })
+    <Button
+      mode="contained"
+      icon="apple"
+      buttonColor={dark ? '#FFFFFF' : '#000'}
+      textColor={dark ? 'black' : 'white'}
+      style={{
+        // width: windowWidth / 2,
+        justifyContent: 'center'
+      }}
+      onPress={async () => {
+        try {
+          const credential = await AppleAuthentication.signInAsync({
+            requestedScopes: [
+              AppleAuthentication.AppleAuthenticationScope.EMAIL
+            ]
+          })
 
-            const {
-              user: newUser,
-              email,
-              // nonce,
-              identityToken,
-              realUserStatus,
-              user
-            } = credential
+          const {
+            user: newUser,
+            email,
+            // nonce,
+            identityToken,
+            realUserStatus,
+            user
+          } = credential
 
-            const Response = await AppleSignIn({
-              user: newUser,
-              email,
-              appleId: user,
-              identityToken,
-              realUserStatus /* etc */
-            })
-            if (Response === 'error') {
-              return ShowSnack(I18n.Errors.Unknown)
-            }
-
-            // signed in
-          } catch (e: any) {
-            if (e.code === 'ERR_REQUEST_CANCELED') {
-              // handle that the user canceled the sign-in flow
-            } else {
-              // handle other errors
-            }
+          const Response = await AppleSignIn({
+            user: newUser,
+            email,
+            appleId: user,
+            identityToken,
+            realUserStatus /* etc */
+          })
+          if (Response === 'error') {
+            return ShowSnack(I18n.Errors.Unknown)
           }
-        }}
-        disabled={loading}
-      >
-        {text}
-      </Button>
-    </View>
+
+          // signed in
+        } catch (e: any) {
+          if (e.code === 'ERR_REQUEST_CANCELED') {
+            // handle that the user canceled the sign-in flow
+          } else {
+            // handle other errors
+          }
+        }
+      }}
+      disabled={loading}
+    >
+      {text}
+    </Button>
   )
 }
 

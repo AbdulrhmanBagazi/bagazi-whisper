@@ -71,12 +71,27 @@
   },
   "Post": {
     "Button": "Post",
-    "Placeholder": "Write your whispers",
+    "Placeholder": "......",
     "Spaceerror": "multiple spaces between words not allowed",
+    "StartSpaceError": "",
     "min": "",
     "max": "must be at most 280 characters",
     "Created": "A new post created",
     "Required": "Required!",
     "End": "End"
+  },
+  "Sreach": {
+    "Placeholder": "Sreach",
+    "Request_Sent": "A friend request has been sent",
+    "NoResults": "No results found"
+  },
+  "Tag": {
+    "You": "You",
+    "Friend": "Friend"
+  },
+  "Friends": {
+    "Friends": "Friends",
+    "FriendsRequests": "Friend Requests",
+    "NoFriendsRequests": "No Friend Requests"
   }
 }

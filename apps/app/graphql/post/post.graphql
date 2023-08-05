@@ -5,6 +5,7 @@ query Post {
     authorId
     _count {
       likes
+      comments
     }
   }
   Get_Post_Meta {
@@ -19,6 +20,7 @@ query Get_More_Post($cursor: String!) {
     authorId
     _count {
       likes
+      comments
     }
   }
 }
@@ -32,6 +34,7 @@ mutation Create_Post($body: String!) {
       authorId
       _count {
         likes
+        comments
       }
     }
     ... on UnknownError {

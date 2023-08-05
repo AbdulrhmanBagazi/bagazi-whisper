@@ -70,12 +70,27 @@
   },
   "Post": {
     "Button": "نشر",
-    "Placeholder": "اكتب همساتك",
+    "Placeholder": "......",
     "Spaceerror": "لايمكن إضافة آكثر من مسافة واحدة بين الكلمات!",
+    "StartSpaceError": "لايمكن إضافة مسافة في البداية",
     "min": "",
     "max": "يجب ألا يزيد عدد الأحرف عن 280 حرفًا",
     "Created": "تم إنشاء منشورة جديدة",
     "Required": "مطلوب!",
     "End": "النهاية"
+  },
+  "Sreach": {
+    "Placeholder": "بحث",
+    "Request_Sent": "تم إرسال طلب صداقة",
+    "NoResults": "لم يتم العثور على نتائج"
+  },
+  "Tag": {
+    "You": "أنت",
+    "Friend": "صديق"
+  },
+  "Friends": {
+    "Friends": "الآصدقاء",
+    "FriendsRequests": "طلبات الصداقة",
+    "NoFriendsRequests": "لا يوجد لديك طلبات صداقة"
   }
 }

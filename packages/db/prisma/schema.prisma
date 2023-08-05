@@ -18,14 +18,8 @@ model User {
     createdAt         DateTime  @default(now())
     updatedAt         DateTime  @updatedAt
     verificationEmail DateTime?
-    // password          String?
-    // type              AccountType @default(EMAIL)
-    // accountId         String?
-    // appleId           String?
-    //google
     google            Boolean   @default(false)
     googleaccountId   String?
-    //apple
     apple             Boolean   @default(false)
     appleaccountId    String?
     appleId           String?
@@ -37,6 +31,9 @@ model User {
     //
     posts             Post[]    @relation("author")
     likes             Post[]
+    //
+    friendRequest     Request[] @relation("reciver")
+    requestSent       Request[] @relation("sender")
 }
 
 model Post {
@@ -69,4 +66,22 @@ model Admin {
     email    String @unique
     name     String
     password String
+}
+
+model Request {
+    id        String         @id @default(uuid()) @db.Uuid
+    status    Request_Status @default(PENDING)
+    //
+    sender    User?          @relation("sender", fields: [senderId], references: [id])
+    senderId  String?        @db.Uuid
+    //
+    reciver   User?          @relation("reciver", fields: [reciverId], references: [id])
+    reciverId String?        @db.Uuid
+}
+
+enum Request_Status {
+    PENDING
+    CANCELED
+    DECLINED
+    ACCEPTED
 }

@@ -21,10 +21,14 @@ const ProfileUI = () => {
           <Chip
             icon="account-plus"
             mode="outlined"
-            onPress={() => Navigation.navigate('Friends')}
+            onPress={() =>
+              Navigation.navigate('Friends', {
+                screen: 'Friend'
+              })
+            }
             style={{ borderWidth: 0 }}
           >
-            {I18n.Profile.Friends}: {user?._count.friends}
+            {I18n.Profile.Friends}: {user?.friends.length}
           </Chip>
         </View>
         <View style={{ flexDirection: 'row' }}>

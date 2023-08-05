@@ -11,10 +11,10 @@ export const UserSelect: Prisma.UserSelect = {
   appleaccountId: true,
   appleId: true,
   username: true,
+  friends: true,
   _count: {
     select: {
       likes: true,
-      friends: true,
       posts: true
     }
   }
@@ -31,10 +31,10 @@ export const UserSelectAuth: Prisma.UserSelect = {
   appleaccountId: true,
   appleId: true,
   username: true,
+  friends: true,
   _count: {
     select: {
       likes: true,
-      friends: true,
       posts: true
     }
   }

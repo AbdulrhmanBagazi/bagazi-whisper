@@ -4,7 +4,8 @@ import { Username } from './username/index.modules'
 
 export const ClientResolvers = {
   Query: {
-    ...Post.Query
+    ...Post.Query,
+    ...Friend.Query
   },
   Mutation: {
     ...Friend.Mutation,

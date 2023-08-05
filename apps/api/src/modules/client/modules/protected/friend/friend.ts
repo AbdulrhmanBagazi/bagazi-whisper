@@ -22,7 +22,7 @@ export const Friend_Mutation = {
     context: MyContext
   ) => {
     try {
-      const updateUser = await context.prisma.user.update({
+      await context.prisma.user.update({
         where: { id: context.req.user.id },
         data: { friends: { connect: [{ id: args.FreindId }] } }
       })
@@ -32,7 +32,7 @@ export const Friend_Mutation = {
         data: { friends: { connect: [{ id: context.req.user.id }] } }
       })
 
-      return updateUser
+      return true
     } catch (e) {
       return false
     }

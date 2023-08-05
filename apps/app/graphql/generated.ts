@@ -1,184 +1,326 @@
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
-export type Maybe<T> = T | null
-export type InputMaybe<T> = Maybe<T>
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K]
-}
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>
-}
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>
-}
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T
-> = { [_ in K]?: never }
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
-    }
-const defaultOptions = {} as const
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string }
-  String: { input: string; output: string }
-  Boolean: { input: boolean; output: boolean }
-  Int: { input: number; output: number }
-  Float: { input: number; output: number }
-}
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+};
 
-export type Add_Username_Result = NotAllowedError | UnknownError | Username
+export type Add_Username_Result = NotAllowedError | UnknownError | Username;
 
-export type Create_Post_Result = Post | UnknownError
+export type Create_Post_Result = Post | UnknownError;
 
 export type Mutation = {
-  __typename?: 'Mutation'
-  Add_Friend?: Maybe<Scalars['Boolean']['output']>
-  Add_Username?: Maybe<Add_Username_Result>
-  Create_Post?: Maybe<Create_Post_Result>
-  Remove_Friend?: Maybe<Scalars['Boolean']['output']>
-}
+  __typename?: 'Mutation';
+  Add_Friend?: Maybe<Scalars['Boolean']['output']>;
+  Add_Username?: Maybe<Add_Username_Result>;
+  Create_Post?: Maybe<Create_Post_Result>;
+  Remove_Friend?: Maybe<Scalars['Boolean']['output']>;
+  Seach_Friend?: Maybe<Seach_Friend_Result>;
+  Send_Friend_Request?: Maybe<Send_Friend_Request_Result>;
+};
+
 
 export type MutationAdd_FriendArgs = {
-  FreindId: Scalars['String']['input']
-}
+  FreindId: Scalars['String']['input'];
+};
+
 
 export type MutationAdd_UsernameArgs = {
-  username: Scalars['String']['input']
-}
+  username: Scalars['String']['input'];
+};
+
 
 export type MutationCreate_PostArgs = {
-  body: Scalars['String']['input']
-}
+  body: Scalars['String']['input'];
+};
+
 
 export type MutationRemove_FriendArgs = {
-  userIdA: Scalars['String']['input']
-  userIdB: Scalars['String']['input']
-}
+  userIdA: Scalars['String']['input'];
+  userIdB: Scalars['String']['input'];
+};
+
+
+export type MutationSeach_FriendArgs = {
+  Keyword: Scalars['String']['input'];
+};
+
+
+export type MutationSend_Friend_RequestArgs = {
+  FriendId: Scalars['String']['input'];
+};
 
 export type NotAllowedError = {
-  __typename?: 'NotAllowedError'
-  error: Scalars['String']['output']
-}
+  __typename?: 'NotAllowedError';
+  error: Scalars['String']['output'];
+};
 
 export type Post = {
-  __typename?: 'Post'
-  _count: PostCount
-  authorId: Scalars['String']['output']
-  body: Scalars['String']['output']
-  id: Scalars['String']['output']
-}
+  __typename?: 'Post';
+  _count: PostCount;
+  authorId: Scalars['String']['output'];
+  body: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+};
 
 export type PostCount = {
-  __typename?: 'PostCount'
-  likes: Scalars['Int']['output']
-}
+  __typename?: 'PostCount';
+  comments: Scalars['Int']['output'];
+  likes: Scalars['Int']['output'];
+};
 
 export type PostMeta = {
-  __typename?: 'PostMeta'
-  count: Scalars['Int']['output']
-}
+  __typename?: 'PostMeta';
+  count: Scalars['Int']['output'];
+};
 
 export type Query = {
-  __typename?: 'Query'
-  Get_More_Post: Array<Post>
-  Get_Post: Array<Post>
-  Get_Post_Meta: PostMeta
-  test?: Maybe<Scalars['String']['output']>
-}
+  __typename?: 'Query';
+  Get_Friend_Request: Array<Requests>;
+  Get_More_Post: Array<Post>;
+  Get_Post: Array<Post>;
+  Get_Post_Meta: PostMeta;
+  test?: Maybe<Scalars['String']['output']>;
+};
+
 
 export type QueryGet_More_PostArgs = {
-  cursor: Scalars['String']['input']
-}
+  cursor: Scalars['String']['input'];
+};
+
+export type Request_Status = {
+  __typename?: 'Request_Status';
+  Status?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type Requests = {
+  __typename?: 'Requests';
+  id: Scalars['String']['output'];
+  sender: Sender;
+};
+
+export type Seach_Friend_Result = Seach_Users | UnknownError;
+
+export type Seach_Users = {
+  __typename?: 'Seach_Users';
+  Seach_Users: Array<Users>;
+};
+
+export type Send_Friend_Request_Result = Request_Status | UnknownError;
+
+export type Sender = {
+  __typename?: 'Sender';
+  username: Scalars['String']['output'];
+};
 
 export type UnknownError = {
-  __typename?: 'UnknownError'
-  error: Scalars['String']['output']
-}
+  __typename?: 'UnknownError';
+  error: Scalars['String']['output'];
+};
 
 export type Username = {
-  __typename?: 'Username'
-  username: Scalars['String']['output']
-}
+  __typename?: 'Username';
+  username: Scalars['String']['output'];
+};
 
-export type PostQueryVariables = Exact<{ [key: string]: never }>
+export type Users = {
+  __typename?: 'Users';
+  id: Scalars['String']['output'];
+  username: Scalars['String']['output'];
+};
 
-export type PostQuery = {
-  __typename?: 'Query'
-  Get_Post: Array<{
-    __typename?: 'Post'
-    id: string
-    body: string
-    authorId: string
-    _count: { __typename?: 'PostCount'; likes: number }
-  }>
-  Get_Post_Meta: { __typename?: 'PostMeta'; count: number }
-}
+export type Send_Friend_RequestMutationVariables = Exact<{
+  FriendId: Scalars['String']['input'];
+}>;
+
+
+export type Send_Friend_RequestMutation = { __typename?: 'Mutation', Send_Friend_Request?: { __typename: 'Request_Status', Status?: boolean | null } | { __typename: 'UnknownError', error: string } | null };
+
+export type Friend_RequestQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Friend_RequestQuery = { __typename?: 'Query', Get_Friend_Request: Array<{ __typename?: 'Requests', id: string, sender: { __typename?: 'Sender', username: string } }> };
+
+export type Seach_FriendMutationVariables = Exact<{
+  Keyword: Scalars['String']['input'];
+}>;
+
+
+export type Seach_FriendMutation = { __typename?: 'Mutation', Seach_Friend?: { __typename: 'Seach_Users', Seach_Users: Array<{ __typename?: 'Users', id: string, username: string }> } | { __typename: 'UnknownError', error: string } | null };
+
+export type PostQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PostQuery = { __typename?: 'Query', Get_Post: Array<{ __typename?: 'Post', id: string, body: string, authorId: string, _count: { __typename?: 'PostCount', likes: number, comments: number } }>, Get_Post_Meta: { __typename?: 'PostMeta', count: number } };
 
 export type Get_More_PostQueryVariables = Exact<{
-  cursor: Scalars['String']['input']
-}>
+  cursor: Scalars['String']['input'];
+}>;
 
-export type Get_More_PostQuery = {
-  __typename?: 'Query'
-  Get_More_Post: Array<{
-    __typename?: 'Post'
-    id: string
-    body: string
-    authorId: string
-    _count: { __typename?: 'PostCount'; likes: number }
-  }>
-}
+
+export type Get_More_PostQuery = { __typename?: 'Query', Get_More_Post: Array<{ __typename?: 'Post', id: string, body: string, authorId: string, _count: { __typename?: 'PostCount', likes: number, comments: number } }> };
 
 export type Create_PostMutationVariables = Exact<{
-  body: Scalars['String']['input']
-}>
+  body: Scalars['String']['input'];
+}>;
 
-export type Create_PostMutation = {
-  __typename?: 'Mutation'
-  Create_Post?:
-    | {
-        __typename: 'Post'
-        id: string
-        body: string
-        authorId: string
-        _count: { __typename?: 'PostCount'; likes: number }
-      }
-    | { __typename: 'UnknownError'; error: string }
-    | null
-}
+
+export type Create_PostMutation = { __typename?: 'Mutation', Create_Post?: { __typename: 'Post', id: string, body: string, authorId: string, _count: { __typename?: 'PostCount', likes: number, comments: number } } | { __typename: 'UnknownError', error: string } | null };
 
 export type Add_UsernameMutationVariables = Exact<{
-  username: Scalars['String']['input']
-}>
+  username: Scalars['String']['input'];
+}>;
 
-export type Add_UsernameMutation = {
-  __typename?: 'Mutation'
-  Add_Username?:
-    | { __typename: 'NotAllowedError'; error: string }
-    | { __typename: 'UnknownError'; error: string }
-    | { __typename: 'Username'; username: string }
-    | null
-}
 
-export const PostDocument = gql`
-  query Post {
-    Get_Post {
-      id
-      body
-      authorId
-      _count {
-        likes
-      }
+export type Add_UsernameMutation = { __typename?: 'Mutation', Add_Username?: { __typename: 'NotAllowedError', error: string } | { __typename: 'UnknownError', error: string } | { __typename: 'Username', username: string } | null };
+
+
+export const Send_Friend_RequestDocument = gql`
+    mutation Send_Friend_Request($FriendId: String!) {
+  Send_Friend_Request(FriendId: $FriendId) {
+    __typename
+    ... on Request_Status {
+      Status
     }
-    Get_Post_Meta {
-      count
+    ... on UnknownError {
+      error
     }
   }
-`
+}
+    `;
+export type Send_Friend_RequestMutationFn = Apollo.MutationFunction<Send_Friend_RequestMutation, Send_Friend_RequestMutationVariables>;
+
+/**
+ * __useSend_Friend_RequestMutation__
+ *
+ * To run a mutation, you first call `useSend_Friend_RequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSend_Friend_RequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendFriendRequestMutation, { data, loading, error }] = useSend_Friend_RequestMutation({
+ *   variables: {
+ *      FriendId: // value for 'FriendId'
+ *   },
+ * });
+ */
+export function useSend_Friend_RequestMutation(baseOptions?: Apollo.MutationHookOptions<Send_Friend_RequestMutation, Send_Friend_RequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Send_Friend_RequestMutation, Send_Friend_RequestMutationVariables>(Send_Friend_RequestDocument, options);
+      }
+export type Send_Friend_RequestMutationHookResult = ReturnType<typeof useSend_Friend_RequestMutation>;
+export type Send_Friend_RequestMutationResult = Apollo.MutationResult<Send_Friend_RequestMutation>;
+export type Send_Friend_RequestMutationOptions = Apollo.BaseMutationOptions<Send_Friend_RequestMutation, Send_Friend_RequestMutationVariables>;
+export const Friend_RequestDocument = gql`
+    query Friend_Request {
+  Get_Friend_Request {
+    id
+    sender {
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useFriend_RequestQuery__
+ *
+ * To run a query within a React component, call `useFriend_RequestQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFriend_RequestQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFriend_RequestQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFriend_RequestQuery(baseOptions?: Apollo.QueryHookOptions<Friend_RequestQuery, Friend_RequestQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Friend_RequestQuery, Friend_RequestQueryVariables>(Friend_RequestDocument, options);
+      }
+export function useFriend_RequestLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Friend_RequestQuery, Friend_RequestQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Friend_RequestQuery, Friend_RequestQueryVariables>(Friend_RequestDocument, options);
+        }
+export type Friend_RequestQueryHookResult = ReturnType<typeof useFriend_RequestQuery>;
+export type Friend_RequestLazyQueryHookResult = ReturnType<typeof useFriend_RequestLazyQuery>;
+export type Friend_RequestQueryResult = Apollo.QueryResult<Friend_RequestQuery, Friend_RequestQueryVariables>;
+export const Seach_FriendDocument = gql`
+    mutation Seach_Friend($Keyword: String!) {
+  Seach_Friend(Keyword: $Keyword) {
+    __typename
+    ... on Seach_Users {
+      Seach_Users {
+        id
+        username
+      }
+    }
+    ... on UnknownError {
+      error
+    }
+  }
+}
+    `;
+export type Seach_FriendMutationFn = Apollo.MutationFunction<Seach_FriendMutation, Seach_FriendMutationVariables>;
+
+/**
+ * __useSeach_FriendMutation__
+ *
+ * To run a mutation, you first call `useSeach_FriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSeach_FriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [seachFriendMutation, { data, loading, error }] = useSeach_FriendMutation({
+ *   variables: {
+ *      Keyword: // value for 'Keyword'
+ *   },
+ * });
+ */
+export function useSeach_FriendMutation(baseOptions?: Apollo.MutationHookOptions<Seach_FriendMutation, Seach_FriendMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Seach_FriendMutation, Seach_FriendMutationVariables>(Seach_FriendDocument, options);
+      }
+export type Seach_FriendMutationHookResult = ReturnType<typeof useSeach_FriendMutation>;
+export type Seach_FriendMutationResult = Apollo.MutationResult<Seach_FriendMutation>;
+export type Seach_FriendMutationOptions = Apollo.BaseMutationOptions<Seach_FriendMutation, Seach_FriendMutationVariables>;
+export const PostDocument = gql`
+    query Post {
+  Get_Post {
+    id
+    body
+    authorId
+    _count {
+      likes
+      comments
+    }
+  }
+  Get_Post_Meta {
+    count
+  }
+}
+    `;
 
 /**
  * __usePostQuery__
@@ -195,36 +337,30 @@ export const PostDocument = gql`
  *   },
  * });
  */
-export function usePostQuery(
-  baseOptions?: Apollo.QueryHookOptions<PostQuery, PostQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<PostQuery, PostQueryVariables>(PostDocument, options)
-}
-export function usePostLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<PostQuery, PostQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<PostQuery, PostQueryVariables>(
-    PostDocument,
-    options
-  )
-}
-export type PostQueryHookResult = ReturnType<typeof usePostQuery>
-export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>
-export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>
-export const Get_More_PostDocument = gql`
-  query Get_More_Post($cursor: String!) {
-    Get_More_Post(cursor: $cursor) {
-      id
-      body
-      authorId
-      _count {
-        likes
+export function usePostQuery(baseOptions?: Apollo.QueryHookOptions<PostQuery, PostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostQuery, PostQueryVariables>(PostDocument, options);
       }
+export function usePostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostQuery, PostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+        }
+export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
+export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
+export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
+export const Get_More_PostDocument = gql`
+    query Get_More_Post($cursor: String!) {
+  Get_More_Post(cursor: $cursor) {
+    id
+    body
+    authorId
+    _count {
+      likes
+      comments
     }
   }
-`
+}
+    `;
 
 /**
  * __useGet_More_PostQuery__
@@ -242,62 +378,37 @@ export const Get_More_PostDocument = gql`
  *   },
  * });
  */
-export function useGet_More_PostQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    Get_More_PostQuery,
-    Get_More_PostQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<Get_More_PostQuery, Get_More_PostQueryVariables>(
-    Get_More_PostDocument,
-    options
-  )
-}
-export function useGet_More_PostLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    Get_More_PostQuery,
-    Get_More_PostQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<Get_More_PostQuery, Get_More_PostQueryVariables>(
-    Get_More_PostDocument,
-    options
-  )
-}
-export type Get_More_PostQueryHookResult = ReturnType<
-  typeof useGet_More_PostQuery
->
-export type Get_More_PostLazyQueryHookResult = ReturnType<
-  typeof useGet_More_PostLazyQuery
->
-export type Get_More_PostQueryResult = Apollo.QueryResult<
-  Get_More_PostQuery,
-  Get_More_PostQueryVariables
->
-export const Create_PostDocument = gql`
-  mutation Create_Post($body: String!) {
-    Create_Post(body: $body) {
-      __typename
-      ... on Post {
-        id
-        body
-        authorId
-        _count {
-          likes
-        }
+export function useGet_More_PostQuery(baseOptions: Apollo.QueryHookOptions<Get_More_PostQuery, Get_More_PostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Get_More_PostQuery, Get_More_PostQueryVariables>(Get_More_PostDocument, options);
       }
-      ... on UnknownError {
-        error
+export function useGet_More_PostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Get_More_PostQuery, Get_More_PostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Get_More_PostQuery, Get_More_PostQueryVariables>(Get_More_PostDocument, options);
+        }
+export type Get_More_PostQueryHookResult = ReturnType<typeof useGet_More_PostQuery>;
+export type Get_More_PostLazyQueryHookResult = ReturnType<typeof useGet_More_PostLazyQuery>;
+export type Get_More_PostQueryResult = Apollo.QueryResult<Get_More_PostQuery, Get_More_PostQueryVariables>;
+export const Create_PostDocument = gql`
+    mutation Create_Post($body: String!) {
+  Create_Post(body: $body) {
+    __typename
+    ... on Post {
+      id
+      body
+      authorId
+      _count {
+        likes
+        comments
       }
     }
+    ... on UnknownError {
+      error
+    }
   }
-`
-export type Create_PostMutationFn = Apollo.MutationFunction<
-  Create_PostMutation,
-  Create_PostMutationVariables
->
+}
+    `;
+export type Create_PostMutationFn = Apollo.MutationFunction<Create_PostMutation, Create_PostMutationVariables>;
 
 /**
  * __useCreate_PostMutation__
@@ -316,47 +427,30 @@ export type Create_PostMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreate_PostMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    Create_PostMutation,
-    Create_PostMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<Create_PostMutation, Create_PostMutationVariables>(
-    Create_PostDocument,
-    options
-  )
-}
-export type Create_PostMutationHookResult = ReturnType<
-  typeof useCreate_PostMutation
->
-export type Create_PostMutationResult =
-  Apollo.MutationResult<Create_PostMutation>
-export type Create_PostMutationOptions = Apollo.BaseMutationOptions<
-  Create_PostMutation,
-  Create_PostMutationVariables
->
+export function useCreate_PostMutation(baseOptions?: Apollo.MutationHookOptions<Create_PostMutation, Create_PostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Create_PostMutation, Create_PostMutationVariables>(Create_PostDocument, options);
+      }
+export type Create_PostMutationHookResult = ReturnType<typeof useCreate_PostMutation>;
+export type Create_PostMutationResult = Apollo.MutationResult<Create_PostMutation>;
+export type Create_PostMutationOptions = Apollo.BaseMutationOptions<Create_PostMutation, Create_PostMutationVariables>;
 export const Add_UsernameDocument = gql`
-  mutation Add_Username($username: String!) {
-    Add_Username(username: $username) {
-      __typename
-      ... on Username {
-        username
-      }
-      ... on NotAllowedError {
-        error
-      }
-      ... on UnknownError {
-        error
-      }
+    mutation Add_Username($username: String!) {
+  Add_Username(username: $username) {
+    __typename
+    ... on Username {
+      username
+    }
+    ... on NotAllowedError {
+      error
+    }
+    ... on UnknownError {
+      error
     }
   }
-`
-export type Add_UsernameMutationFn = Apollo.MutationFunction<
-  Add_UsernameMutation,
-  Add_UsernameMutationVariables
->
+}
+    `;
+export type Add_UsernameMutationFn = Apollo.MutationFunction<Add_UsernameMutation, Add_UsernameMutationVariables>;
 
 /**
  * __useAdd_UsernameMutation__
@@ -375,24 +469,10 @@ export type Add_UsernameMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useAdd_UsernameMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    Add_UsernameMutation,
-    Add_UsernameMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    Add_UsernameMutation,
-    Add_UsernameMutationVariables
-  >(Add_UsernameDocument, options)
-}
-export type Add_UsernameMutationHookResult = ReturnType<
-  typeof useAdd_UsernameMutation
->
-export type Add_UsernameMutationResult =
-  Apollo.MutationResult<Add_UsernameMutation>
-export type Add_UsernameMutationOptions = Apollo.BaseMutationOptions<
-  Add_UsernameMutation,
-  Add_UsernameMutationVariables
->
+export function useAdd_UsernameMutation(baseOptions?: Apollo.MutationHookOptions<Add_UsernameMutation, Add_UsernameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Add_UsernameMutation, Add_UsernameMutationVariables>(Add_UsernameDocument, options);
+      }
+export type Add_UsernameMutationHookResult = ReturnType<typeof useAdd_UsernameMutation>;
+export type Add_UsernameMutationResult = Apollo.MutationResult<Add_UsernameMutation>;
+export type Add_UsernameMutationOptions = Apollo.BaseMutationOptions<Add_UsernameMutation, Add_UsernameMutationVariables>;

@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 export const Post_TypeDefs = gql`
   type PostCount {
     likes: Int!
+    comments: Int!
   }
 
   type Post {
@@ -49,11 +50,12 @@ export const Post_Query = {
         authorId: true,
         _count: {
           select: {
-            likes: true
+            likes: true,
+            comments: true
           }
         }
       },
-      take: 5
+      take: 10
     })
 
     return data
@@ -90,11 +92,12 @@ export const Post_Query = {
         authorId: true,
         _count: {
           select: {
-            likes: true
+            likes: true,
+            comments: true
           }
         }
       },
-      take: 5,
+      take: 10,
       skip: 1, // skip cursor
       cursor: {
         id: args.cursor
@@ -125,7 +128,8 @@ export const Post_Mutation = {
           authorId: true,
           _count: {
             select: {
-              likes: true
+              likes: true,
+              comments: true
             }
           }
         }

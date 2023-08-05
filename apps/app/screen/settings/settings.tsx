@@ -41,7 +41,7 @@ export default function SettingsScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header />
+      <Header title={I18n.Settings.Title} />
       <ScrollView alwaysBounceVertical={false}>
         <View style={{ marginHorizontal: 10 }}>
           <Text variant="bodyLarge">{I18n.Settings.Theme}</Text>

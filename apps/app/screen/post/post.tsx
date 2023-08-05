@@ -34,7 +34,7 @@ export default function PostScreen() {
     Create_PostMutation,
     Create_PostMutationVariables
   >(Create_PostDocument, {
-    onError() {
+    onError(error) {
       ShowSnack(I18n.Errors.Unknown)
     }
   })
@@ -43,7 +43,10 @@ export default function PostScreen() {
     body: yup
       .string()
       .max(280, I18n.Post.max)
-      .matches(/^(?!.*[ ]{2,}).*$/, I18n.Post.Spaceerror)
+      .matches(
+        /^[^\s](?!.*[ ]{2,}).*$/,
+        `${I18n.Post.StartSpaceError}. ${I18n.Post.Spaceerror}`
+      )
       .required(I18n.Post.Required)
   })
 
@@ -79,7 +82,7 @@ export default function PostScreen() {
       keyboardShouldPersistTaps="handled"
       bounces={false}
     >
-      <Appbar.Header style={{ justifyContent: 'flex-end' }}>
+      <Appbar.Header style={{ justifyContent: 'flex-start' }}>
         <IconButton
           onPress={() => goBack()}
           icon="close-circle"
@@ -125,6 +128,7 @@ export default function PostScreen() {
                 numberOfLines={4}
                 error={errors.body && touched.body ? true : false}
                 disabled={loading}
+                autoFocus
               />
               <HelperText type="error" style={{ marginVertical: 10 }}>
                 {errors.body}

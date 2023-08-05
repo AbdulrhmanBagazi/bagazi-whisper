@@ -42,29 +42,27 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   }, [response])
 
   return (
-    <View>
-      <Button
-        mode="elevated"
-        buttonColor={'#FFFFFF'}
-        textColor={'#000'}
-        // icon="google"
-        icon={({ size }) => (
-          <Image
-            source={require('../assets/images/google-logo.png')}
-            style={{
-              width: size,
-              height: size
-            }}
-          />
-        )}
-        onPress={() => {
-          promptAsync()
-        }}
-        disabled={loading}
-      >
-        {text}
-      </Button>
-    </View>
+    <Button
+      mode="contained"
+      buttonColor={'#FFFFFF'}
+      textColor={'#000'}
+      // icon="google"
+      icon={({ size }) => (
+        <Image
+          source={require('../assets/images/google-logo.png')}
+          style={{
+            width: size,
+            height: size
+          }}
+        />
+      )}
+      onPress={() => {
+        promptAsync()
+      }}
+      disabled={loading}
+    >
+      {text}
+    </Button>
   )
 }
 

@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, useTheme } from 'react-native-paper'
+import { Text, useTheme } from 'react-native-paper'
 import { RefreshControl, View } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
@@ -17,7 +17,7 @@ const ProfilePost = () => {
   const loadMorePosts = useProfilePostsHook((state) => state.loadMorePosts)
   const posts = useProfilePostsHook((state) => state.posts)
   const count = useProfilePostsHook((state) => state.count)
-  const { loading, error, refetch, data } = usePostQuery({
+  const { loading, error, refetch } = usePostQuery({
     onCompleted(data) {
       return initialposts(data)
     }
@@ -44,23 +44,6 @@ const ProfilePost = () => {
           : LoadMore.refetch({
               cursor: posts[posts.length - 1].id
             })
-      }
-      ListFooterComponent={
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: 10
-          }}
-        >
-          {loading ? null : LoadMore.loading ? (
-            <ActivityIndicator />
-          ) : posts.length === count ? (
-            <Text style={{ color: theme.colors.onSurfaceDisabled }}>
-              {I18n.Post.End}
-            </Text>
-          ) : null}
-        </View>
       }
       refreshControl={
         <RefreshControl
@@ -114,10 +97,10 @@ const ProfilePost = () => {
             </Text>
           </View>
         ) : (
-          <PostCard body={item.body} key={index} />
+          <PostCard data={item} key={index} />
         )
       }
-      estimatedItemSize={200}
+      estimatedItemSize={100}
     />
   )
 }

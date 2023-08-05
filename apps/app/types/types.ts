@@ -6,14 +6,21 @@ import {
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 
+type Friends = {
+  id: string
+  username: string
+}
+
 export type UserTypes = {
+  id: string
   email: string
   verfied: boolean
   type: string
   verificationEmail: string
   appleId?: string
   username: string | null
-  _count: { friends: number; likes: number; posts: number }
+  friends: Array<Friends>
+  _count: { likes: number; posts: number }
 }
 
 export interface user {
@@ -48,7 +55,7 @@ export type RootStackParamList = {
   Auth: NavigatorScreenParams<AuthStackParamList>
   Loading: undefined
   Settings: undefined
-  Friends: undefined
+  Friends: NavigatorScreenParams<FriendsStackParamList>
   Username: undefined
   Post: undefined
 }
@@ -75,6 +82,18 @@ export type AuthStackParamList = {
 export type AuthScreensProps<T extends keyof AuthStackParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<AuthStackParamList, T>,
+    RootStackScreenProps<keyof RootStackParamList>
+  >
+
+//Friends
+export type FriendsStackParamList = {
+  Friend: undefined
+  Search: undefined
+}
+
+export type FriendsScreensProps<T extends keyof FriendsStackParamList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<FriendsStackParamList, T>,
     RootStackScreenProps<keyof RootStackParamList>
   >
 
