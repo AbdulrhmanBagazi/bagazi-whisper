@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 import { fetcher, poster } from '../config/api/auth.api'
-import { AppleArgs, GoogleArgs, SignTypes, UserTypes } from '../types/types'
+import { AppleArgs, GoogleArgs, UserTypes } from '../types/types'
 // import { Profile } from '../graphql/generated'
 import OneSignal from 'react-native-onesignal'
 import * as AppleAuthentication from 'expo-apple-authentication'
-import { Platform } from 'react-native'
+import { MyFriends, Requests } from '../graphql/generated'
 
 type error = 'error'
 type success = 'success'
@@ -13,9 +13,21 @@ type returnType = success | error
 type ApplereturnType = success | error
 type GooglereturnType = success | error
 
+type Friends = {
+  id: string
+  username: string
+}
+
+type user = {
+  user: UserTypes
+}
+
+type data = user | null
+
 type AuthContextType = {
   auth: boolean
   user: UserTypes | null
+  friends: Array<Friends>
   username: string | null
   loading: boolean
   AuthLoading: boolean
@@ -24,11 +36,15 @@ type AuthContextType = {
   AppleSignIn: (arg0: AppleArgs) => Promise<ApplereturnType>
   Authenticate: () => void
   AddUsername: (username: string) => void
+  AddFriend: (data: Requests) => void
+  updateFriendsList: (data: MyFriends) => void
+  RemoveFriend: (id: string) => void
 }
 
 export const useAuthHook = create<AuthContextType>((set) => ({
   auth: false,
   user: null,
+  friends: [],
   username: null,
   loading: false,
   AuthLoading: true,
@@ -67,6 +83,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
         loading: false,
         user: null,
         auth: false,
+        friends: [],
         username: null
       }))
 
@@ -86,7 +103,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     set(() => ({
       loading: true
     }))
-    const [error, data]: any[string] = await poster(
+    const [error, data]: [any, data] = await poster(
       '/authentication/google',
       values
     )
@@ -95,6 +112,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       set(() => ({
         loading: false,
         user: null,
+        friends: [],
         username: null
       }))
       // return [error, data]
@@ -105,6 +123,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       loading: false,
       user: data?.user,
       auth: true,
+      friends: data?.user?.friends,
       username: data?.user.username
     }))
 
@@ -128,6 +147,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       set(() => ({
         loading: false,
         user: null,
+        friends: [],
         username: null
       }))
       // return [error, data]
@@ -138,6 +158,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       loading: false,
       user: data?.user,
       auth: true,
+      friends: data?.user?.friends,
       username: data?.user.username
     }))
 
@@ -156,8 +177,9 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     if (error && !data) {
       set(() => ({
         AuthLoading: false,
-        user: null,
         auth: false,
+        user: null,
+        friends: [],
         username: null
       }))
 
@@ -174,6 +196,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
           AuthLoading: false,
           user: null,
           auth: false,
+          friends: [],
           username: null
         }))
         return
@@ -184,7 +207,31 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       AuthLoading: false,
       user: data?.user,
       auth: true,
+      friends: data?.user?.friends,
       username: data?.user.username
+    }))
+  },
+  AddFriend: async (data) => {
+    set(() => ({
+      friends: [
+        ...useAuthHook.getState().friends,
+        { id: data.id, username: data.sender.username }
+      ]
+    }))
+  },
+  updateFriendsList: async (data) => {
+    set(() => ({
+      friends: [...data.friends]
+    }))
+  },
+  RemoveFriend: async (id) => {
+    const prev = useAuthHook.getState().friends
+    const updated = prev.filter((e) => {
+      return e.id != id
+    })
+
+    set(() => ({
+      friends: updated
     }))
   }
 }))

@@ -9,6 +9,7 @@ import { FlashList } from '@shopify/flash-list'
 
 export default function SeachScreen() {
   const I18n = useI18nHook((state) => state.I18n)
+  const Direction = useI18nHook((state) => state.Direction)
   const Navigation = useNavigation()
   const [searchQuery, setSearchQuery] = useState('')
   const [searchData, setSearchData] = useState<Users[]>([])
@@ -36,7 +37,11 @@ export default function SeachScreen() {
       <View style={{ flexDirection: 'row' }}>
         <IconButton
           onPress={() => Navigation.goBack()}
-          icon="close-circle"
+          icon={
+            Direction === 'rtl'
+              ? 'arrow-right-bold-circle'
+              : 'arrow-left-bold-circle'
+          }
           size={30}
           disabled={loading}
         />
@@ -52,7 +57,7 @@ export default function SeachScreen() {
         showsVerticalScrollIndicator={false}
         data={searchData}
         contentContainerStyle={{ paddingBottom: 50 }}
-        alwaysBounceVertical={false}
+        // alwaysBounceVertical={false}
         ListHeaderComponent={
           loading ? <ActivityIndicator style={{ marginVertical: 20 }} /> : null
         }

@@ -1,4 +1,4 @@
-import { Friend_Mutation, Friend_TypeDefs } from './friend'
+import { Friend_Mutation, Friend_TypeDefs, Friend_Query } from './friend'
 import {
   Friend_Request_Query,
   Send_Friend_Request_Mutation,
@@ -7,6 +7,7 @@ import {
 import { Seach_Friend_Mutation, Seach_Friend_TypeDefs } from './search'
 
 const Query = {
+  ...Friend_Query,
   ...Friend_Request_Query
 }
 

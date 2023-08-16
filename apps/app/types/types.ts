@@ -89,6 +89,7 @@ export type AuthScreensProps<T extends keyof AuthStackParamList> =
 export type FriendsStackParamList = {
   Friend: undefined
   Search: undefined
+  Requests: undefined
 }
 
 export type FriendsScreensProps<T extends keyof FriendsStackParamList> =

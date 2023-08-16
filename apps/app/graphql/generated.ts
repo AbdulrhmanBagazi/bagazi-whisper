@@ -21,11 +21,18 @@ export type Add_Username_Result = NotAllowedError | UnknownError | Username;
 
 export type Create_Post_Result = Post | UnknownError;
 
+export type Friend = {
+  __typename?: 'Friend';
+  id: Scalars['String']['output'];
+  username: Scalars['String']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   Add_Friend?: Maybe<Scalars['Boolean']['output']>;
   Add_Username?: Maybe<Add_Username_Result>;
   Create_Post?: Maybe<Create_Post_Result>;
+  Decline_Friend?: Maybe<Scalars['Boolean']['output']>;
   Remove_Friend?: Maybe<Scalars['Boolean']['output']>;
   Seach_Friend?: Maybe<Seach_Friend_Result>;
   Send_Friend_Request?: Maybe<Send_Friend_Request_Result>;
@@ -33,7 +40,8 @@ export type Mutation = {
 
 
 export type MutationAdd_FriendArgs = {
-  FreindId: Scalars['String']['input'];
+  FriendId: Scalars['String']['input'];
+  RequestId: Scalars['String']['input'];
 };
 
 
@@ -47,9 +55,13 @@ export type MutationCreate_PostArgs = {
 };
 
 
+export type MutationDecline_FriendArgs = {
+  RequestId: Scalars['String']['input'];
+};
+
+
 export type MutationRemove_FriendArgs = {
-  userIdA: Scalars['String']['input'];
-  userIdB: Scalars['String']['input'];
+  FriendId: Scalars['String']['input'];
 };
 
 
@@ -89,6 +101,7 @@ export type PostMeta = {
 export type Query = {
   __typename?: 'Query';
   Get_Friend_Request: Array<Requests>;
+  Get_Friends: MyFriends;
   Get_More_Post: Array<Post>;
   Get_Post: Array<Post>;
   Get_Post_Meta: PostMeta;
@@ -109,6 +122,7 @@ export type Requests = {
   __typename?: 'Requests';
   id: Scalars['String']['output'];
   sender: Sender;
+  senderId: Scalars['String']['output'];
 };
 
 export type Seach_Friend_Result = Seach_Users | UnknownError;
@@ -141,6 +155,38 @@ export type Users = {
   username: Scalars['String']['output'];
 };
 
+export type MyFriends = {
+  __typename?: 'myFriends';
+  friends: Array<Friend>;
+};
+
+export type FriendsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FriendsQuery = { __typename?: 'Query', Get_Friends: { __typename?: 'myFriends', friends: Array<{ __typename?: 'Friend', id: string, username: string }> } };
+
+export type Add_FriendMutationVariables = Exact<{
+  FriendId: Scalars['String']['input'];
+  RequestId: Scalars['String']['input'];
+}>;
+
+
+export type Add_FriendMutation = { __typename?: 'Mutation', Add_Friend?: boolean | null };
+
+export type Remove_FriendMutationVariables = Exact<{
+  FriendId: Scalars['String']['input'];
+}>;
+
+
+export type Remove_FriendMutation = { __typename?: 'Mutation', Remove_Friend?: boolean | null };
+
+export type Decline_FriendMutationVariables = Exact<{
+  RequestId: Scalars['String']['input'];
+}>;
+
+
+export type Decline_FriendMutation = { __typename?: 'Mutation', Decline_Friend?: boolean | null };
+
 export type Send_Friend_RequestMutationVariables = Exact<{
   FriendId: Scalars['String']['input'];
 }>;
@@ -151,7 +197,7 @@ export type Send_Friend_RequestMutation = { __typename?: 'Mutation', Send_Friend
 export type Friend_RequestQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Friend_RequestQuery = { __typename?: 'Query', Get_Friend_Request: Array<{ __typename?: 'Requests', id: string, sender: { __typename?: 'Sender', username: string } }> };
+export type Friend_RequestQuery = { __typename?: 'Query', Get_Friend_Request: Array<{ __typename?: 'Requests', id: string, senderId: string, sender: { __typename?: 'Sender', username: string } }> };
 
 export type Seach_FriendMutationVariables = Exact<{
   Keyword: Scalars['String']['input'];
@@ -187,6 +233,137 @@ export type Add_UsernameMutationVariables = Exact<{
 export type Add_UsernameMutation = { __typename?: 'Mutation', Add_Username?: { __typename: 'NotAllowedError', error: string } | { __typename: 'UnknownError', error: string } | { __typename: 'Username', username: string } | null };
 
 
+export const FriendsDocument = gql`
+    query Friends {
+  Get_Friends {
+    friends {
+      id
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useFriendsQuery__
+ *
+ * To run a query within a React component, call `useFriendsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFriendsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFriendsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFriendsQuery(baseOptions?: Apollo.QueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, options);
+      }
+export function useFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, options);
+        }
+export type FriendsQueryHookResult = ReturnType<typeof useFriendsQuery>;
+export type FriendsLazyQueryHookResult = ReturnType<typeof useFriendsLazyQuery>;
+export type FriendsQueryResult = Apollo.QueryResult<FriendsQuery, FriendsQueryVariables>;
+export const Add_FriendDocument = gql`
+    mutation Add_Friend($FriendId: String!, $RequestId: String!) {
+  Add_Friend(FriendId: $FriendId, RequestId: $RequestId)
+}
+    `;
+export type Add_FriendMutationFn = Apollo.MutationFunction<Add_FriendMutation, Add_FriendMutationVariables>;
+
+/**
+ * __useAdd_FriendMutation__
+ *
+ * To run a mutation, you first call `useAdd_FriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAdd_FriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFriendMutation, { data, loading, error }] = useAdd_FriendMutation({
+ *   variables: {
+ *      FriendId: // value for 'FriendId'
+ *      RequestId: // value for 'RequestId'
+ *   },
+ * });
+ */
+export function useAdd_FriendMutation(baseOptions?: Apollo.MutationHookOptions<Add_FriendMutation, Add_FriendMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Add_FriendMutation, Add_FriendMutationVariables>(Add_FriendDocument, options);
+      }
+export type Add_FriendMutationHookResult = ReturnType<typeof useAdd_FriendMutation>;
+export type Add_FriendMutationResult = Apollo.MutationResult<Add_FriendMutation>;
+export type Add_FriendMutationOptions = Apollo.BaseMutationOptions<Add_FriendMutation, Add_FriendMutationVariables>;
+export const Remove_FriendDocument = gql`
+    mutation Remove_Friend($FriendId: String!) {
+  Remove_Friend(FriendId: $FriendId)
+}
+    `;
+export type Remove_FriendMutationFn = Apollo.MutationFunction<Remove_FriendMutation, Remove_FriendMutationVariables>;
+
+/**
+ * __useRemove_FriendMutation__
+ *
+ * To run a mutation, you first call `useRemove_FriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemove_FriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFriendMutation, { data, loading, error }] = useRemove_FriendMutation({
+ *   variables: {
+ *      FriendId: // value for 'FriendId'
+ *   },
+ * });
+ */
+export function useRemove_FriendMutation(baseOptions?: Apollo.MutationHookOptions<Remove_FriendMutation, Remove_FriendMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Remove_FriendMutation, Remove_FriendMutationVariables>(Remove_FriendDocument, options);
+      }
+export type Remove_FriendMutationHookResult = ReturnType<typeof useRemove_FriendMutation>;
+export type Remove_FriendMutationResult = Apollo.MutationResult<Remove_FriendMutation>;
+export type Remove_FriendMutationOptions = Apollo.BaseMutationOptions<Remove_FriendMutation, Remove_FriendMutationVariables>;
+export const Decline_FriendDocument = gql`
+    mutation Decline_Friend($RequestId: String!) {
+  Decline_Friend(RequestId: $RequestId)
+}
+    `;
+export type Decline_FriendMutationFn = Apollo.MutationFunction<Decline_FriendMutation, Decline_FriendMutationVariables>;
+
+/**
+ * __useDecline_FriendMutation__
+ *
+ * To run a mutation, you first call `useDecline_FriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDecline_FriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [declineFriendMutation, { data, loading, error }] = useDecline_FriendMutation({
+ *   variables: {
+ *      RequestId: // value for 'RequestId'
+ *   },
+ * });
+ */
+export function useDecline_FriendMutation(baseOptions?: Apollo.MutationHookOptions<Decline_FriendMutation, Decline_FriendMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Decline_FriendMutation, Decline_FriendMutationVariables>(Decline_FriendDocument, options);
+      }
+export type Decline_FriendMutationHookResult = ReturnType<typeof useDecline_FriendMutation>;
+export type Decline_FriendMutationResult = Apollo.MutationResult<Decline_FriendMutation>;
+export type Decline_FriendMutationOptions = Apollo.BaseMutationOptions<Decline_FriendMutation, Decline_FriendMutationVariables>;
 export const Send_Friend_RequestDocument = gql`
     mutation Send_Friend_Request($FriendId: String!) {
   Send_Friend_Request(FriendId: $FriendId) {
@@ -230,6 +407,7 @@ export const Friend_RequestDocument = gql`
     query Friend_Request {
   Get_Friend_Request {
     id
+    senderId
     sender {
       username
     }

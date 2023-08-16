@@ -20,6 +20,7 @@ export const Send_Friend_Request_TypeDefs = gql`
   }
   type Requests {
     id: String!
+    senderId: String!
     sender: Sender!
   }
 
@@ -43,6 +44,7 @@ export const Friend_Request_Query = {
       },
       select: {
         id: true,
+        senderId: true,
         sender: {
           select: {
             username: true

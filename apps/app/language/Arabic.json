@@ -54,9 +54,11 @@
     "SignOut": "تم تسجيل الخروج بنجاح"
   },
   "Alert": {
+    "Alert.Title": "هل أنت متأكد ؟",
     "Yes": "نعم",
     "No": "لا",
-    "Alert.SignOut": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+    "Alert.SignOut": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "Alert.Remove": "سيتم حذفه من قائمة أصدقائك"
   },
   "Header": {
     "Done": "تم"
@@ -89,7 +91,9 @@
     "Friend": "صديق"
   },
   "Friends": {
-    "Friends": "الآصدقاء",
+    "Friends": "الآصدقاء"
+  },
+  "FriendsRequests": {
     "FriendsRequests": "طلبات الصداقة",
     "NoFriendsRequests": "لا يوجد لديك طلبات صداقة"
   }

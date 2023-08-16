@@ -72,11 +72,11 @@ model Request {
     id        String         @id @default(uuid()) @db.Uuid
     status    Request_Status @default(PENDING)
     //
-    sender    User?          @relation("sender", fields: [senderId], references: [id])
-    senderId  String?        @db.Uuid
+    sender    User           @relation("sender", fields: [senderId], references: [id])
+    senderId  String         @db.Uuid
     //
-    reciver   User?          @relation("reciver", fields: [reciverId], references: [id])
-    reciverId String?        @db.Uuid
+    reciver   User           @relation("reciver", fields: [reciverId], references: [id])
+    reciverId String         @db.Uuid
 }
 
 enum Request_Status {
@@ -84,4 +84,5 @@ enum Request_Status {
     CANCELED
     DECLINED
     ACCEPTED
+    REMOVED
 }

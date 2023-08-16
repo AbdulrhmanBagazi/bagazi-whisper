@@ -11,6 +11,7 @@ const ProfileUI = () => {
   const Navigation = useNavigation()
   const I18n = useI18nHook((state) => state.I18n)
   const user = useAuthHook((state) => state.user)
+  const friends = useAuthHook((state) => state.friends)
   const count = useProfilePostsHook((state) => state.count)
 
   return (
@@ -28,7 +29,7 @@ const ProfileUI = () => {
             }
             style={{ borderWidth: 0 }}
           >
-            {I18n.Profile.Friends}: {user?.friends.length}
+            {I18n.Profile.Friends}: {friends.length}
           </Chip>
         </View>
         <View style={{ flexDirection: 'row' }}>

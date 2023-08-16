@@ -13,6 +13,7 @@ mutation Send_Friend_Request($FriendId: String!) {
 query Friend_Request {
   Get_Friend_Request {
     id
+    senderId
     sender {
       username
     }

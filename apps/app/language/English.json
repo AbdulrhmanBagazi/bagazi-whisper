@@ -55,9 +55,11 @@
     "SignInCanceled": "SignIn Canceled"
   },
   "Alert": {
+    "Alert.Title": "Are you sure ?",
     "Yes": "yes",
     "No": "no",
-    "Alert.SignOut": "are you sure you want to SignOut?"
+    "Alert.SignOut": "are you sure you want to SignOut?",
+    "Alert.Remove": "he will be remove from your friend list"
   },
   "Header": {
     "Done": "Done"
@@ -73,7 +75,7 @@
     "Button": "Post",
     "Placeholder": "......",
     "Spaceerror": "multiple spaces between words not allowed",
-    "StartSpaceError": "",
+    "StartSpaceError": "Space at the start not allowed",
     "min": "",
     "max": "must be at most 280 characters",
     "Created": "A new post created",
@@ -90,7 +92,9 @@
     "Friend": "Friend"
   },
   "Friends": {
-    "Friends": "Friends",
+    "Friends": "Friends"
+  },
+  "FriendsRequests": {
     "FriendsRequests": "Friend Requests",
     "NoFriendsRequests": "No Friend Requests"
   }

@@ -1,0 +1,8 @@
+query Friends {
+  Get_Friends {
+    friends {
+      id
+      username
+    }
+  }
+}

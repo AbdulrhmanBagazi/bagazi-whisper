@@ -53,6 +53,7 @@ const startServer = async () => {
   app.use(
     cors({
       origin: [AdminURL, ClientURL, CompaniesURL],
+      // origin: '*',
       credentials: true
     })
   )

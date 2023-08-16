@@ -1,0 +1,11 @@
+mutation Add_Friend($FriendId: String!, $RequestId: String!) {
+  Add_Friend(FriendId: $FriendId, RequestId: $RequestId)
+}
+
+mutation Remove_Friend($FriendId: String!) {
+  Remove_Friend(FriendId: $FriendId)
+}
+
+mutation Decline_Friend($RequestId: String!) {
+  Decline_Friend(RequestId: $RequestId)
+}
