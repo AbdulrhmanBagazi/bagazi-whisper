@@ -15,12 +15,10 @@ import { useSnckHook } from '../../hook/snack'
 import { useAuthHook } from '../../hook/auth'
 
 export default function UsernameScreen() {
-  const I18n = useI18nHook((state) => state.I18n)
-  // const Direction = useI18nHook((state) => state.Direction)
   const theme = useTheme()
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
-  const AddUsername = useAuthHook((state) => state.AddUsername)
-  const AuthLoading = useAuthHook((state) => state.loading)
+  const { I18n } = useI18nHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
+  const { AddUsername, AuthLoading } = useAuthHook((state) => state)
 
   const [mutateFunction, { loading }] = useMutation<
     Add_UsernameMutation,

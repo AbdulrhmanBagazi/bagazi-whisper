@@ -5,9 +5,7 @@ import { useEffect } from 'react'
 import { useNotificationnHook } from '../../../hook/notification'
 
 const HomeScreen = () => {
-  const UpdateNotification = useNotificationnHook(
-    (state) => state.UpdateNotification
-  )
+  const { UpdateNotification } = useNotificationnHook((state) => state)
   useEffect(() => {
     OneSignal.promptForPushNotificationsWithUserResponse((response) => {
       if (!response) {

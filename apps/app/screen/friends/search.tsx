@@ -1,26 +1,22 @@
 import { ActivityIndicator, View } from 'react-native'
-import { IconButton, Searchbar, Text } from 'react-native-paper'
-import { useState } from 'react'
+import { Appbar, Searchbar, Text } from 'react-native-paper'
+import { useCallback, useState } from 'react'
 import { Users, useSeach_FriendMutation } from '../../graphql/generated'
 import SeachList from './ui/searchlist'
 import { useI18nHook } from '../../hook/i18n'
 import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
+import _debounce from 'lodash.debounce'
 
 export default function SeachScreen() {
-  const I18n = useI18nHook((state) => state.I18n)
-  const Direction = useI18nHook((state) => state.Direction)
   const Navigation = useNavigation()
+  const { I18n, Direction } = useI18nHook((state) => state)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchData, setSearchData] = useState<Users[]>([])
   const [mutateFunction, { loading }] = useSeach_FriendMutation()
-  const onChangeSearch = (query: string) => {
-    if (query.length === 0) {
-      setSearchQuery(query)
-      return setSearchData([])
-    }
-    setSearchQuery(query)
-    mutateFunction({
+
+  const handleDebounceFn = (query: string) => {
+    return mutateFunction({
       variables: {
         Keyword: query
       },
@@ -32,22 +28,32 @@ export default function SeachScreen() {
     })
   }
 
+  const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), [])
+
+  const handleChange = (query: string) => {
+    setSearchQuery(query)
+    if (query.length === 0) {
+      return setSearchData([])
+    }
+
+    return debounceFn(query)
+  }
+
   return (
     <View style={{ flex: 1, padding: 5 }}>
       <View style={{ flexDirection: 'row' }}>
-        <IconButton
+        <Appbar.Action
           onPress={() => Navigation.goBack()}
           icon={
             Direction === 'rtl'
               ? 'arrow-right-bold-circle'
               : 'arrow-left-bold-circle'
           }
-          size={30}
           disabled={loading}
         />
         <Searchbar
           placeholder={I18n.Sreach.Placeholder}
-          onChangeText={onChangeSearch}
+          onChangeText={handleChange}
           value={searchQuery}
           style={{ marginHorizontal: 5, flex: 1 }}
           autoFocus

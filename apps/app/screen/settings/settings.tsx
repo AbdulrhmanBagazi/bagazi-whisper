@@ -10,22 +10,12 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { useNotificationnHook } from '../../hook/notification'
 
 export default function SettingsScreen() {
-  const ToggleTheme = useThemeHook((state) => state.ToggleTheme)
-  const Dark = useThemeHook((state) => state.Dark)
-  const auth = useAuthHook((state) => state.auth)
-  const loading = useAuthHook((state) => state.loading)
-  const SignOut = useAuthHook((state) => state.SignOut)
-  const ToggleI18n = useI18nHook((state) => state.ToggleI18n)
-  const I18n = useI18nHook((state) => state.I18n)
-  const Language = useI18nHook((state) => state.Language)
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
-  const Notification = useNotificationnHook((state) => state.Notification)
-  const ToggleNotification = useNotificationnHook(
-    (state) => state.ToggleNotification
-  )
-  const notificationLoading = useNotificationnHook(
-    (state) => state.notificationLoading
-  )
+  const { ToggleTheme, Dark } = useThemeHook((state) => state)
+  const { loading, auth, SignOut } = useAuthHook((state) => state)
+  const { I18n, Language, ToggleI18n } = useI18nHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
+  const { Notification, ToggleNotification, notificationLoading } =
+    useNotificationnHook((state) => state)
 
   const HandleSignOut = async () => {
     const Response = await SignOut()

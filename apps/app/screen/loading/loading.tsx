@@ -4,7 +4,7 @@ import { ActivityIndicator } from 'react-native-paper'
 import { useAuthHook } from '../../hook/auth'
 
 export default function LoadingScreen() {
-  const Authenticate = useAuthHook((state) => state.Authenticate)
+  const { Authenticate } = useAuthHook((state) => state)
 
   useEffect(() => {
     Authenticate()

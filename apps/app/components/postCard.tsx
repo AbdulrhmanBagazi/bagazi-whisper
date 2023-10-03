@@ -1,7 +1,8 @@
 import { View } from 'react-native'
-import { Text, Card, useTheme, Button } from 'react-native-paper'
+import { Text, Card, useTheme, Button, Divider } from 'react-native-paper'
 import PosterTag from './post/posterTag'
 import { Post } from '../graphql/generated'
+import { windowWidth } from '../config/config'
 
 const PostCard: React.FC<{ data: Post }> = ({ data }) => {
   const theme = useTheme()
@@ -9,9 +10,20 @@ const PostCard: React.FC<{ data: Post }> = ({ data }) => {
   return (
     <Card
       style={{
-        margin: 5
+        borderRadius: 0,
+        backgroundColor: theme.colors.background
       }}
+      mode="contained"
     >
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'flex-start',
+          margin: 10
+        }}
+      >
+        <PosterTag authorId={data.authorId} />
+      </View>
       <Card.Content>
         <View
           style={{
@@ -26,6 +38,7 @@ const PostCard: React.FC<{ data: Post }> = ({ data }) => {
           </Text>
         </View>
       </Card.Content>
+
       <Card.Actions
         style={{
           padding: 0
@@ -34,22 +47,18 @@ const PostCard: React.FC<{ data: Post }> = ({ data }) => {
         <View
           style={{
             flex: 1,
-            alignItems: 'flex-start',
-            padding: 5
+            flexDirection: 'row',
+            justifyContent: 'flex-end'
           }}
-        >
-          <PosterTag authorId={data.authorId} />
-        </View>
-        <View
-          style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}
         >
           <Button
             icon="comment"
             buttonColor="transparent"
-            textColor={theme.colors.onBackground}
+            textColor={theme.colors.secondary}
             style={{
               borderWidth: 0
             }}
+            onPress={() => console.log(1)}
           >
             {data._count.comments}
           </Button>
@@ -57,15 +66,18 @@ const PostCard: React.FC<{ data: Post }> = ({ data }) => {
           <Button
             icon="heart"
             buttonColor="transparent"
-            textColor={theme.colors.onPrimaryContainer}
+            textColor={theme.colors.error}
             style={{
-              borderWidth: 0
+              borderWidth: 0,
+              margin: 2
             }}
+            onPress={() => console.log(1)}
           >
             {data._count.likes}
           </Button>
         </View>
       </Card.Actions>
+      <Divider />
     </Card>
   )
 }

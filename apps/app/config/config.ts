@@ -11,7 +11,8 @@ export const iosClientId =
 export const androidClientId =
   '655983294636-4l8a9keo3mugvatltr4nsslfn2089sj4.apps.googleusercontent.com'
 
+const IP = '192.168.100.13'
 //api
-export const AuthApi = 'http://192.168.100.11:4000/client'
-export const GRAPHQL = 'http://192.168.100.11:4000/graphql/client'
-export const PUBLIC_GRAPHQL = 'http://192.168.100.11:4000/graphql/public_client'
+export const AuthApi = `http://${IP}:4000/client`
+export const GRAPHQL = `http://${IP}:4000/graphql/client`
+export const PUBLIC_GRAPHQL = `http://${IP}:4000/graphql/public_client`

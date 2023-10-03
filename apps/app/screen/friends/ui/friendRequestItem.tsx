@@ -13,10 +13,11 @@ import { useAuthHook } from '../../../hook/auth'
 const FriendRequestItem: React.FC<{
   item: Requests
 }> = ({ item }) => {
-  const I18n = useI18nHook((state) => state.I18n)
-  const updateRequests = useFriendHook((state) => state.updateRequests)
-  const AddFriend = useAuthHook((state) => state.AddFriend)
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
+  const { I18n } = useI18nHook((state) => state)
+  const { updateRequests } = useFriendHook((state) => state)
+  const { AddFriend } = useAuthHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
+
   const [declineFriendMutation, data_declineFriendMutation] =
     useDecline_FriendMutation({
       onCompleted(data) {

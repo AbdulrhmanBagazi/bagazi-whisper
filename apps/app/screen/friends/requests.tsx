@@ -10,11 +10,10 @@ import { useSnckHook } from '../../hook/snack'
 
 export default function FriendsRequestsScreen() {
   const theme = useTheme()
-  const I18n = useI18nHook((state) => state.I18n)
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
-  const Direction = useI18nHook((state) => state.Direction)
-  const requests = useFriendHook((state) => state.requests)
-  const setRequests = useFriendHook((state) => state.setRequests)
+  const { I18n, Direction } = useI18nHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
+  const { requests, setRequests } = useFriendHook((state) => state)
+
   const { loading, refetch } = useFriend_RequestQuery({
     skip: true,
     onCompleted(data) {

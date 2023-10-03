@@ -9,10 +9,9 @@ import { useProfilePostsHook } from '../../../../hook/profileposts'
 
 const ProfileUI = () => {
   const Navigation = useNavigation()
-  const I18n = useI18nHook((state) => state.I18n)
-  const user = useAuthHook((state) => state.user)
-  const friends = useAuthHook((state) => state.friends)
-  const count = useProfilePostsHook((state) => state.count)
+  const { I18n } = useI18nHook((state) => state)
+  const { user, friends } = useAuthHook((state) => state)
+  const { count } = useProfilePostsHook((state) => state)
 
   return (
     <>
@@ -46,7 +45,7 @@ const ProfileUI = () => {
           </Chip>
         </View>
       </View>
-      <Divider />
+      {/* <Divider /> */}
       <ProfilePost />
     </>
   )

@@ -25,9 +25,10 @@ import { useNavigation } from '@react-navigation/native'
 import { useProfilePostsHook } from '../../hook/profileposts'
 
 export default function PostScreen() {
-  const I18n = useI18nHook((state) => state.I18n)
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
-  const addPost = useProfilePostsHook((state) => state.addPost)
+  const { I18n } = useI18nHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
+  const { addPost } = useProfilePostsHook((state) => state)
+
   const { setOptions, goBack } = useNavigation()
   const theme = useTheme()
   const [mutateFunction, { loading }] = useMutation<
@@ -83,10 +84,9 @@ export default function PostScreen() {
       bounces={false}
     >
       <Appbar.Header style={{ justifyContent: 'flex-start' }}>
-        <IconButton
+        <Appbar.Action
           onPress={() => goBack()}
           icon="close-circle"
-          size={30}
           disabled={loading}
         />
       </Appbar.Header>

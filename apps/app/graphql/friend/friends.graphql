@@ -6,3 +6,19 @@ query Friends {
     }
   }
 }
+
+query Friends_And_Requestes {
+  Get_Friends {
+    friends {
+      id
+      username
+    }
+  }
+  Get_Friend_Request {
+    id
+    senderId
+    sender {
+      username
+    }
+  }
+}

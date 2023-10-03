@@ -165,6 +165,11 @@ export type FriendsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FriendsQuery = { __typename?: 'Query', Get_Friends: { __typename?: 'myFriends', friends: Array<{ __typename?: 'Friend', id: string, username: string }> } };
 
+export type Friends_And_RequestesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Friends_And_RequestesQuery = { __typename?: 'Query', Get_Friends: { __typename?: 'myFriends', friends: Array<{ __typename?: 'Friend', id: string, username: string }> }, Get_Friend_Request: Array<{ __typename?: 'Requests', id: string, senderId: string, sender: { __typename?: 'Sender', username: string } }> };
+
 export type Add_FriendMutationVariables = Exact<{
   FriendId: Scalars['String']['input'];
   RequestId: Scalars['String']['input'];
@@ -270,6 +275,50 @@ export function useFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Fr
 export type FriendsQueryHookResult = ReturnType<typeof useFriendsQuery>;
 export type FriendsLazyQueryHookResult = ReturnType<typeof useFriendsLazyQuery>;
 export type FriendsQueryResult = Apollo.QueryResult<FriendsQuery, FriendsQueryVariables>;
+export const Friends_And_RequestesDocument = gql`
+    query Friends_And_Requestes {
+  Get_Friends {
+    friends {
+      id
+      username
+    }
+  }
+  Get_Friend_Request {
+    id
+    senderId
+    sender {
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useFriends_And_RequestesQuery__
+ *
+ * To run a query within a React component, call `useFriends_And_RequestesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFriends_And_RequestesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFriends_And_RequestesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFriends_And_RequestesQuery(baseOptions?: Apollo.QueryHookOptions<Friends_And_RequestesQuery, Friends_And_RequestesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Friends_And_RequestesQuery, Friends_And_RequestesQueryVariables>(Friends_And_RequestesDocument, options);
+      }
+export function useFriends_And_RequestesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Friends_And_RequestesQuery, Friends_And_RequestesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Friends_And_RequestesQuery, Friends_And_RequestesQueryVariables>(Friends_And_RequestesDocument, options);
+        }
+export type Friends_And_RequestesQueryHookResult = ReturnType<typeof useFriends_And_RequestesQuery>;
+export type Friends_And_RequestesLazyQueryHookResult = ReturnType<typeof useFriends_And_RequestesLazyQuery>;
+export type Friends_And_RequestesQueryResult = Apollo.QueryResult<Friends_And_RequestesQuery, Friends_And_RequestesQueryVariables>;
 export const Add_FriendDocument = gql`
     mutation Add_Friend($FriendId: String!, $RequestId: String!) {
   Add_Friend(FriendId: $FriendId, RequestId: $RequestId)

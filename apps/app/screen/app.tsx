@@ -29,15 +29,10 @@ const RootStack = createNativeStackNavigator<RootStackParamList>()
 SplashScreen.preventAutoHideAsync()
 
 export default function App() {
-  const Dark = useThemeHook((state) => state.Dark)
-  const ThemeStore = useThemeHook((state) => state.ThemeStore)
-  const I18nStore = useI18nHook((state) => state.I18nStore)
-  const AuthLoading = useAuthHook((state) => state.AuthLoading)
-  const auth = useAuthHook((state) => state.auth)
-  const username = useAuthHook((state) => state.username)
-  const HideSnack = useSnckHook((state) => state.HideSnack)
-  const show = useSnckHook((state) => state.show)
-  const text = useSnckHook((state) => state.text)
+  const { Dark, ThemeStore } = useThemeHook((state) => state)
+  const { I18nStore } = useI18nHook((state) => state)
+  const { AuthLoading, auth, username } = useAuthHook((state) => state)
+  const { HideSnack, show, text } = useSnckHook((state) => state)
 
   const [appIsReady, setAppIsReady] = useState(false)
 

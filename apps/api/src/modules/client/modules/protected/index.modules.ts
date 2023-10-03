@@ -1,3 +1,4 @@
+import { Feed } from './feed/index.modules'
 import { Friend } from './friend/index.modules'
 import { Post } from './post/index.modules'
 import { Username } from './username/index.modules'
@@ -5,7 +6,8 @@ import { Username } from './username/index.modules'
 export const ClientResolvers = {
   Query: {
     ...Post.Query,
-    ...Friend.Query
+    ...Friend.Query,
+    ...Feed.Query
   },
   Mutation: {
     ...Friend.Mutation,
@@ -14,4 +16,9 @@ export const ClientResolvers = {
   }
   // ...Posts.Resolver,
 }
-export const ClientTypeDefs = [Friend.typeDef, Username.typeDef, Post.typeDef]
+export const ClientTypeDefs = [
+  Friend.typeDef,
+  Username.typeDef,
+  Post.typeDef,
+  Feed.typeDef
+]

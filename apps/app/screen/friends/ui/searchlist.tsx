@@ -12,8 +12,8 @@ const SeachList: React.FC<{
   user: Users
 }> = ({ user }) => {
   const theme = useTheme()
-  const I18n = useI18nHook((state) => state.I18n)
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
+  const { I18n } = useI18nHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
   const [requestIDs, setRequestIDs] = useState<String[]>([])
   const [mutateFunction, { loading }] = useSend_Friend_RequestMutation({
     onError() {

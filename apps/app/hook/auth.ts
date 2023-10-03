@@ -53,17 +53,6 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       loading: true
     }))
 
-    const [error, data] = await fetcher('/authentication/signout')
-
-    if (error && !data) {
-      set(() => ({
-        loading: false,
-        username: null
-      }))
-
-      return 'error'
-    }
-
     set(() => ({
       loading: false,
       username

@@ -1,10 +1,10 @@
-import { Appbar, IconButton, Text } from 'react-native-paper'
+import { Appbar, Text } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useAuthHook } from '../hook/auth'
 
 const HeaderSettings: React.FC = () => {
   const Navigation = useNavigation()
-  const username = useAuthHook((state) => state.username)
+  const { username } = useAuthHook((state) => state)
 
   return (
     <Appbar.Header style={{ justifyContent: 'space-between' }}>
@@ -18,7 +18,10 @@ const HeaderSettings: React.FC = () => {
       >
         @{username}
       </Text>
-      <IconButton icon="cog" onPress={() => Navigation.navigate('Settings')} />
+      <Appbar.Action
+        icon="cog"
+        onPress={() => Navigation.navigate('Settings')}
+      />
     </Appbar.Header>
   )
 }

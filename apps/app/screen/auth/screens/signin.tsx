@@ -6,8 +6,8 @@ import { useThemeHook } from '../../../hook/theme'
 import { Divider } from 'react-native-paper'
 
 export default function SignInScreen() {
-  const I18n = useI18nHook((state) => state.I18n)
-  const Dark = useThemeHook((state) => state.Dark)
+  const { I18n } = useI18nHook((state) => state)
+  const { Dark } = useThemeHook((state) => state)
 
   return (
     <SafeAreaView

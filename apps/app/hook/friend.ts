@@ -1,9 +1,13 @@
 import { create } from 'zustand'
-import { Requests, Friend_RequestQuery } from '../graphql/generated'
+import {
+  Requests,
+  Friend_RequestQuery,
+  Friends_And_RequestesQuery
+} from '../graphql/generated'
 
 type FriendHookType = {
   requests: Array<Requests>
-  setRequests: (data: Friend_RequestQuery) => void
+  setRequests: (data: Friend_RequestQuery | Friends_And_RequestesQuery) => void
   updateRequests: (id: string) => void
 }
 

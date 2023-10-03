@@ -11,10 +11,9 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   text,
   dark
 }) => {
-  const GoogleSignIn = useAuthHook((state) => state.GoogleSignIn)
-  const loading = useAuthHook((state) => state.loading)
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
-  const I18n = useI18nHook((state) => state.I18n)
+  const { loading, GoogleSignIn } = useAuthHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
+  const { I18n } = useI18nHook((state) => state)
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     webClientId: webClientId,

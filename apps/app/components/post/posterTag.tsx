@@ -4,8 +4,8 @@ import { Text } from '../Themed'
 import { useI18nHook } from '../../hook/i18n'
 
 const PosterTag: React.FC<{ authorId: string }> = ({ authorId }) => {
-  const user = useAuthHook((state) => state.user)
-  const I18n = useI18nHook((state) => state.I18n)
+  const { user } = useAuthHook((state) => state)
+  const { I18n } = useI18nHook((state) => state)
   const [Tag, setTag] = useState('@')
 
   useEffect(() => {

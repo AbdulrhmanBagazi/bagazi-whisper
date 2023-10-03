@@ -10,10 +10,9 @@ const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
   text,
   dark
 }) => {
-  const AppleSignIn = useAuthHook((state) => state.AppleSignIn)
-  const loading = useAuthHook((state) => state.loading)
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
-  const I18n = useI18nHook((state) => state.I18n)
+  const { loading, AppleSignIn } = useAuthHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
+  const { I18n } = useI18nHook((state) => state)
 
   return (
     <Button

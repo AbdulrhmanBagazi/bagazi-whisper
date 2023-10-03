@@ -1,14 +1,13 @@
-import { Appbar, IconButton } from 'react-native-paper'
+import { Appbar } from 'react-native-paper'
 import { useAuthHook } from '../hook/auth'
 import { useSnckHook } from '../hook/snack'
 import { useI18nHook } from '../hook/i18n'
 import { Alert } from 'react-native'
 
 const HeaderLogout: React.FC = () => {
-  const loading = useAuthHook((state) => state.loading)
-  const SignOut = useAuthHook((state) => state.SignOut)
-  const ShowSnack = useSnckHook((state) => state.ShowSnack)
-  const I18n = useI18nHook((state) => state.I18n)
+  const { loading, SignOut } = useAuthHook((state) => state)
+  const { ShowSnack } = useSnckHook((state) => state)
+  const { I18n } = useI18nHook((state) => state)
 
   const HandleSignOut = async () => {
     const Response = await SignOut()
@@ -24,7 +23,7 @@ const HeaderLogout: React.FC = () => {
 
   return (
     <Appbar.Header style={{ justifyContent: 'flex-end' }}>
-      <IconButton
+      <Appbar.Action
         icon="logout"
         onPress={() =>
           Alert.alert(I18n.Settings.SignOut, I18n.Alert['Alert.SignOut'], [

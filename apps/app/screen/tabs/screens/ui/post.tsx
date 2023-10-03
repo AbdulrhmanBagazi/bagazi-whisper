@@ -12,17 +12,14 @@ import { useProfilePostsHook } from '../../../../hook/profileposts'
 
 const ProfilePost = () => {
   const theme = useTheme()
-  const I18n = useI18nHook((state) => state.I18n)
-  const initialposts = useProfilePostsHook((state) => state.initialposts)
-  const loadMorePosts = useProfilePostsHook((state) => state.loadMorePosts)
-  const posts = useProfilePostsHook((state) => state.posts)
-  const count = useProfilePostsHook((state) => state.count)
+  const { I18n } = useI18nHook((state) => state)
+  const { initialposts, loadMorePosts } = useProfilePostsHook((state) => state)
+  const { posts, count } = useProfilePostsHook((state) => state)
   const { loading, error, refetch } = usePostQuery({
     onCompleted(data) {
       return initialposts(data)
     }
   })
-
   const LoadMore = useGet_More_PostQuery({
     variables: {
       cursor: ''
