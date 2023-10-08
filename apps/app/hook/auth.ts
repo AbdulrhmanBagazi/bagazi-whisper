@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { fetcher, poster } from '../config/api/auth.api'
 import { AppleArgs, GoogleArgs, UserTypes } from '../types/types'
 // import { Profile } from '../graphql/generated'
-import OneSignal from 'react-native-onesignal'
+import { OneSignal } from 'react-native-onesignal'
 import * as AppleAuthentication from 'expo-apple-authentication'
 import { MyFriends, Requests } from '../graphql/generated'
 
@@ -117,7 +117,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     }))
 
     if (data?.user?.id) {
-      OneSignal.setExternalUserId(data?.user?.id)
+      OneSignal.login(data?.user?.id)
     }
 
     // return [error, data]
@@ -152,7 +152,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
     }))
 
     if (data?.user?.id) {
-      OneSignal.setExternalUserId(data?.user?.id)
+      OneSignal.login(data?.user?.id)
     }
 
     // return [error, data]

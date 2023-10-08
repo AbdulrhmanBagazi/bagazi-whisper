@@ -1,0 +1,69 @@
+# query Feed {
+#   Feed_Inital {
+#     id
+#     body
+#     authorId
+#     _count {
+#       likes
+#       comments
+#     }
+#     createdAt
+#     likes {
+#       id
+#     }
+#   }
+#   Feed_Meta {
+#     count
+#   }
+# }
+
+query Feed($cursor: String, $type: feedRequest!) {
+  Feed(cursor: $cursor, type: $type) {
+    id
+    body
+    authorId
+    _count {
+      likes
+      comments
+    }
+    createdAt
+    likes {
+      id
+    }
+  }
+}
+
+# query Get_More_Feed($cursor: String!) {
+#   Get_More_Feed(cursor: $cursor) {
+#     id
+#     body
+#     authorId
+#     _count {
+#       likes
+#       comments
+#     }
+#     createdAt
+#     likes {
+#       id
+#     }
+#   }
+# }
+
+# query Get_More_New_Feed($cursor: String!) {
+#   Get_More_New_Feed(cursor: $cursor) {
+#     id
+#     body
+#     authorId
+#     _count {
+#       likes
+#       comments
+#     }
+#     createdAt
+#     likes {
+#       id
+#     }
+#   }
+#   Feed_Meta {
+#     count
+#   }
+# }

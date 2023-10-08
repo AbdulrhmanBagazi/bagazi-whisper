@@ -12,6 +12,7 @@ export const Post_TypeDefs = gql`
     body: String!
     authorId: String!
     _count: PostCount!
+    createdAt: String!
   }
 
   type PostMeta {
@@ -36,7 +37,7 @@ export const Post_TypeDefs = gql`
 `
 
 export const Post_Query = {
-  Get_Post: async (_parent: any, _args: any, context: MyContext) => {
+  Get_Post: async (_parent: any, _args: undefined, context: MyContext) => {
     const data = await context.prisma.post.findMany({
       orderBy: {
         createdAt: 'desc'
@@ -48,6 +49,7 @@ export const Post_Query = {
         id: true,
         body: true,
         authorId: true,
+        createdAt: true,
         _count: {
           select: {
             likes: true,
@@ -61,16 +63,16 @@ export const Post_Query = {
     return data
   },
   Get_Post_Meta: async (_parent: any, _args: any, context: MyContext) => {
-    const cal = await context.prisma.post.aggregate({
+    const calboth = await context.prisma.post.count({
       where: {
         authorId: context.req.user.id
       },
-      _count: {
-        id: true
+      select: {
+        _all: true
       }
     })
 
-    const count = cal._count.id
+    const count = calboth._all
 
     return { count }
   },
@@ -90,6 +92,7 @@ export const Post_Query = {
         id: true,
         body: true,
         authorId: true,
+        createdAt: true,
         _count: {
           select: {
             likes: true,
@@ -126,6 +129,7 @@ export const Post_Mutation = {
           id: true,
           body: true,
           authorId: true,
+          createdAt: true,
           _count: {
             select: {
               likes: true,

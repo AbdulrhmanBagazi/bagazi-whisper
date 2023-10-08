@@ -77,6 +77,8 @@ export type TabsScreensProps<T extends keyof TabsStackParamList> =
 //Auth
 export type AuthStackParamList = {
   SignIn: undefined
+  GoogleLoading: undefined
+  AppleLoading: undefined
 }
 
 export type AuthScreensProps<T extends keyof AuthStackParamList> =

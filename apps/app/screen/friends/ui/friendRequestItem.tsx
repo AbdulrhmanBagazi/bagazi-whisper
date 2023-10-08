@@ -1,5 +1,5 @@
-import { ActivityIndicator, IconButton, Text } from 'react-native-paper'
-import { View } from 'react-native'
+import { IconButton, Text } from 'react-native-paper'
+import { View, ActivityIndicator } from 'react-native'
 import {
   Requests,
   useAdd_FriendMutation,

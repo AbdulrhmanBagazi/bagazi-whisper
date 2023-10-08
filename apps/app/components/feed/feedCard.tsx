@@ -1,10 +1,10 @@
 import { View } from 'react-native'
 import { Text, Card, useTheme, Button, Divider } from 'react-native-paper'
-import PosterTag from './post/posterTag'
-import { Post } from '../graphql/generated'
-import { windowWidth } from '../config/config'
+import { FeedPosts } from '../../graphql/generated'
+import FeedTag from './feedTag'
+import LikeButton from '../likeButton'
 
-const PostCard: React.FC<{ data: Post }> = ({ data }) => {
+const FeedCard: React.FC<{ data: FeedPosts }> = ({ data }) => {
   const theme = useTheme()
 
   return (
@@ -22,7 +22,7 @@ const PostCard: React.FC<{ data: Post }> = ({ data }) => {
           margin: 10
         }}
       >
-        <PosterTag authorId={data.authorId} />
+        <FeedTag data={data} />
       </View>
       <Card.Content>
         <View
@@ -63,18 +63,7 @@ const PostCard: React.FC<{ data: Post }> = ({ data }) => {
             {data._count.comments}
           </Button>
 
-          <Button
-            icon="heart"
-            buttonColor="transparent"
-            textColor={theme.colors.error}
-            style={{
-              borderWidth: 0,
-              margin: 2
-            }}
-            disabled
-          >
-            {data._count.likes}
-          </Button>
+          <LikeButton data={data} />
         </View>
       </Card.Actions>
       <Divider />
@@ -82,4 +71,4 @@ const PostCard: React.FC<{ data: Post }> = ({ data }) => {
   )
 }
 
-export default PostCard
+export default FeedCard

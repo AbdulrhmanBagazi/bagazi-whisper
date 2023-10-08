@@ -1,102 +1,90 @@
 import { Text, useTheme } from 'react-native-paper'
-import { RefreshControl, View } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useI18nHook } from '../../../../hook/i18n'
-import {
-  useGet_More_PostQuery,
-  usePostQuery
-} from '../../../../graphql/generated'
+import { useGet_More_PostQuery } from '../../../../graphql/generated'
 import PostCard from '../../../../components/postCard'
 import { useProfilePostsHook } from '../../../../hook/profileposts'
+import { useState } from 'react'
 
 const ProfilePost = () => {
   const theme = useTheme()
   const { I18n } = useI18nHook((state) => state)
-  const { initialposts, loadMorePosts } = useProfilePostsHook((state) => state)
+  const { loadMorePosts } = useProfilePostsHook((state) => state)
   const { posts, count } = useProfilePostsHook((state) => state)
-  const { loading, error, refetch } = usePostQuery({
-    onCompleted(data) {
-      return initialposts(data)
-    }
+  const [loading, setloading] = useState(false)
+  const [endReached, setendReached] = useState(false)
+  const { refetch } = useGet_More_PostQuery({
+    skip: true
   })
-  const LoadMore = useGet_More_PostQuery({
-    variables: {
-      cursor: ''
-    },
-    skip: true,
-    onCompleted(data) {
-      return loadMorePosts(data)
+
+  const More = async () => {
+    setloading(true)
+
+    if (posts.length === count) {
+      setendReached(true)
+      setloading(false)
+
+      return
     }
-  })
+
+    return refetch({
+      cursor: posts[posts.length - 1].id
+    }).then((data) => {
+      setTimeout(() => {
+        setloading(false)
+        loadMorePosts(data.data)
+      }, 300)
+      return
+    })
+  }
 
   return (
     <FlashList
       showsVerticalScrollIndicator={false}
       data={posts}
-      contentContainerStyle={{ paddingBottom: 50 }}
-      onEndReached={() =>
-        loading || posts.length === count
-          ? null
-          : LoadMore.refetch({
-              cursor: posts[posts.length - 1].id
-            })
-      }
-      refreshControl={
-        <RefreshControl
-          refreshing={loading}
-          tintColor={theme.colors.onBackground}
-          onRefresh={() => refetch()}
-        />
-      }
-      ListEmptyComponent={() =>
-        !loading ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginVertical: 100
-            }}
-          >
-            <MaterialCommunityIcons
-              name="note-off"
-              size={100}
-              color={theme.colors.surfaceDisabled}
-            />
-            <Text
-              variant="labelLarge"
-              style={{ color: theme.colors.surfaceDisabled }}
-            >
-              {I18n.Profile.FirstPost}
+      contentContainerStyle={{ paddingBottom: 25 }}
+      onEndReached={() => (loading ? null : More())}
+      ListFooterComponent={
+        <View
+          style={{
+            padding: 25,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          {endReached && posts.length > 0 ? (
+            <Text style={{ color: theme.colors.surfaceDisabled }}>
+              {I18n.Post.End}
             </Text>
-          </View>
-        ) : null
+          ) : loading ? (
+            <ActivityIndicator animating={loading} />
+          ) : null}
+        </View>
       }
-      renderItem={({ item, index }) =>
-        error ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginVertical: 100
-            }}
+      ListEmptyComponent={() => (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: 100
+          }}
+        >
+          <MaterialCommunityIcons
+            name="note-off"
+            size={100}
+            color={theme.colors.surfaceDisabled}
+          />
+          <Text
+            variant="labelLarge"
+            style={{ color: theme.colors.surfaceDisabled }}
           >
-            <MaterialCommunityIcons
-              name="alert-circle-outline"
-              size={100}
-              color={theme.colors.surfaceDisabled}
-            />
-            <Text
-              variant="labelLarge"
-              style={{ color: theme.colors.surfaceDisabled }}
-            >
-              {I18n.Errors.Unknown}
-            </Text>
-          </View>
-        ) : (
-          <PostCard data={item} key={index} />
-        )
-      }
+            {I18n.Profile.FirstPost}
+          </Text>
+        </View>
+      )}
+      renderItem={({ item, index }) => <PostCard data={item} key={index} />}
       estimatedItemSize={100}
     />
   )

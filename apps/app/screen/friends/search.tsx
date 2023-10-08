@@ -28,7 +28,7 @@ export default function SeachScreen() {
     })
   }
 
-  const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), [])
+  const debounceFn = useCallback(_debounce(handleDebounceFn, 500), [])
 
   const handleChange = (query: string) => {
     setSearchQuery(query)
@@ -68,17 +68,19 @@ export default function SeachScreen() {
           loading ? <ActivityIndicator style={{ marginVertical: 20 }} /> : null
         }
         ListEmptyComponent={
-          <View
-            style={{
-              padding: 10,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            <Text variant="labelMedium" style={{ color: 'gray' }}>
-              {I18n.Sreach.NoResults}
-            </Text>
-          </View>
+          loading ? null : (
+            <View
+              style={{
+                padding: 10,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <Text variant="labelMedium" style={{ color: 'gray' }}>
+                {I18n.Sreach.NoResults}
+              </Text>
+            </View>
+          )
         }
         renderItem={({ item }) => <SeachList user={item} />}
         estimatedItemSize={100}

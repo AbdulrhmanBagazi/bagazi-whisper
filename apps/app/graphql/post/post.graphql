@@ -3,6 +3,7 @@ query Post {
     id
     body
     authorId
+    createdAt
     _count {
       likes
       comments
@@ -18,6 +19,7 @@ query Get_More_Post($cursor: String!) {
     id
     body
     authorId
+    createdAt
     _count {
       likes
       comments
@@ -32,6 +34,7 @@ mutation Create_Post($body: String!) {
       id
       body
       authorId
+      createdAt
       _count {
         likes
         comments

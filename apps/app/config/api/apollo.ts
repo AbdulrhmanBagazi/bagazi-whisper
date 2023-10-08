@@ -24,12 +24,14 @@ const Client = new ApolloClient({
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'ignore'
+      fetchPolicy: 'cache-first',
+      errorPolicy: 'ignore',
+      notifyOnNetworkStatusChange: true
     },
     query: {
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'all'
+      fetchPolicy: 'cache-first',
+      errorPolicy: 'all',
+      notifyOnNetworkStatusChange: true
     }
   }
 })

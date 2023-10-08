@@ -1,65 +1,30 @@
-import * as AppleAuthentication from 'expo-apple-authentication'
 import { useAuthHook } from '../hook/auth'
-// import { windowWidth } from '../config/config'
-import { useSnckHook } from '../hook/snack'
-import { useI18nHook } from '../hook/i18n'
 import { Button } from 'react-native-paper'
-import { View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
-  text,
-  dark
+  text
+  // dark
 }) => {
-  const { loading, AppleSignIn } = useAuthHook((state) => state)
-  const { ShowSnack } = useSnckHook((state) => state)
-  const { I18n } = useI18nHook((state) => state)
+  const Navigation = useNavigation()
+  const { loading } = useAuthHook((state) => state)
 
   return (
     <Button
       mode="contained"
       icon="apple"
-      buttonColor={dark ? '#FFFFFF' : '#000'}
-      textColor={dark ? 'black' : 'white'}
+      // buttonColor={dark ? '#FFFFFF' : '#000'}
+      // textColor={dark ? 'black' : 'white'}
+      buttonColor={'#FFFFFF'}
+      textColor={'black'}
       style={{
         // width: windowWidth / 2,
         justifyContent: 'center'
       }}
-      onPress={async () => {
-        try {
-          const credential = await AppleAuthentication.signInAsync({
-            requestedScopes: [
-              AppleAuthentication.AppleAuthenticationScope.EMAIL
-            ]
-          })
-
-          const {
-            user: newUser,
-            email,
-            // nonce,
-            identityToken,
-            realUserStatus,
-            user
-          } = credential
-
-          const Response = await AppleSignIn({
-            user: newUser,
-            email,
-            appleId: user,
-            identityToken,
-            realUserStatus /* etc */
-          })
-          if (Response === 'error') {
-            return ShowSnack(I18n.Errors.Unknown)
-          }
-
-          // signed in
-        } catch (e: any) {
-          if (e.code === 'ERR_REQUEST_CANCELED') {
-            // handle that the user canceled the sign-in flow
-          } else {
-            // handle other errors
-          }
-        }
+      onPress={() => {
+        Navigation.navigate('Auth', {
+          screen: 'AppleLoading'
+        })
       }}
       disabled={loading}
     >

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import OneSignal from 'react-native-onesignal'
+import { OneSignal } from 'react-native-onesignal'
 import { Alert, Linking } from 'react-native'
 import { useI18nHook } from './i18n'
 
@@ -18,42 +18,31 @@ export const useNotificationnHook = create<I18nType>((set) => ({
       notificationLoading: true
     }))
 
-    const state = await OneSignal.getDeviceState()
+    const optedIn = OneSignal.User.pushSubscription.getOptedIn()
+    const permission = OneSignal.Notifications.hasPermission()
 
-    if (state) {
-      if (state.hasNotificationPermission) {
-        OneSignal.disablePush(!state.isPushDisabled)
+    if (!permission) {
+      OneSignal.Notifications.requestPermission(true)
+      return set(() => ({
+        notificationLoading: false,
+        Notification: false
+      }))
+    }
 
-        set(() => ({
-          notificationLoading: false,
-          Notification: state.isPushDisabled
-        }))
-        return
-      } else {
-        Alert.alert(
-          useI18nHook.getState().I18n.Notifications.AllowNotifications,
-          useI18nHook.getState().I18n.Notifications.AllowNotificationsMSG,
-          [
-            {
-              text: useI18nHook.getState().I18n.Notifications.Settings,
-              onPress: () => {
-                Linking.openSettings()
-              }
-            },
-            {
-              text: useI18nHook.getState().I18n.Notifications.Cancel
-            }
-          ]
-        )
-        return set(() => ({
-          notificationLoading: false,
-          Notification: false
-        }))
-      }
+    if (optedIn) {
+      OneSignal.User.pushSubscription.optOut()
+      return set(() => ({
+        notificationLoading: false,
+        Notification: false
+      }))
+    }
 
-      // return set(() => ({
-      //   notificationLoading: false
-      // }))
+    if (!optedIn) {
+      OneSignal.User.pushSubscription.optIn()
+      return set(() => ({
+        notificationLoading: false,
+        Notification: true
+      }))
     }
   },
   UpdateNotification: async (val) => {

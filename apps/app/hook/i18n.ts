@@ -4,7 +4,7 @@ import English from '../language/English.json'
 import * as SecureStore from 'expo-secure-store'
 import * as Updates from 'expo-updates'
 import { I18nManager } from 'react-native'
-import OneSignal from 'react-native-onesignal'
+import { OneSignal } from 'react-native-onesignal'
 
 type ar = 'ar'
 type en = 'en'
@@ -36,7 +36,7 @@ export const useI18nHook = create<I18nType>((set) => ({
       Direction: Language === 'en' ? 'ltr' : 'rtl'
     }))
 
-    OneSignal.setLanguage(Language === 'en' ? 'en' : 'ar')
+    OneSignal.User.setLanguage(Language === 'en' ? 'en' : 'ar')
     await Updates.reloadAsync()
   },
   I18nStore: async () => {

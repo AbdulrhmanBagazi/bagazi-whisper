@@ -89,7 +89,8 @@
   },
   "Tag": {
     "You": "You",
-    "Friend": "Friend"
+    "Friend": "Friend",
+    "FriendOfFriend": "Friend Of a Friend"
   },
   "Friends": {
     "Friends": "Friends"

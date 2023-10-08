@@ -19,7 +19,33 @@ export type Scalars = {
 
 export type Add_Username_Result = NotAllowedError | UnknownError | Username;
 
+export enum Cd {
+  Connect = 'connect',
+  Disconnect = 'disconnect'
+}
+
 export type Create_Post_Result = Post | UnknownError;
+
+export type FeedMeta = {
+  __typename?: 'FeedMeta';
+  count: Scalars['Int']['output'];
+};
+
+export type FeedPostCount = {
+  __typename?: 'FeedPostCount';
+  comments: Scalars['Int']['output'];
+  likes: Scalars['Int']['output'];
+};
+
+export type FeedPosts = {
+  __typename?: 'FeedPosts';
+  _count: FeedPostCount;
+  authorId: Scalars['String']['output'];
+  body: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  likes: Array<Mylikes>;
+};
 
 export type Friend = {
   __typename?: 'Friend';
@@ -33,6 +59,7 @@ export type Mutation = {
   Add_Username?: Maybe<Add_Username_Result>;
   Create_Post?: Maybe<Create_Post_Result>;
   Decline_Friend?: Maybe<Scalars['Boolean']['output']>;
+  Like?: Maybe<Scalars['Boolean']['output']>;
   Remove_Friend?: Maybe<Scalars['Boolean']['output']>;
   Seach_Friend?: Maybe<Seach_Friend_Result>;
   Send_Friend_Request?: Maybe<Send_Friend_Request_Result>;
@@ -60,6 +87,12 @@ export type MutationDecline_FriendArgs = {
 };
 
 
+export type MutationLikeArgs = {
+  id: Scalars['String']['input'];
+  type: Cd;
+};
+
+
 export type MutationRemove_FriendArgs = {
   FriendId: Scalars['String']['input'];
 };
@@ -84,6 +117,7 @@ export type Post = {
   _count: PostCount;
   authorId: Scalars['String']['output'];
   body: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
   id: Scalars['String']['output'];
 };
 
@@ -100,12 +134,19 @@ export type PostMeta = {
 
 export type Query = {
   __typename?: 'Query';
+  Feed: Array<FeedPosts>;
   Get_Friend_Request: Array<Requests>;
   Get_Friends: MyFriends;
   Get_More_Post: Array<Post>;
   Get_Post: Array<Post>;
   Get_Post_Meta: PostMeta;
   test?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type QueryFeedArgs = {
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  type: FeedRequest;
 };
 
 
@@ -155,10 +196,29 @@ export type Users = {
   username: Scalars['String']['output'];
 };
 
+export enum FeedRequest {
+  Inital = 'inital',
+  More = 'more',
+  New = 'new'
+}
+
 export type MyFriends = {
   __typename?: 'myFriends';
   friends: Array<Friend>;
 };
+
+export type Mylikes = {
+  __typename?: 'mylikes';
+  id: Scalars['String']['output'];
+};
+
+export type FeedQueryVariables = Exact<{
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  type: FeedRequest;
+}>;
+
+
+export type FeedQuery = { __typename?: 'Query', Feed: Array<{ __typename?: 'FeedPosts', id: string, body: string, authorId: string, createdAt: string, _count: { __typename?: 'FeedPostCount', likes: number, comments: number }, likes: Array<{ __typename?: 'mylikes', id: string }> }> };
 
 export type FriendsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -211,24 +271,32 @@ export type Seach_FriendMutationVariables = Exact<{
 
 export type Seach_FriendMutation = { __typename?: 'Mutation', Seach_Friend?: { __typename: 'Seach_Users', Seach_Users: Array<{ __typename?: 'Users', id: string, username: string }> } | { __typename: 'UnknownError', error: string } | null };
 
+export type LikeMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  type: Cd;
+}>;
+
+
+export type LikeMutation = { __typename?: 'Mutation', Like?: boolean | null };
+
 export type PostQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostQuery = { __typename?: 'Query', Get_Post: Array<{ __typename?: 'Post', id: string, body: string, authorId: string, _count: { __typename?: 'PostCount', likes: number, comments: number } }>, Get_Post_Meta: { __typename?: 'PostMeta', count: number } };
+export type PostQuery = { __typename?: 'Query', Get_Post: Array<{ __typename?: 'Post', id: string, body: string, authorId: string, createdAt: string, _count: { __typename?: 'PostCount', likes: number, comments: number } }>, Get_Post_Meta: { __typename?: 'PostMeta', count: number } };
 
 export type Get_More_PostQueryVariables = Exact<{
   cursor: Scalars['String']['input'];
 }>;
 
 
-export type Get_More_PostQuery = { __typename?: 'Query', Get_More_Post: Array<{ __typename?: 'Post', id: string, body: string, authorId: string, _count: { __typename?: 'PostCount', likes: number, comments: number } }> };
+export type Get_More_PostQuery = { __typename?: 'Query', Get_More_Post: Array<{ __typename?: 'Post', id: string, body: string, authorId: string, createdAt: string, _count: { __typename?: 'PostCount', likes: number, comments: number } }> };
 
 export type Create_PostMutationVariables = Exact<{
   body: Scalars['String']['input'];
 }>;
 
 
-export type Create_PostMutation = { __typename?: 'Mutation', Create_Post?: { __typename: 'Post', id: string, body: string, authorId: string, _count: { __typename?: 'PostCount', likes: number, comments: number } } | { __typename: 'UnknownError', error: string } | null };
+export type Create_PostMutation = { __typename?: 'Mutation', Create_Post?: { __typename: 'Post', id: string, body: string, authorId: string, createdAt: string, _count: { __typename?: 'PostCount', likes: number, comments: number } } | { __typename: 'UnknownError', error: string } | null };
 
 export type Add_UsernameMutationVariables = Exact<{
   username: Scalars['String']['input'];
@@ -238,6 +306,52 @@ export type Add_UsernameMutationVariables = Exact<{
 export type Add_UsernameMutation = { __typename?: 'Mutation', Add_Username?: { __typename: 'NotAllowedError', error: string } | { __typename: 'UnknownError', error: string } | { __typename: 'Username', username: string } | null };
 
 
+export const FeedDocument = gql`
+    query Feed($cursor: String, $type: feedRequest!) {
+  Feed(cursor: $cursor, type: $type) {
+    id
+    body
+    authorId
+    _count {
+      likes
+      comments
+    }
+    createdAt
+    likes {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useFeedQuery__
+ *
+ * To run a query within a React component, call `useFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFeedQuery({
+ *   variables: {
+ *      cursor: // value for 'cursor'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useFeedQuery(baseOptions: Apollo.QueryHookOptions<FeedQuery, FeedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FeedQuery, FeedQueryVariables>(FeedDocument, options);
+      }
+export function useFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FeedQuery, FeedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FeedQuery, FeedQueryVariables>(FeedDocument, options);
+        }
+export type FeedQueryHookResult = ReturnType<typeof useFeedQuery>;
+export type FeedLazyQueryHookResult = ReturnType<typeof useFeedLazyQuery>;
+export type FeedQueryResult = Apollo.QueryResult<FeedQuery, FeedQueryVariables>;
 export const FriendsDocument = gql`
     query Friends {
   Get_Friends {
@@ -532,12 +646,45 @@ export function useSeach_FriendMutation(baseOptions?: Apollo.MutationHookOptions
 export type Seach_FriendMutationHookResult = ReturnType<typeof useSeach_FriendMutation>;
 export type Seach_FriendMutationResult = Apollo.MutationResult<Seach_FriendMutation>;
 export type Seach_FriendMutationOptions = Apollo.BaseMutationOptions<Seach_FriendMutation, Seach_FriendMutationVariables>;
+export const LikeDocument = gql`
+    mutation Like($id: String!, $type: CD!) {
+  Like(id: $id, type: $type)
+}
+    `;
+export type LikeMutationFn = Apollo.MutationFunction<LikeMutation, LikeMutationVariables>;
+
+/**
+ * __useLikeMutation__
+ *
+ * To run a mutation, you first call `useLikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [likeMutation, { data, loading, error }] = useLikeMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useLikeMutation(baseOptions?: Apollo.MutationHookOptions<LikeMutation, LikeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LikeMutation, LikeMutationVariables>(LikeDocument, options);
+      }
+export type LikeMutationHookResult = ReturnType<typeof useLikeMutation>;
+export type LikeMutationResult = Apollo.MutationResult<LikeMutation>;
+export type LikeMutationOptions = Apollo.BaseMutationOptions<LikeMutation, LikeMutationVariables>;
 export const PostDocument = gql`
     query Post {
   Get_Post {
     id
     body
     authorId
+    createdAt
     _count {
       likes
       comments
@@ -581,6 +728,7 @@ export const Get_More_PostDocument = gql`
     id
     body
     authorId
+    createdAt
     _count {
       likes
       comments
@@ -624,6 +772,7 @@ export const Create_PostDocument = gql`
       id
       body
       authorId
+      createdAt
       _count {
         likes
         comments

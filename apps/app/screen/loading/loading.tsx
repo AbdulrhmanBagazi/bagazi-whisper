@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { View } from 'react-native'
-import { ActivityIndicator } from 'react-native-paper'
+import { View, ActivityIndicator } from 'react-native'
 import { useAuthHook } from '../../hook/auth'
 
 export default function LoadingScreen() {

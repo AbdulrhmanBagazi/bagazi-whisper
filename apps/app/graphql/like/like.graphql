@@ -1,0 +1,8 @@
+enum CD {
+  connect
+  disconnect
+}
+
+mutation Like($id: String!, $type: CD!) {
+  Like(id: $id, type: $type)
+}

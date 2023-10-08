@@ -52,10 +52,10 @@ const startServer = async () => {
 
   app.use(
     cors({
-      origin:
-        process.env.NODE_ENV === 'production'
-          ? [AdminURL, ClientURL, CompaniesURL]
-          : '*',
+      origin: [AdminURL, ClientURL, CompaniesURL],
+      // process.env.NODE_ENV === 'production'
+      //   ? [AdminURL, ClientURL, CompaniesURL]
+      //   : '*',
       credentials: true
     })
   )

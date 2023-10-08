@@ -7,7 +7,6 @@ import { FlashList } from '@shopify/flash-list'
 import { useAuthHook } from '../../hook/auth'
 import { useFriendHook } from '../../hook/friend'
 import Friendlistitem from './ui/friendlistitem'
-import { List } from 'react-native-paper'
 
 export default function FriendsScreen() {
   const { ShowSnack } = useSnckHook((state) => state)

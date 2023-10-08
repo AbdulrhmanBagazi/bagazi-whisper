@@ -1,44 +1,15 @@
-import React, { useEffect } from 'react'
-import { androidClientId, iosClientId, webClientId } from '../config/config'
-import * as Google from 'expo-auth-session/providers/google'
+import React from 'react'
 import { useAuthHook } from '../hook/auth'
-import { useSnckHook } from '../hook/snack'
-import { useI18nHook } from '../hook/i18n'
 import { Button } from 'react-native-paper'
-import { Image, View } from 'react-native'
+import { Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
-  text,
-  dark
+  text
+  // dark
 }) => {
-  const { loading, GoogleSignIn } = useAuthHook((state) => state)
-  const { ShowSnack } = useSnckHook((state) => state)
-  const { I18n } = useI18nHook((state) => state)
-
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    webClientId: webClientId,
-    androidClientId: androidClientId,
-    iosClientId: iosClientId
-  })
-
-  useEffect(() => {
-    const Google = async () => {
-      if (response?.type === 'success') {
-        if (response.authentication?.idToken) {
-          const Response = await GoogleSignIn({
-            idToken: response.authentication.idToken
-          })
-          //check if the user used the email address as Apple account
-
-          if (Response === 'error') {
-            return ShowSnack(I18n.Errors.Unknown)
-          }
-        }
-      }
-    }
-
-    Google()
-  }, [response])
+  const { loading } = useAuthHook((state) => state)
+  const Navigation = useNavigation()
 
   return (
     <Button
@@ -56,7 +27,9 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
         />
       )}
       onPress={() => {
-        promptAsync()
+        Navigation.navigate('Auth', {
+          screen: 'GoogleLoading'
+        })
       }}
       disabled={loading}
     >

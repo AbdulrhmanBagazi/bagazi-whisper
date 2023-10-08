@@ -7,15 +7,18 @@ type ProfilePostType = {
   loadMorePosts: (data: Get_More_PostQuery) => void
   posts: Array<Post>
   count: number
+  initialLoading: boolean
 }
 
 export const useProfilePostsHook = create<ProfilePostType>((set) => ({
   posts: [],
   count: 0,
+  initialLoading: true,
   initialposts: async (data) => {
     set(() => ({
       posts: data.Get_Post,
-      count: data.Get_Post_Meta.count
+      count: data.Get_Post_Meta.count,
+      initialLoading: false
     }))
   },
   addPost: async (data) => {

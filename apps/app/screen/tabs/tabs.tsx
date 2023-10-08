@@ -63,7 +63,7 @@ export default function TabsStack() {
         }}
         size="small"
         onPress={() => Navigation.navigate('Post')}
-        />
+      />
     </>
   )
 }

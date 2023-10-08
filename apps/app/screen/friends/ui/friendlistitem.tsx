@@ -1,5 +1,5 @@
-import { ActivityIndicator, List } from 'react-native-paper'
-import { Alert } from 'react-native'
+import { List } from 'react-native-paper'
+import { Alert, ActivityIndicator } from 'react-native'
 import { Friend, useRemove_FriendMutation } from '../../../graphql/generated'
 import { useI18nHook } from '../../../hook/i18n'
 import { useAuthHook } from '../../../hook/auth'
