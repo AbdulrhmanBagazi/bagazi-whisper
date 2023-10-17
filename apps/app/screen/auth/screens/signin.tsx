@@ -4,11 +4,18 @@ import { useI18nHook } from '../../../hook/i18n'
 import MAppleButton from '../../../components/appleButton'
 import { useThemeHook } from '../../../hook/theme'
 import { Divider, useTheme } from 'react-native-paper'
+// import { useApolloClient } from '@apollo/client'
+// import { useEffect } from 'react'
 
 export default function SignInScreen() {
+  // const client = useApolloClient()
   const { I18n } = useI18nHook((state) => state)
   const { Dark } = useThemeHook((state) => state)
   const theme = useTheme()
+
+  // useEffect(() => {
+  //   client.resetStore()
+  // }, [])
 
   return (
     <SafeAreaView

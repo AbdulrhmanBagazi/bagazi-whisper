@@ -8,7 +8,7 @@ export const Like_TypeDefs = gql`
   }
 
   type Mutation {
-    Like(id: String!, type: CD!): Boolean
+    Like(id: String!, type: CD!): FeedPosts
   }
 `
 
@@ -20,25 +20,53 @@ export const Like_Mutation = {
     args: { id: string; type: CD },
     context: MyContext
   ) => {
-    try {
-      await context.prisma.post.update({
-        data: {
-          likes: {
-            [args.type]: [
-              {
+    const data = await context.prisma.post.update({
+      data: {
+        likes: {
+          [args.type]: [
+            {
+              id: context.req.user.id
+            }
+          ]
+        },
+        mylikes: {
+          [args.type]: [
+            {
+              id: context.req.user.id
+            }
+          ]
+        }
+      },
+      where: {
+        id: args.id
+      },
+      select: {
+        id: true,
+        body: true,
+        authorId: true,
+        _count: {
+          select: {
+            likes: true,
+            comments: true,
+            mylikes: {
+              where: {
                 id: context.req.user.id
               }
-            ]
+            }
           }
         },
-        where: {
-          id: args.id
-        }
-      })
+        createdAt: true
+        // likes: {
+        //   where: {
+        //     id: context.req.user.id
+        //   },
+        //   select: {
+        //     id: true
+        //   }
+        // }
+      }
+    })
 
-      return true
-    } catch (error) {
-      return false
-    }
+    return data
   }
 }

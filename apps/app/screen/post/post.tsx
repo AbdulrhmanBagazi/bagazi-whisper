@@ -1,10 +1,8 @@
 import { ScrollView, View } from 'react-native'
-import Header from '../../components/header'
 import MyButton from '../../components/myButton'
 import {
   Appbar,
   HelperText,
-  IconButton,
   Text,
   TextInput,
   useTheme

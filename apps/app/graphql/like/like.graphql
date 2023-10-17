@@ -4,5 +4,15 @@ enum CD {
 }
 
 mutation Like($id: String!, $type: CD!) {
-  Like(id: $id, type: $type)
+  Like(id: $id, type: $type) {
+    id
+    body
+    authorId
+    _count {
+      likes
+      comments
+      mylikes
+    }
+    createdAt
+  }
 }

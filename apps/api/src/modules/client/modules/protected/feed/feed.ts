@@ -5,6 +5,7 @@ export const Feed_TypeDefs = gql`
   type FeedPostCount {
     likes: Int!
     comments: Int!
+    mylikes: Int!
   }
 
   type mylikes {
@@ -17,7 +18,7 @@ export const Feed_TypeDefs = gql`
     authorId: String!
     _count: FeedPostCount!
     #
-    likes: [mylikes!]!
+    # likes: [mylikes!]!
     createdAt: String!
   }
 
@@ -91,18 +92,23 @@ export const Feed_Query = {
         _count: {
           select: {
             likes: true,
-            comments: true
+            comments: true,
+            mylikes: {
+              where: {
+                id: context.req.user.id
+              }
+            }
           }
         },
-        createdAt: true,
-        likes: {
-          where: {
-            id: context.req.user.id
-          },
-          select: {
-            id: true
-          }
-        }
+        createdAt: true
+        // likes: {
+        //   where: {
+        //     id: context.req.user.id
+        //   },
+        //   select: {
+        //     id: true
+        //   }
+        // }
       },
       orderBy: {
         createdAt: 'desc'

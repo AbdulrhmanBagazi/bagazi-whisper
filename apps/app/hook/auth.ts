@@ -5,6 +5,8 @@ import { AppleArgs, GoogleArgs, UserTypes } from '../types/types'
 import { OneSignal } from 'react-native-onesignal'
 import * as AppleAuthentication from 'expo-apple-authentication'
 import { MyFriends, Requests } from '../graphql/generated'
+import { useFeedPostsHook } from './feed'
+import { useProfilePostsHook } from './profileposts'
 
 type error = 'error'
 type success = 'success'
@@ -69,11 +71,11 @@ export const useAuthHook = create<AuthContextType>((set) => ({
 
     if (error && !data) {
       set(() => ({
-        loading: false,
-        user: null,
-        auth: false,
-        friends: [],
-        username: null
+        loading: false
+        // user: null,
+        // auth: false,
+        // friends: [],
+        // username: null
       }))
 
       return 'error'
@@ -85,6 +87,14 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       auth: false,
       username: null
     }))
+
+    useFeedPostsHook.setState({
+      initialFeedLoading: true
+    })
+    useProfilePostsHook.setState({
+      initialLoading: true,
+      count: 0
+    })
 
     return 'success'
   },

@@ -35,6 +35,7 @@ export type FeedPostCount = {
   __typename?: 'FeedPostCount';
   comments: Scalars['Int']['output'];
   likes: Scalars['Int']['output'];
+  mylikes: Scalars['Int']['output'];
 };
 
 export type FeedPosts = {
@@ -44,7 +45,6 @@ export type FeedPosts = {
   body: Scalars['String']['output'];
   createdAt: Scalars['String']['output'];
   id: Scalars['String']['output'];
-  likes: Array<Mylikes>;
 };
 
 export type Friend = {
@@ -59,7 +59,7 @@ export type Mutation = {
   Add_Username?: Maybe<Add_Username_Result>;
   Create_Post?: Maybe<Create_Post_Result>;
   Decline_Friend?: Maybe<Scalars['Boolean']['output']>;
-  Like?: Maybe<Scalars['Boolean']['output']>;
+  Like?: Maybe<FeedPosts>;
   Remove_Friend?: Maybe<Scalars['Boolean']['output']>;
   Seach_Friend?: Maybe<Seach_Friend_Result>;
   Send_Friend_Request?: Maybe<Send_Friend_Request_Result>;
@@ -218,7 +218,7 @@ export type FeedQueryVariables = Exact<{
 }>;
 
 
-export type FeedQuery = { __typename?: 'Query', Feed: Array<{ __typename?: 'FeedPosts', id: string, body: string, authorId: string, createdAt: string, _count: { __typename?: 'FeedPostCount', likes: number, comments: number }, likes: Array<{ __typename?: 'mylikes', id: string }> }> };
+export type FeedQuery = { __typename?: 'Query', Feed: Array<{ __typename?: 'FeedPosts', id: string, body: string, authorId: string, createdAt: string, _count: { __typename?: 'FeedPostCount', likes: number, comments: number, mylikes: number } }> };
 
 export type FriendsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -277,7 +277,7 @@ export type LikeMutationVariables = Exact<{
 }>;
 
 
-export type LikeMutation = { __typename?: 'Mutation', Like?: boolean | null };
+export type LikeMutation = { __typename?: 'Mutation', Like?: { __typename?: 'FeedPosts', id: string, body: string, authorId: string, createdAt: string, _count: { __typename?: 'FeedPostCount', likes: number, comments: number, mylikes: number } } | null };
 
 export type PostQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -315,11 +315,9 @@ export const FeedDocument = gql`
     _count {
       likes
       comments
+      mylikes
     }
     createdAt
-    likes {
-      id
-    }
   }
 }
     `;
@@ -648,7 +646,17 @@ export type Seach_FriendMutationResult = Apollo.MutationResult<Seach_FriendMutat
 export type Seach_FriendMutationOptions = Apollo.BaseMutationOptions<Seach_FriendMutation, Seach_FriendMutationVariables>;
 export const LikeDocument = gql`
     mutation Like($id: String!, $type: CD!) {
-  Like(id: $id, type: $type)
+  Like(id: $id, type: $type) {
+    id
+    body
+    authorId
+    _count {
+      likes
+      comments
+      mylikes
+    }
+    createdAt
+  }
 }
     `;
 export type LikeMutationFn = Apollo.MutationFunction<LikeMutation, LikeMutationVariables>;

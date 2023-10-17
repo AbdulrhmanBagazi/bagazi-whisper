@@ -25,11 +25,9 @@ query Feed($cursor: String, $type: feedRequest!) {
     _count {
       likes
       comments
+      mylikes
     }
     createdAt
-    likes {
-      id
-    }
   }
 }
 

@@ -8,8 +8,10 @@ import { useSnckHook } from '../../hook/snack'
 import MyButton from '../../components/myButton'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNotificationnHook } from '../../hook/notification'
+import { useApolloClient } from '@apollo/client'
 
 export default function SettingsScreen() {
+  const client = useApolloClient()
   const { ToggleTheme, Dark } = useThemeHook((state) => state)
   const { loading, auth, SignOut } = useAuthHook((state) => state)
   const { I18n, Language, ToggleI18n } = useI18nHook((state) => state)
@@ -21,11 +23,12 @@ export default function SettingsScreen() {
     const Response = await SignOut()
 
     if (Response === 'error') {
-      ShowSnack(I18n.Errors.Unknown)
+      return ShowSnack(I18n.Errors.Unknown)
     }
 
     if (Response === 'success') {
-      ShowSnack(I18n.Snack.SignOut)
+      await client.clearStore()
+      return ShowSnack(I18n.Snack.SignOut)
     }
   }
 

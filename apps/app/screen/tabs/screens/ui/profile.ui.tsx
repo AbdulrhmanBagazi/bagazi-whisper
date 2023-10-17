@@ -13,7 +13,7 @@ const ProfileUI = () => {
   const theme = useTheme()
   const Navigation = useNavigation()
   const { I18n } = useI18nHook((state) => state)
-  const { user, friends } = useAuthHook((state) => state)
+  const { friends } = useAuthHook((state) => state)
   const { count, initialLoading } = useProfilePostsHook((state) => state)
   const { initialposts } = useProfilePostsHook((state) => state)
   const { loading, error, refetch } = usePostQuery({

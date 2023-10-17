@@ -30,7 +30,8 @@ model User {
     username          String?   @unique
     //
     posts             Post[]    @relation("author")
-    likes             Post[]
+    likes             Post[]    @relation("likes")
+    mylikes           Post[]    @relation("mylikes")
     //
     friendRequest     Request[] @relation("reciver")
     requestSent       Request[] @relation("sender")
@@ -45,7 +46,8 @@ model Post {
     authorId  String    @db.Uuid
     author    User      @relation("author", fields: [authorId], references: [id])
     //
-    likes     User[]
+    likes     User[]    @relation("likes")
+    mylikes   User[]    @relation("mylikes")
     //
     comments  Comment[]
 }
