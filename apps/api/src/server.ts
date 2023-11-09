@@ -62,7 +62,9 @@ const startServer = async () => {
   )
 
   app.get('/hp', (_req, res) => {
-    return res.status(200)
+    return res.status(200).json({
+      hp: true
+    })
   })
 
   app.use(cookieParser(process.env.COOKIE_SECRET))
