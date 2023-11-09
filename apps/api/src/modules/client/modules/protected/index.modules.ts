@@ -1,3 +1,4 @@
+import { Comments } from './comments/index.mocules'
 import { Feed } from './feed/index.modules'
 import { Friend } from './friend/index.modules'
 import { Like } from './like/index.modules'
@@ -8,13 +9,15 @@ export const ClientResolvers = {
   Query: {
     ...Post.Query,
     ...Friend.Query,
-    ...Feed.Query
+    ...Feed.Query,
+    ...Comments.Query
   },
   Mutation: {
     ...Friend.Mutation,
     ...Username.Mutation,
     ...Post.Mutation,
-    ...Like.Mutation
+    ...Like.Mutation,
+    ...Comments.Mutation
   }
   // ...Posts.Resolver,
 }
@@ -23,5 +26,6 @@ export const ClientTypeDefs = [
   Username.typeDef,
   Post.typeDef,
   Feed.typeDef,
-  Like.typeDef
+  Like.typeDef,
+  Comments.typeDef
 ]

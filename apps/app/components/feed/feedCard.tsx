@@ -4,16 +4,16 @@ import { FeedPosts } from '../../graphql/generated'
 import FeedTag from './feedTag'
 import LikeButton from '../likeButton'
 
-const FeedCard: React.FC<{ data: FeedPosts; index: number }> = ({
-  data,
-  index
-}) => {
+const FeedCard: React.FC<{
+  data: FeedPosts
+  index: number
+  OpenComments: () => void
+}> = ({ data, index, OpenComments }) => {
   const theme = useTheme()
   return (
     <Card
       style={{
         borderRadius: 0,
-        // marginVertical: 5
         backgroundColor: theme.colors.background
       }}
       mode="contained"
@@ -33,7 +33,7 @@ const FeedCard: React.FC<{ data: FeedPosts; index: number }> = ({
             justifyContent: 'center',
             alignItems: 'center',
             flex: 1,
-            padding: 50
+            margin: 20
           }}
         >
           <Text variant="bodyLarge" style={{ textAlign: 'center' }}>
@@ -61,13 +61,12 @@ const FeedCard: React.FC<{ data: FeedPosts; index: number }> = ({
             style={{
               borderWidth: 0
             }}
-            onPress={() => console.log(1)}
+            onPress={OpenComments}
           >
             {data._count.comments}
           </Button>
 
           <LikeButton
-            index={index}
             id={data.id}
             liked={data._count.mylikes >= 1}
             likes={data._count.likes}

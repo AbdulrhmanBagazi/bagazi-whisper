@@ -3,7 +3,7 @@ import MGoogleButton from '../../../components/googleButton'
 import { useI18nHook } from '../../../hook/i18n'
 import MAppleButton from '../../../components/appleButton'
 import { useThemeHook } from '../../../hook/theme'
-import { Divider, useTheme } from 'react-native-paper'
+import { Divider, useTheme, Text } from 'react-native-paper'
 // import { useApolloClient } from '@apollo/client'
 // import { useEffect } from 'react'
 
@@ -23,10 +23,16 @@ export default function SignInScreen() {
         flex: 1
       }}
     >
-      <View style={{ flex: 2 }}>
-        <Divider
-          style={{ marginVertical: 10, backgroundColor: 'transparent' }}
-        />
+      <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
+        <Text
+          variant="displayLarge"
+          style={{
+            fontWeight: '900',
+            color: theme.colors.primary
+          }}
+        >
+          WHISPER
+        </Text>
       </View>
       <View
         style={{

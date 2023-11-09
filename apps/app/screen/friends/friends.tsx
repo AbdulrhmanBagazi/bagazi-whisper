@@ -36,7 +36,7 @@ export default function FriendsScreen() {
       />
       <FlashList
         alwaysBounceVertical={false}
-        showsVerticalScrollIndicator={false}
+        // showsVerticalScrollIndicator={false}
         data={friends}
         renderItem={({ item }) => <Friendlistitem item={item} />}
         estimatedItemSize={100}

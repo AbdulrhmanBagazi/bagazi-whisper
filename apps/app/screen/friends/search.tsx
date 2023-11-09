@@ -60,7 +60,7 @@ export default function SeachScreen() {
         />
       </View>
       <FlashList
-        showsVerticalScrollIndicator={false}
+        // showsVerticalScrollIndicator={false}
         data={searchData}
         contentContainerStyle={{ paddingBottom: 50 }}
         // alwaysBounceVertical={false}
@@ -85,21 +85,6 @@ export default function SeachScreen() {
         renderItem={({ item }) => <SeachList user={item} />}
         estimatedItemSize={100}
       />
-      {/* <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: -99,
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0
-        }}
-      >
-        <IconButton icon="magnify" size={100} />
-      </View> */}
     </View>
   )
 }

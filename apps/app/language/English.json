@@ -1,6 +1,11 @@
 {
   "Home": {
-    "Title": "Home"
+    "Title": "Home",
+    "NoComments": "No comments yet",
+    "Comments": "Comments",
+    "Noteone": "@Friend - friend post",
+    "Notetwo": "@Friend of a friend - any post liked by your friend from their friend's list",
+    "NoteThree": "(Posts can spread the more likes they get, it will reach more users)"
   },
   "Profile": {
     "Title": "Profile",
@@ -90,7 +95,7 @@
   "Tag": {
     "You": "You",
     "Friend": "Friend",
-    "FriendOfFriend": "Friend Of friend"
+    "FriendOfFriend": "Friend of a friend"
   },
   "Friends": {
     "Friends": "Friends"

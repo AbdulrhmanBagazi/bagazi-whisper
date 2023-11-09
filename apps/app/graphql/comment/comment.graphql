@@ -1,0 +1,19 @@
+query Get_Comments($post_id: String!) {
+  Get_Comments(post_id: $post_id) {
+    id
+    body
+    createdAt
+    authorId
+    postId
+  }
+}
+
+mutation Create_Comment($post_id: String!, $body: String!) {
+  Create_Comment(post_id: $post_id, body: $body) {
+    id
+    body
+    createdAt
+    authorId
+    postId
+  }
+}

@@ -36,7 +36,7 @@ export default function FriendsRequestsScreen() {
       />
       <FlashList
         // alwaysBounceVertical={false}
-        showsVerticalScrollIndicator={false}
+        // showsVerticalScrollIndicator={false}
         data={requests}
         contentContainerStyle={{ paddingBottom: 50 }}
         refreshControl={

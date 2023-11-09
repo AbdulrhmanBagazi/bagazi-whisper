@@ -1,31 +1,44 @@
-query Post {
-  Get_Post {
+# query Post {
+#   Get_Post {
+#     id
+#     body
+#     authorId
+#     createdAt
+#     _count {
+#       likes
+#       comments
+#     }
+#   }
+#   Get_Post_Meta {
+#     count
+#   }
+# }
+
+query Post($cursor: String, $type: postsRequest!) {
+  Post(cursor: $cursor, type: $type) {
     id
     body
     authorId
-    createdAt
     _count {
       likes
       comments
     }
-  }
-  Get_Post_Meta {
-    count
+    createdAt
   }
 }
 
-query Get_More_Post($cursor: String!) {
-  Get_More_Post(cursor: $cursor) {
-    id
-    body
-    authorId
-    createdAt
-    _count {
-      likes
-      comments
-    }
-  }
-}
+# query Get_More_Post($cursor: String!) {
+#   Get_More_Post(cursor: $cursor) {
+#     id
+#     body
+#     authorId
+#     createdAt
+#     _count {
+#       likes
+#       comments
+#     }
+#   }
+# }
 
 mutation Create_Post($body: String!) {
   Create_Post(body: $body) {

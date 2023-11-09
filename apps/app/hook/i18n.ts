@@ -42,9 +42,9 @@ export const useI18nHook = create<I18nType>((set) => ({
   I18nStore: async () => {
     const Language = await SecureStore.getItemAsync('AppLang-Whisper')
     set(() => ({
-      Language: Language === 'ar' ? 'ar' : 'en',
-      I18n: Language === 'ar' ? Arabic : English,
-      Direction: Language === 'ar' ? 'rtl' : 'ltr'
+      Language: Language === 'ar' && I18nManager.isRTL ? 'ar' : 'en',
+      I18n: Language === 'ar' && I18nManager.isRTL ? Arabic : English,
+      Direction: Language === 'ar' && I18nManager.isRTL ? 'rtl' : 'ltr'
     }))
   }
 }))

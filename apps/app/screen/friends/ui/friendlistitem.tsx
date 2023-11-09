@@ -18,6 +18,10 @@ const Friendlistitem: React.FC<{
   return (
     <List.Item
       title={`@${item.username}`}
+      titleStyle={{
+        writingDirection: 'ltr',
+        fontSize: 30
+      }}
       onPress={() =>
         Alert.alert(
           I18n.Alert['Alert.Title'],

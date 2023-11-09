@@ -26,7 +26,7 @@ const Header: React.FC<{
       {friend_requests ? (
         <View>
           <Appbar.Action
-            icon="account"
+            icon="account-plus"
             disabled={loading || friend_requests_loading}
             onPress={() =>
               Navigation.navigate('Friends', {

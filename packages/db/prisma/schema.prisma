@@ -35,6 +35,8 @@ model User {
     //
     friendRequest     Request[] @relation("reciver")
     requestSent       Request[] @relation("sender")
+    //
+    Comment           Comment[] @relation("author")
 }
 
 model Post {
@@ -60,6 +62,9 @@ model Comment {
     //
     Post      Post     @relation(fields: [postId], references: [id])
     postId    String   @db.Uuid
+    //
+    author    User     @relation("author", fields: [authorId], references: [id])
+    authorId  String   @db.Uuid
 }
 
 ///

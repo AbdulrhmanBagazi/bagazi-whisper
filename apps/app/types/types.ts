@@ -58,6 +58,7 @@ export type RootStackParamList = {
   Friends: NavigatorScreenParams<FriendsStackParamList>
   Username: undefined
   Post: undefined
+  Language: undefined
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>

@@ -2,9 +2,11 @@ import { View } from 'react-native'
 import { Text, Card, useTheme, Button, Divider } from 'react-native-paper'
 import PosterTag from './post/posterTag'
 import { Post } from '../graphql/generated'
-import { windowWidth } from '../config/config'
 
-const PostCard: React.FC<{ data: Post }> = ({ data }) => {
+const PostCard: React.FC<{ data: Post; OpenComments: () => void }> = ({
+  data,
+  OpenComments
+}) => {
   const theme = useTheme()
 
   return (
@@ -58,7 +60,7 @@ const PostCard: React.FC<{ data: Post }> = ({ data }) => {
             style={{
               borderWidth: 0
             }}
-            onPress={() => console.log(1)}
+            onPress={OpenComments}
           >
             {data._count.comments}
           </Button>

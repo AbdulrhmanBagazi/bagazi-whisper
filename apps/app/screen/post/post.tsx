@@ -15,18 +15,18 @@ import { useMutation } from '@apollo/client'
 import {
   Create_PostDocument,
   Create_PostMutation,
-  Create_PostMutationVariables
+  Create_PostMutationVariables,
+  PostDocument,
+  PostsRequest
 } from '../../graphql/generated'
 import { useSnckHook } from '../../hook/snack'
 import { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { useProfilePostsHook } from '../../hook/profileposts'
+import Client from '../../config/api/apollo'
 
 export default function PostScreen() {
   const { I18n } = useI18nHook((state) => state)
   const { ShowSnack } = useSnckHook((state) => state)
-  const { addPost } = useProfilePostsHook((state) => state)
-
   const { setOptions, goBack } = useNavigation()
   const theme = useTheme()
   const [mutateFunction, { loading }] = useMutation<
@@ -60,13 +60,30 @@ export default function PostScreen() {
     const { data } = await mutateFunction({
       variables: {
         body: values.body
+      },
+      update(cache, { data }) {
+        const { Post } = Client.readQuery({
+          query: PostDocument,
+          variables: {
+            type: PostsRequest.Inital
+          }
+        })
+
+        cache.writeQuery({
+          query: PostDocument,
+          data: {
+            Post: [data?.Create_Post, ...Post]
+          },
+          variables: {
+            type: PostsRequest.Inital
+          }
+        })
       }
     })
 
     if (data?.Create_Post?.__typename === 'Post') {
       goBack()
 
-      addPost(data.Create_Post)
       return ShowSnack(I18n.Post.Created)
     }
 

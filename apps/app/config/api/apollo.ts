@@ -5,7 +5,6 @@ import {
   InMemoryCache
 } from '@apollo/client'
 import { GRAPHQL, PUBLIC_GRAPHQL } from '../config'
-import { FeedQuery } from '../../graphql/generated'
 
 const public_client = new HttpLink({
   uri: PUBLIC_GRAPHQL,
@@ -25,8 +24,8 @@ const Client = new ApolloClient({
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: 'cache-and-network',
-      errorPolicy: 'ignore',
+      fetchPolicy: 'cache-first',
+      errorPolicy: 'all',
       notifyOnNetworkStatusChange: true
     },
     query: {

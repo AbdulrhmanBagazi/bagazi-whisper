@@ -92,8 +92,7 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       initialFeedLoading: true
     })
     useProfilePostsHook.setState({
-      initialLoading: true,
-      count: 0
+      initialLoading: true
     })
 
     return 'success'

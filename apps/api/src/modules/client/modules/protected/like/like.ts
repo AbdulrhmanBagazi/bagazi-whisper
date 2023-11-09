@@ -1,3 +1,4 @@
+import { GraphQLError } from 'graphql'
 import { MyContext } from '../../../../../context'
 import gql from 'graphql-tag'
 
@@ -56,6 +57,15 @@ export const Like_Mutation = {
           }
         },
         createdAt: true
+        // comments: {
+        //   select: {
+        //     id: true,
+        //     body: true,
+        //     createdAt: true,
+        //     postId: true,
+        //     authorId: true
+        //   }
+        // }
         // likes: {
         //   where: {
         //     id: context.req.user.id

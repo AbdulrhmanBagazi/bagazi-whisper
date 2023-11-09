@@ -9,7 +9,6 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
       "backgroundColor": "#6750A4"
     },
     "assetBundlePatterns": ["**/*"],
@@ -46,15 +45,11 @@
         "projectId": "f7e30c6c-f300-4899-9f2b-49eb84bf0831"
       }
     },
-    "build": {
-      "development": {
-        "developmentClient": true,
-        "distribution": "internal"
-      },
-      "preview": {
-        "distribution": "internal"
-      },
-      "production": {}
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f7e30c6c-f300-4899-9f2b-49eb84bf0831"
     }
   }
 }

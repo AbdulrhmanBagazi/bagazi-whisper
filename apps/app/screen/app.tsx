@@ -33,7 +33,6 @@ export default function App() {
   const { I18nStore } = useI18nHook((state) => state)
   const { AuthLoading, auth, username } = useAuthHook((state) => state)
   const { HideSnack, show, text } = useSnckHook((state) => state)
-
   const [appIsReady, setAppIsReady] = useState(false)
 
   useEffect(() => {
@@ -151,7 +150,7 @@ export default function App() {
                 duration={1500}
                 style={{ marginHorizontal: 20 }}
                 wrapperStyle={{
-                  bottom: 20
+                  bottom: 60
                 }}
               >
                 {text}

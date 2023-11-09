@@ -1,10 +1,11 @@
-import { Appbar, Text } from 'react-native-paper'
+import { Appbar, Badge, Text } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useAuthHook } from '../hook/auth'
+import { View } from 'react-native'
 
 const HeaderSettings: React.FC = () => {
   const Navigation = useNavigation()
-  const { username } = useAuthHook((state) => state)
+  const { username, friends } = useAuthHook((state) => state)
 
   return (
     <Appbar.Header style={{ justifyContent: 'space-between' }}>
@@ -18,10 +19,32 @@ const HeaderSettings: React.FC = () => {
       >
         @{username}
       </Text>
-      <Appbar.Action
-        icon="cog"
-        onPress={() => Navigation.navigate('Settings')}
-      />
+      <View style={{ flexDirection: 'row' }}>
+        <View>
+          <Appbar.Action
+            icon="account"
+            onPress={() =>
+              Navigation.navigate('Friends', {
+                screen: 'Friend'
+              })
+            }
+          />
+          <Badge
+            visible={friends.length > 0}
+            style={{
+              position: 'absolute',
+              bottom: 5,
+              right: 5
+            }}
+          >
+            {friends.length}
+          </Badge>
+        </View>
+        <Appbar.Action
+          icon="cog"
+          onPress={() => Navigation.navigate('Settings')}
+        />
+      </View>
     </Appbar.Header>
   )
 }

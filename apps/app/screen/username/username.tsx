@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { HelperText, TextInput, useTheme } from 'react-native-paper'
+import { HelperText, Text, TextInput, useTheme } from 'react-native-paper'
 import HeaderLogout from '../../components/headerLogout'
 import { Formik } from 'formik'
 import * as yup from 'yup'
@@ -19,7 +19,6 @@ export default function UsernameScreen() {
   const { I18n } = useI18nHook((state) => state)
   const { ShowSnack } = useSnckHook((state) => state)
   const { AddUsername, AuthLoading } = useAuthHook((state) => state)
-
   const [mutateFunction, { loading }] = useMutation<
     Add_UsernameMutation,
     Add_UsernameMutationVariables
@@ -78,13 +77,16 @@ export default function UsernameScreen() {
           <View
             style={{ flex: 1, justifyContent: 'center', marginHorizontal: 25 }}
           >
-            <View style={{ flex: 2 }}>
+            <Text variant="displayMedium">{I18n.Username.Username}</Text>
+            <View style={{ flex: 2, marginTop: 50 }}>
               <TextInput
                 style={{
                   textAlign: 'left',
-                  direction: 'ltr'
+                  direction: 'ltr',
+                  fontSize: 30,
+                  writingDirection: 'ltr'
                 }}
-                label={I18n.Username.Username}
+                // label={I18n.Username.Username}
                 value={values.username}
                 onChangeText={handleChange('username')}
                 onBlur={handleBlur('username')}
@@ -95,6 +97,7 @@ export default function UsernameScreen() {
                 error={errors.username && touched.username ? true : false}
                 disabled={loading || AuthLoading}
                 left={<TextInput.Affix text="@" />}
+                // autoFocus
               />
               <HelperText type="error" style={{ marginVertical: 10 }}>
                 {errors.username}

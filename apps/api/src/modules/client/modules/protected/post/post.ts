@@ -7,6 +7,11 @@ export const Post_TypeDefs = gql`
     comments: Int!
   }
 
+  enum postsRequest {
+    inital
+    more
+  }
+
   type Post {
     id: String!
     body: String!
@@ -15,18 +20,16 @@ export const Post_TypeDefs = gql`
     createdAt: String!
   }
 
-  type PostMeta {
-    count: Int!
-  }
+  # type PostMeta {
+  #   count: Int!
+  # }
 
   type UnknownError {
     error: String!
   }
 
   type Query {
-    Get_Post: [Post!]!
-    Get_Post_Meta: PostMeta!
-    Get_More_Post(cursor: String!): [Post!]!
+    Post(cursor: String, type: postsRequest!): [Post!]!
   }
 
   union Create_Post_Result = Post | UnknownError
@@ -36,49 +39,12 @@ export const Post_TypeDefs = gql`
   }
 `
 
+type postsRequest = 'inital' | 'more'
+
 export const Post_Query = {
-  Get_Post: async (_parent: any, _args: undefined, context: MyContext) => {
-    const data = await context.prisma.post.findMany({
-      orderBy: {
-        createdAt: 'desc'
-      },
-      where: {
-        authorId: context.req.user.id
-      },
-      select: {
-        id: true,
-        body: true,
-        authorId: true,
-        createdAt: true,
-        _count: {
-          select: {
-            likes: true,
-            comments: true
-          }
-        }
-      },
-      take: 10
-    })
-
-    return data
-  },
-  Get_Post_Meta: async (_parent: any, _args: any, context: MyContext) => {
-    const calboth = await context.prisma.post.count({
-      where: {
-        authorId: context.req.user.id
-      },
-      select: {
-        _all: true
-      }
-    })
-
-    const count = calboth._all
-
-    return { count }
-  },
-  Get_More_Post: async (
+  Post: async (
     _parent: any,
-    args: { cursor: string },
+    args: { cursor: string; type: postsRequest },
     context: MyContext
   ) => {
     const data = await context.prisma.post.findMany({
@@ -101,14 +67,88 @@ export const Post_Query = {
         }
       },
       take: 10,
-      skip: 1, // skip cursor
-      cursor: {
-        id: args.cursor
-      }
+      skip: args.type === 'inital' ? 0 : 1,
+      cursor: args.cursor
+        ? {
+            id: args.cursor
+          }
+        : undefined
     })
 
     return data
   }
+  // Get_Post: async (_parent: any, _args: undefined, context: MyContext) => {
+  //   const data = await context.prisma.post.findMany({
+  //     orderBy: {
+  //       createdAt: 'desc'
+  //     },
+  //     where: {
+  //       authorId: context.req.user.id
+  //     },
+  //     select: {
+  //       id: true,
+  //       body: true,
+  //       authorId: true,
+  //       createdAt: true,
+  //       _count: {
+  //         select: {
+  //           likes: true,
+  //           comments: true
+  //         }
+  //       }
+  //     },
+  //     take: 10
+  //   })
+
+  //   return data
+  // },
+  // Get_Post_Meta: async (_parent: any, _args: any, context: MyContext) => {
+  //   const calboth = await context.prisma.post.count({
+  //     where: {
+  //       authorId: context.req.user.id
+  //     },
+  //     select: {
+  //       _all: true
+  //     }
+  //   })
+
+  //   const count = calboth._all
+
+  //   return { count }
+  // },
+  // Get_More_Post: async (
+  //   _parent: any,
+  //   args: { cursor: string },
+  //   context: MyContext
+  // ) => {
+  //   const data = await context.prisma.post.findMany({
+  //     orderBy: {
+  //       createdAt: 'desc'
+  //     },
+  //     where: {
+  //       authorId: context.req.user.id
+  //     },
+  //     select: {
+  //       id: true,
+  //       body: true,
+  //       authorId: true,
+  //       createdAt: true,
+  //       _count: {
+  //         select: {
+  //           likes: true,
+  //           comments: true
+  //         }
+  //       }
+  //     },
+  //     take: 10,
+  //     skip: 1, // skip cursor
+  //     cursor: {
+  //       id: args.cursor
+  //     }
+  //   })
+
+  //   return data
+  // }
 }
 
 export const Post_Mutation = {
