@@ -9,7 +9,7 @@
   "scripts": {
     "api": "ts-node-dev --no-notify --respawn --transpile-only src/server",
     "build": "rimraf ./build && tsc --noEmit false",
-    "start": "node build/server.js"
+    "start": "yarn build && node build/server.js"
   },
   "dependencies": {
     "@apollo/server": "^4.7.0",
