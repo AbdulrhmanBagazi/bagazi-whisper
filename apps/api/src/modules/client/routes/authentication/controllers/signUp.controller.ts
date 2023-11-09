@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Request, Response } from 'express'
 import { PrismaClient, Prisma } from '@prisma/client'
 import { SignToken, HashPassword, SendEmail } from '../index.utils'

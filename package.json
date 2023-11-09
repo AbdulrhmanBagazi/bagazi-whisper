@@ -2,7 +2,7 @@
   "name": "turborepo",
   "private": true,
   "workspaces": [
-    "apps/api",
+    "apps/*",
     "packages/*"
   ],
   "scripts": {
