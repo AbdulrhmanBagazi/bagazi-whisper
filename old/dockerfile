@@ -1,0 +1,49 @@
+FROM node:18.16-alpine3.17 AS deps
+WORKDIR /app
+COPY ["package.json", "yarn.lock", ".npmrc", "./"]
+COPY apps apps
+COPY packages packages
+RUN find apps -not -name "package.json" -not -name ".npmrc" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
+RUN find packages -not -name "package.json" -not -name ".npmrc" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
+RUN cd apps/api && ls
+FROM node:18.16-alpine3.17 as installations
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY --from=deps /app .
+RUN yarn install --production=false --frozen-lockfile
+
+FROM node:18.16-alpine3.17
+WORKDIR /app
+COPY --from=installations /app .
+RUN npm install pm2 -g
+ARG PORT=3000
+
+ENV NODE_ENV=production
+ENV PORT=${PORT}
+ENV CLIENT_ACCESS_TOKEN_MAXAGE=15m
+ENV CLIENT_AUDIENCE=client.appname.com
+ENV CLIENT_ISSUER=client.appname
+ENV CLIENT_PASSPHRASE=client.yay
+ENV CLIENT_REFRESH_TOKEN_MAXAGE=1y
+ENV COOKIE_SECRET=secret
+ENV DATABASE_URL=postgresql://test:test123@localhost:5432/dev?schema=public
+ENV GOOGLE_CLIENT_ID=903376713954-3cn2dv783u0q37pguid52dtrlebi16g9.apps.googleusercontent.com
+ENV JWT_PRIVATE_KEY='-----BEGIN RSA PRIVATE KEY-----\n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\n-----END RSA PRIVATE KEY-----'
+ENV JWT_PUBLIC_KEY='-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA4tIQhb11ASeYd5jQt2oR\nraXvxh4Fx/qDiQGcwpH06YRWzp+EFzbZmk0DBnAQr/tYeWZgwk+RMlI00mv5jCiy\nLgANLtkMOUSyYPJTYV+21uUqC2G3iLrYEdNzQwaVEODYVHP+p+pmii3FhQrhivGG\nchZGSUPFFYlvJQNuws/O3cEr1alNgkrM1v7ZxS8LBUYLh2HJtjqHmMdahcVO2jdk\nhONtgtkmvQcyuK4r/4UOv0AIg42wOX9q5NzFnp81EnwZoOcR4g1HDkyXl2+ZqPY6\nNg3fdIGaY0QKPFhPq2BwavqF1QPJrUejCSlTxd21PiBTfFi2mmXaqPtRzYQ20SXd\nN1nhRPAUxRums/e9pxXZ2MhN9SAlVAjxmvr1FCOy/SC7OzoDAvvIAFTehswDFUTB\nST/Pm16Mkbsle1jhIP3IfffBYV/KiScv3dQz5KnudGgheZDV1vQP6gf1vnUcdHMA\nHqD1paWACBSdrH5e2Y8fpFxNcf/9kpBthdqed3b1qHOZtMzTMuaY+qhSR+rUS6ib\noqwKtEzVYwKMKphZWQklN/0KfKk5k+Y8cATqWq7WBherzd43cViJ4EzjovjIaJJ1\nk8p+C2ANdappbu9orUiu79LwzX3k9hq9qnoHwLrCxMqDoZccROirCkQLBMysWZhE\n5L2m7PFPPn0brjr7EOMs18ECAwEAAQ==\n-----END PUBLIC KEY-----'
+ENV OneSignal_App_ID=4ae92086-c770-47f9-abe2-9bd77d0a8378
+ENV OneSignal_Rest_API_Key=YmZmYWFiZjEtYmNlNy00MzMzLWE0ZmItODQyZGQ1YzU5ODZm
+ENV POSTGRES_DB=railway
+ENV POSTGRES_PASSWORD=Fa4-cGEffbAD-42b3g*35F3d21Bf6a4d
+ENV POSTGRES_USER=postgres
+
+COPY . .
+RUN apk add --no-cache libc6-compat
+RUN yarn build --scope=api 
+WORKDIR /app/apps/api
+
+EXPOSE ${PORT}
+CMD [ "pm2-runtime", "yarn start"]
+
+
+
+
