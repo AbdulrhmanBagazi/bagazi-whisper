@@ -30,9 +30,8 @@ export default function LoadingGoogleScreen() {
             const Response = await GoogleSignIn({
               idToken: response.authentication.idToken
             })
-            //check if the user used the email address as Apple account
-
             if (Response === 'error') {
+              Navigation.goBack()
               return ShowSnack(I18n.Errors.Unknown)
             }
           }

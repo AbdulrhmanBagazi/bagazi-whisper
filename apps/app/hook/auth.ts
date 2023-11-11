@@ -106,6 +106,8 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       values
     )
 
+    console.log(error, data)
+
     if (error && !data) {
       set(() => ({
         loading: false,

@@ -11,11 +11,13 @@ export const iosClientId =
 export const androidClientId =
   '655983294636-4l8a9keo3mugvatltr4nsslfn2089sj4.apps.googleusercontent.com'
 
-// const IP = '192.168.100.13'
 // const IP = '192.168.100.10'
-const IP = '192.168.100.10'
-//http://172.20.10.6:8081
-//api
-export const AuthApi = `http://${IP}:4000/client`
-export const GRAPHQL = `http://${IP}:4000/graphql/client`
-export const PUBLIC_GRAPHQL = `http://${IP}:4000/graphql/public_client`
+// //api
+// export const AuthApi = `http://${IP}:4000/client`
+// export const GRAPHQL = `http://${IP}:4000/graphql/client`
+// export const PUBLIC_GRAPHQL = `http://${IP}:4000/graphql/public_client`
+
+const IP = 'baqazi-whisper-production.up.railway.app'
+export const AuthApi = `https://${IP}/client`
+export const GRAPHQL = `https://${IP}/graphql/client`
+export const PUBLIC_GRAPHQL = `https://${IP}/graphql/public_client`

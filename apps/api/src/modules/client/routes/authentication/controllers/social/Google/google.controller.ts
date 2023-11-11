@@ -136,6 +136,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
 
     return res.sendStatus(400)
   } catch (e: unknown) {
+    console.log(e)
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === 'P2002') {
         return res.status(400).send({ error: `${e.code}`, meta: e.meta })
