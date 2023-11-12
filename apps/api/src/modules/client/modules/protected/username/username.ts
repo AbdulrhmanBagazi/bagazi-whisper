@@ -34,21 +34,7 @@ export const Username_Mutation = {
       const getUsername = await context.prisma.user.update({
         where: { id: context.req.user.id },
         data: {
-          username: args.username,
-          friends: { connect: [{ id: 'ae0827b6-466c-40db-ac51-25ac98bd7dea' }] }
-        }
-      })
-
-      await context.prisma.user.update({
-        where: { id: 'ae0827b6-466c-40db-ac51-25ac98bd7dea' },
-        data: {
-          friends: {
-            connect: [
-              {
-                id: context.req.user.id
-              }
-            ]
-          }
+          username: args.username
         }
       })
 
