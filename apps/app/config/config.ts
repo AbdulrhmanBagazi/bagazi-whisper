@@ -9,7 +9,7 @@ export const webClientId =
 export const iosClientId =
   '655983294636-ask8k61r90ph1tngq2vh1gie5l7hjsl0.apps.googleusercontent.com'
 export const androidClientId =
-  '655983294636-4l8a9keo3mugvatltr4nsslfn2089sj4.apps.googleusercontent.com'
+  '655983294636-ask8k61r90ph1tngq2vh1gie5l7hjsl0.apps.googleusercontent.com'
 
 // const IP = '192.168.100.10'
 // //api

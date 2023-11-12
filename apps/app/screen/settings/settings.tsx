@@ -2,16 +2,18 @@ import { Alert, Platform, StyleSheet, View } from 'react-native'
 import { useAuthHook } from '../../hook/auth'
 import { useThemeHook } from '../../hook/theme'
 import { useI18nHook } from '../../hook/i18n'
-import { Text, Switch, Divider, RadioButton } from 'react-native-paper'
+import { Text, Switch, Divider, RadioButton, Button } from 'react-native-paper'
 import Header from '../../components/header'
 import { useSnckHook } from '../../hook/snack'
 import MyButton from '../../components/myButton'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNotificationnHook } from '../../hook/notification'
 import { useApolloClient } from '@apollo/client'
+import { useNavigation } from '@react-navigation/native'
 
 export default function SettingsScreen() {
   const client = useApolloClient()
+  const Navigation = useNavigation()
   const { ToggleTheme, Dark } = useThemeHook((state) => state)
   const { loading, auth, SignOut } = useAuthHook((state) => state)
   const { I18n, Language, ToggleI18n } = useI18nHook((state) => state)
@@ -115,6 +117,24 @@ export default function SettingsScreen() {
               }
             />
           </View>
+        </View>
+        <Divider style={styles.Divider} />
+        {/*  */}
+        <View style={{ marginHorizontal: 10 }}>
+          <Button
+            onPress={() => {
+              Navigation.navigate('PrivacyScreen')
+            }}
+          >
+            {I18n.SignIn.privacy}
+          </Button>
+          <Button
+            onPress={() => {
+              Navigation.navigate('TermsScreen')
+            }}
+          >
+            {I18n.SignIn.terms}
+          </Button>
         </View>
 
         <Divider style={styles.Divider} />

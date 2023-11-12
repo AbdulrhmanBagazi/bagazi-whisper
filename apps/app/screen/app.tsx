@@ -23,6 +23,8 @@ import UsernameScreen from './username/username'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import PostScreen from './post/post'
 import FriendsStack from './friends/stack'
+import PrivacyScreen from './auth/screens/privacy'
+import TermsScreen from './auth/screens/terms'
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
@@ -63,7 +65,14 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView
+      style={{
+        flex: 1,
+        backgroundColor: Dark
+          ? CombinedDarkTheme.colors.background
+          : CombinedDefaultTheme.colors.background
+      }}
+    >
       <SafeAreaView
         style={{
           flexGrow: 1,
@@ -111,6 +120,20 @@ export default function App() {
                           headerShown: false,
                           gestureDirection: 'vertical',
                           gestureEnabled: !AuthLoading
+                        }}
+                      />
+                      <RootStack.Screen
+                        name="TermsScreen"
+                        component={TermsScreen}
+                        options={{
+                          title: ' '
+                        }}
+                      />
+                      <RootStack.Screen
+                        name="PrivacyScreen"
+                        component={PrivacyScreen}
+                        options={{
+                          title: ' '
                         }}
                       />
                       <RootStack.Screen

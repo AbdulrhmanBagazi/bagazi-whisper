@@ -22,7 +22,7 @@
           }
         },
         {
-          "client_id": "655983294636-qs3s77vpd373buglaaqoaspuc6bul3p8.apps.googleusercontent.com",
+          "client_id": "655983294636-n91u1rdtpfta4c9uisnehedf8mtjq2pa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,8 +35,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "655983294636-qs3s77vpd373buglaaqoaspuc6bul3p8.apps.googleusercontent.com",
+              "client_id": "655983294636-n91u1rdtpfta4c9uisnehedf8mtjq2pa.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "655983294636-ask8k61r90ph1tngq2vh1gie5l7hjsl0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.baqazi.whisper"
+              }
             }
           ]
         }

@@ -3,7 +3,7 @@
     "name": "Whisper",
     "slug": "whisper",
     "scheme": "whisper",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "googleServicesFile": "./config/firebase/google-services.json"
+      "googleServicesFile": "./config/firebase/google-services.json",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "bundler": "metro",

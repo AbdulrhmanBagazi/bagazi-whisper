@@ -38,7 +38,10 @@
     "SignUp": "SignUp",
     "Incorrect": "Incorrect email or password",
     "HaveAccount": "Already have an account? SignIn",
-    "Required": "Required!"
+    "Required": "Required!",
+    "terms": "Terms of use",
+    "privacy": "Privacy policy",
+    "agreesocial": "By clicking \"Continue with Google\" or \"Continue with Apple\" you are agreeing to "
   },
   "Notifications": {
     "AllowNotifications": "Enable Push Notifications?",

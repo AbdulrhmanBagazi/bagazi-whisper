@@ -80,15 +80,11 @@ const HomeScreen = () => {
             />
           )}
         >
-          <Card>
-            <Card.Content>
-              <Text variant="labelLarge">{I18n.Home.Noteone}</Text>
-              <Text variant="labelLarge" style={{ marginVertical: 10 }}>
-                {I18n.Home.Notetwo}
-              </Text>
-              <Text variant="labelLarge">{I18n.Home.NoteThree}</Text>
-            </Card.Content>
-          </Card>
+          {I18n.Home.Noteone + '\r\n'}
+          {'\r\n'}
+          {I18n.Home.Notetwo + '\r\n'}
+          {'\r\n'}
+          {I18n.Home.NoteThree}
         </Banner>
       </View>
       <HomeUI />

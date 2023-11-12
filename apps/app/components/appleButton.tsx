@@ -1,6 +1,7 @@
 import { useAuthHook } from '../hook/auth'
 import { Button } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
+import { Platform } from 'react-native'
 
 const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
   text
@@ -8,6 +9,10 @@ const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
 }) => {
   const Navigation = useNavigation()
   const { loading } = useAuthHook((state) => state)
+
+  if (Platform.OS === 'android') {
+    return null
+  }
 
   return (
     <Button

@@ -59,7 +59,7 @@ export default function TabsStack() {
         style={{
           alignSelf: 'center',
           position: 'absolute',
-          bottom: 25
+          bottom: 5
         }}
         size="small"
         onPress={() => Navigation.navigate('Post')}

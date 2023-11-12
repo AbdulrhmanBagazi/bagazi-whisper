@@ -41,7 +41,7 @@ export default function SeachScreen() {
 
   return (
     <View style={{ flex: 1, padding: 5 }}>
-      <View style={{ flexDirection: 'row' }}>
+      <Appbar.Header style={{ flexDirection: 'row' }}>
         <Appbar.Action
           onPress={() => Navigation.goBack()}
           icon={
@@ -58,7 +58,7 @@ export default function SeachScreen() {
           style={{ marginHorizontal: 5, flex: 1 }}
           autoFocus
         />
-      </View>
+      </Appbar.Header>
       <FlashList
         // showsVerticalScrollIndicator={false}
         data={searchData}

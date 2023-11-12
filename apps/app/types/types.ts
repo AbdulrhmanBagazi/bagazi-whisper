@@ -59,6 +59,8 @@ export type RootStackParamList = {
   Username: undefined
   Post: undefined
   Language: undefined
+  TermsScreen: undefined
+  PrivacyScreen: undefined
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>
@@ -80,6 +82,8 @@ export type AuthStackParamList = {
   SignIn: undefined
   GoogleLoading: undefined
   AppleLoading: undefined
+  TermsScreen: undefined
+  PrivacyScreen: undefined
 }
 
 export type AuthScreensProps<T extends keyof AuthStackParamList> =

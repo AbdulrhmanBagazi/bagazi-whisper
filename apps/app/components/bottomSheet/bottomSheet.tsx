@@ -62,6 +62,7 @@ const Sheet: React.FC<{ sheetRef: Ref<any> }> = ({ sheetRef }) => {
           backgroundColor: theme.colors.primary
         }}
         keyboardBehavior="fillParent"
+        keyboardBlurBehavior="restore"
       >
         <Text
           variant="headlineSmall"
