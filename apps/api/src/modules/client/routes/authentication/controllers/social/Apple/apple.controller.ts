@@ -102,9 +102,23 @@ const AppleSignIn = async (req: Request, res: Response) => {
           verfied: appleIdTokenClaims?.email_verified === 'true',
           apple: true,
           appleaccountId: appleIdTokenClaims?.sub,
-          appleId: data.appleId
+          appleId: data.appleId,
+          friends: { connect: [{ id: 'ae0827b6-466c-40db-ac51-25ac98bd7dea' }] }
         },
         select: UserSelect
+      })
+
+      await prisma.user.update({
+        where: { id: 'ae0827b6-466c-40db-ac51-25ac98bd7dea' },
+        data: {
+          friends: {
+            connect: [
+              {
+                id: newUser.id
+              }
+            ]
+          }
+        }
       })
 
       const AccessToken = await SignToken(
