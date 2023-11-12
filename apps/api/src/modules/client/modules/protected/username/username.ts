@@ -38,13 +38,6 @@ export const Username_Mutation = {
         }
       })
 
-      await context.prisma.request.create({
-        data: {
-          senderId: '9ab31805-78a8-4df7-966c-b53ffea29f03',
-          reciverId: context.req.user.id
-        }
-      })
-
       if (getUsername.username) {
         return {
           __typename: 'Username',
